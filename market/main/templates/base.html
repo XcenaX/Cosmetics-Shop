@@ -1,0 +1,96 @@
+{% load static %}
+{% block links %}    
+    
+    <head>        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+        <script src="{%static 'js/ajax/jquery.min.js'%}"></script>
+        <script src="{%static 'js/bootstrap.min.js'%}"></script>
+        
+        <link rel="icon" href="{%static 'images/logo-cuted.png'%}">
+        <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+
+        {% block styles %}
+
+        {% endblock %}
+    </head>
+{% endblock %}
+
+{% block body%}
+    <body>
+        <div class="wrap">
+            <!--header для каждой странички-->
+            {% block header %}
+                
+            {% endblock %}
+            <!--header для каждой странички-->
+            
+            <!--уведомление-->
+            {% block notification%}
+                    
+            {% endblock %}
+            <!--уведомление-->
+
+            <!--содержимое для каждой странички-->
+            {% block content%}
+
+            {%endblock%}
+            <!--содержимое для каждой странички-->
+        </div>
+    </body>
+{% endblock %}
+
+{% block footer %}
+
+    <!-- Место для футера -->
+
+    <!-- Место для футера -->
+
+    <style type="text/css">
+        #hellopreloader>p {
+        display: none;
+        }
+
+        #hellopreloader_preload {
+        display: block;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-width: 100px;
+        background: white url({%static 'gif/preloader.gif'%}) center center no-repeat;
+        background-size: 50%;
+        }
+    </style>
+    <div id="hellopreloader">
+        <div id="hellopreloader_preload"></div>
+    </div>
+    <script type="text/javascript">
+        var hellopreloader = document.getElementById("hellopreloader_preload");
+
+        function fadeOutnojquery(el) {
+        el.style.opacity = 1;
+        var interhellopreloader = setInterval(function () {
+            el.style.opacity = el.style.opacity - 0.05;
+            if (el.style.opacity <= 0.05) {
+            clearInterval(interhellopreloader);
+            hellopreloader.style.display = "none";
+            document.getElementsByTagName("html")[0].style.overflow = "";
+            }
+        }, 16);
+        }
+        window.onload = function () {
+
+
+        setTimeout(function () {
+            fadeOutnojquery(hellopreloader);
+        }, 100);
+        };
+
+    </script>
+    
+{% endblock %}
