@@ -1,0 +1,116 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic);
+*{box-sizing: border-box;}
+body {
+  margin: 0; 
+  background: #f7f9fe;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+
+nav a {
+  text-decoration: none;
+  display: block;
+  transition: .3s linear;
+}
+nav>tr,td {
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 50%;
+}
+
+nav table{
+    width: 100%;
+}
+
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+.topmenu > li {
+  display: inline-block;
+  position: relative;
+  
+  
+}
+.topmenu > li > a {
+  padding: 20px 30px;
+
+}
+.active:after, .submenu-link:after {
+  color: inherit;
+  margin-left: 10px;
+}
+
+nav>ul>li{
+    width: 100%;
+}
+
+nav>tr>td>{
+    width: 100%;
+}
+
+td>a{
+    margin: auto;
+    text-align: center;
+}
+
+.submenu {
+  position: absolute;
+  left: 0px;
+  z-index: 5;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;  
+  transform: translateY(10px);
+  transition: .3s ease-in-out;
+  
+}
+
+.together{
+    display: inline-block;
+}
+
+.scrollable{
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.submenu li {position: relative;}
+.submenu a {
+  background:#EEE9D7;
+  
+  color: #1c1c1c;
+  text-align: center;
+  
+  letter-spacing: 1px;
+  padding: 20px 0px;
+}
+.submenu .submenu {
+    position: absolute;
+    top: 0;
+    left: calc(100% - 1px);
+    left: -webkit-calc(100% - 1px); 
+}
+
+.submenu-table{
+    width: 200% !important;
+    overflow: auto;
+    max-height: 380px;
+}
+
+.submenu-table::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+nav li:hover > .submenu {
+  visibility: visible;
+  opacity: 1;
+    transform: translateY(0px);
+}

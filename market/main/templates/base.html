@@ -4,9 +4,11 @@
     <head>        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{%static 'css/bootstrap/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{%static 'css/main.css'%}">
+        <link rel="stylesheet" href="{%static 'css/submenu.css'%}">
         <script src="{%static 'js/ajax/jquery.min.js'%}"></script>
-        <script src="{%static 'js/bootstrap.min.js'%}"></script>
+        <script src="{%static 'js/bootstrap/bootstrap.min.js'%}"></script>
         
         <link rel="icon" href="{%static 'images/logo-cuted.png'%}">
         <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
@@ -23,7 +25,121 @@
         <div class="wrap">
             <!--header для каждой странички-->
             {% block header %}
-                
+                <div class="header">
+                    <div class="row">
+                        <div class="header-element col-md-4 col-sm-4">
+                            +0 (000) 000 00 00
+                        </div>
+                        <div class="header-title col-md-4 col-sm-4">
+                            Loveliness Cosmetics
+                        </div>
+                        <div class="icons-block col-md-4 col-sm-4">
+                            <div class="header-icon" id="search-icon" style="background-image:url('{%static "images/icons/search.svg" %}')">
+                                <input type="text" class="search-input" placeholder="Поиск">
+                            </div>
+                            <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
+                                <span class="basket-text">
+                                    10000тг
+                                </span>
+                            </div>
+                            <div class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
+                                <span class="logout-text">
+                                    Вход
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu">
+                    <div class="center-menu">
+                        
+                            <nav class="menu-block" style="padding-top:0px !important">
+                                <ul class="topmenu">
+                                    <li><a href="" class="active submenu-text">Каталог</a>
+                                        <ul class="submenu">                                    
+                                            <li>
+                                                <a href="" class="submenu-link">Категории</a>
+                                                <div class="submenu submenu-table">
+                                                    <table class="">
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                            <td><a href="">ЕПТААА</a></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                
+                                                    <!-- <ul class="submenu submenu-first together">
+                                                        <li><a href="">Я</a></li>
+                                                        <li><a href="">Сосааал</a></li>
+                                                        <li><a href="">Кому?</a></li>
+                                                        <li><a href="">Я</a></li>
+                                                        <li><a href="">Сосааал</a></li>
+                                                        <li><a href="">Кому?</a></li>
+                                                        <li><a href="">Я</a></li>                                                    
+                                                    </ul>
+                                                    <ul class="submenu submenu-second together">
+                                                        <li><a href="">Я</a></li>
+                                                        <li><a href="">Сосааал</a></li>
+                                                        <li><a href="">Кому?</a></li>
+                                                        <li><a href="">Я</a></li>
+                                                        <li><a href="">Сосааал</a></li>
+                                                        <li><a href="">Кому?</a></li>
+                                                        <li><a href="">Я</a></li>                                                                                                    
+                                                    </ul> -->
+                                                
+                                                
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        
+                        <div class="menu-block">
+                            Акции
+                        </div>
+                        <div class="menu-block">
+                            О нас
+                        </div>
+                        <div class="menu-block">
+                            Контакты
+                        </div>
+                        <div class="menu-block">
+                            Помощь
+                        </div>
+                    </div>
+                </div>
             {% endblock %}
             <!--header для каждой странички-->
             
