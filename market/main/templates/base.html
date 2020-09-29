@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block body%}
-    <body>
+    <body style='overflow-x:hidden;'>
         <div class="wrap">
             <!--header для каждой странички-->
             {% block header %}
@@ -135,7 +135,7 @@
                             Акции
                         </div>
                         <div class="menu-block">
-                            О нас
+                            <a href="{% url 'main:about' %}">О нас</a>
                         </div>
                         <div class="menu-block">
                             Контакты

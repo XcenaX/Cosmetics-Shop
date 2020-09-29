@@ -1,0 +1,136 @@
+#slider{
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+}
+
+.info{
+    position: relative;
+    width: 100%;
+    background-color: #FEFFFA;
+}
+
+.mgt-180{
+    margin-top: 100px;
+}
+
+.mgt-10{
+    margin-top: 10px;
+}
+
+.description-block{
+    height: 163px;
+    width: 100%;
+    padding: 30px;
+    font-size: 24px;
+
+    font-family: Montserrat, serif;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+}
+
+.description-block strong{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.contact-form-block{
+    position: relative;
+    width: 100%;
+    height: 450px;
+    background-color: #F7DECA;
+}
+
+.contact-form{
+    position: absolute;
+    left: 0;
+    width: 50%;
+    font-family: Montserrat, serif;
+
+    padding-top: 60px;
+    padding-left: 30px;
+    padding-right: 40px;
+}
+
+.contact-form input{
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.19);
+    border: 1px solid transparent;
+    height: 40px;
+    padding-left: 20px;
+}
+
+.contact-form input[type="submit"]{
+    width: 100%;
+    margin-top: 20px;
+    height: 40px;
+    padding-left: 20px;
+
+    background: linear-gradient(93.88deg, #F8FED9 1.41%, #F5C4C4 147.98%);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.important-text{
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.regular-text{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.contact-form-image{
+    position: absolute;
+    right: 0;
+}
+
+.pic1{
+    position: absolute;
+    width: 443.18px;
+    height: 669.96px;
+    left: 0;
+    top: 1vh;
+}
+
+.pic2{
+    position: absolute;
+    width: 412.56px;
+    height: 367.85px;
+    right: -90px;
+    top: 25vh;
+}
+
+.pic3{
+    position: absolute;
+    width: auto;
+    height: 900px;
+    left: 6.5%;
+    right: 6.5%;
+    top: -0px;
+    z-index: -1;
+}
+
+.pic4{
+    position: absolute;
+    width: 206px;
+    height: 322px;
+    left: 0;
+    top: 55vh;
+}
+
+.pic5{
+    position: absolute;
+    width: 539.74px;
+    height: 772.33px;
+    right: -90px;
+    top: 50vh;
+}

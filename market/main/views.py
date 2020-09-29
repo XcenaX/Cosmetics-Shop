@@ -201,9 +201,12 @@ def register(request):
             return render(request, 'message.html', {
                 "text" : error,
             })
-            
-               
+
     return render(request, "register.html", {})
+
+
+def about(request):
+    return render(request, "about.html", {})
 
 
 def activate(request, uidb64, token):
