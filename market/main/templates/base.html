@@ -30,8 +30,13 @@
                         <div class="header-element col-md-4 col-sm-4">
                             +0 (000) 000 00 00
                         </div>
-                        <div class="header-title col-md-4 col-sm-4">
-                            Loveliness Cosmetics
+                        <div class="header-title col-md-4 col-sm-4" style="position: relative;z-index:0">
+                            <span style="position: relative;">
+                                LOVELINESS COSMETICS
+                                <img src="{%static 'images/flowers/flower2.png'%}" alt="" class="title-flower-left">
+                                <img src="{%static 'images/flowers/flower2.png'%}" alt="" class="title-flower-right">
+                            </span>
+                            
                         </div>
                         <div class="icons-block col-md-4 col-sm-4">
                             <div class="header-icon" id="search-icon" style="background-image:url('{%static "images/icons/search.svg" %}')">
@@ -161,7 +166,93 @@
 {% block footer %}
 
     <!-- Место для футера -->
-
+        <div class="footer">
+            <div class="footer-wrap">
+                <div class="row" style="height: 100%;position: relative;">
+                    <div class="col-md-5 col-sm-12 ">
+                        <div class="column">
+                            <div class="footer-element">
+                                <span class="header-title">LOVELINESS COSMETICS</span>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">+0 (000) 000 00 00</a>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text" style="text-decoration: underline;">info@mail.ru</a>
+                            </div>
+                            <div class="footer-element">
+                                <a href=""><img src="{%static 'images/icons/instagram.svg'%}" alt="" class="footer-inst"></a>
+                            </div>
+                            <div class="footer-element under-footer-element" >
+                                <a href="" class="footer-text">Политика Конфиденциальности</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <div class="column">
+                            <div class="footer-element">
+                                <span class="header-title" style="font-weight:500;">Меню</span>
+                            </div>
+                            <div class="footer-element">
+                                <a class="footer-text" href="">Каталог</a>
+                            </div>
+                            <div class="footer-element">
+                                <a class="footer-text" href="">Акции</a>
+                            </div>
+                            <div class="footer-element">
+                                <a class="footer-text" href="">О Нас</a>
+                            </div>
+                            <div class="footer-element" >
+                                <a class="footer-text" href="">Помощь</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <div class="column">
+                            <div class="footer-element">
+                                <span class="header-title" style="font-weight:500;">Каталог</span>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">lorem input</a>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">lorem input</a>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">lorem input</a>
+                            </div>
+                            <div class="footer-element" >
+                                <a href="" class="footer-text">lorem input</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <div class="column">
+                            <div class="footer-element">
+                                <span class="header-title" style="font-weight:500;">Личный Кабинет</span>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">Вход/Регистрация</a>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">Корзина</a>
+                            </div>
+                            <div class="footer-element">
+                                <a href="" class="footer-text">Баланс</a>
+                            </div>
+                            <div class="footer-element under-footer-element">
+                                    <div class="footer-payment">
+                                        <img src="{%static 'images/mastercard.png'%}" alt="" class="footer-payment-image">
+                                    </div>
+                                    <div class="footer-payment">
+                                        <img src="{%static 'images/visa.png'%}" alt="" class="footer-payment-image">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!-- Место для футера -->
 
     <style type="text/css">

@@ -16,6 +16,7 @@
     border-bottom: 1px solid black;
     padding-left: 50px;
     padding-right: 50px;
+    z-index: -2;
 }
 
 .header-title, .header-element{
@@ -23,10 +24,29 @@
     font-size: 24px;
     line-height: 29px;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
     color: #000000;
     text-align: center;
     padding-top: 39px;
+}
+
+
+.title-flower-left{
+    position: absolute;
+    width: 54px;
+    height: 61px;
+    left: -20px;
+    top: -20px;
+    z-index: -1;
+}
+
+.title-flower-right{
+    position: absolute;
+    width: 54px;
+    height: 61px;
+    right: -20px;
+    top: -15px;
+    transform: rotate(162.46deg);
+    z-index: -1;
 }
 
 .header-title{
@@ -61,6 +81,7 @@
     height: 70px;
     width: 100%;
     text-align: center;
+    border-bottom: 1px solid rgba(168, 168, 168, 0.5);
 }
 
 .menu-block{
@@ -176,4 +197,93 @@
 
 #basket-icon, #search-icon, #login-icon{
     cursor: pointer;
+}
+
+.footer{
+    width: 100%;
+    height: 400px;
+    text-align: center;
+    background-color: white;
+    border-top: 1px solid #C4C4C4;
+}
+
+.footer-element{
+    margin-top: 34px;
+    text-align: left;
+}
+
+.footer-inst{
+    width: 36px;
+    height: 36px;
+    background-size: auto;
+    cursor: pointer;
+}
+
+.footer-wrap{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.footer-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: #000000;
+    cursor: pointer;
+}
+
+.footer-element>a:hover{
+    color: #EEE9D7;
+    text-decoration: none;
+}
+
+.under-footer-element{
+    margin: 0px;
+    position: absolute;
+    bottom:30px
+}
+
+.footer-payment{
+    display: inline-block;
+}
+
+.footer-payment-image{
+    background-size: auto;
+    height: 68px;
+}
+
+.background-element{
+    position: absolute;
+}
+
+
+@media (max-width: 900px){
+    .footer-wrap{
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+    .footer{
+        height: 1300px;
+
+    }
+    .under-footer-element{
+        position: inherit;
+        margin-top: 34px;
+        
+    }
+    .footer-element{
+        text-align: center;
+    }
+    .footer-payment-image{
+        width: 100%;
+    }
+    .footer-payment{
+        width: 40%;
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 }

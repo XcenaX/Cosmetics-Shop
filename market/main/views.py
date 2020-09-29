@@ -61,7 +61,7 @@ def post_parameter(request, name):
 
 def post_file(request, name):
     try:
-        return request.FILES[name]
+        return request.FILES.getlist(name)
     except:
         return None
 
@@ -249,7 +249,12 @@ def rate_product(request):
             "user": user,
         })
 
-    return redirect(reverse("main:index"))      
+    return redirect(reverse("main:index")) 
+
+def add_product(request):
+    if request.method == "POST":
+        product_images = post_file(request, 'files')
+        # дописать добавление продукта
 
 def index(request):
     q = get_parameter(request, "q")

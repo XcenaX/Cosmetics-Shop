@@ -24,8 +24,13 @@ class Comment(models.Model):
 
 class Category(models.Model):
     name = models.TextField(default='')
+    img_url = models.TextField(default='')
     def __str__(self):
         return self.name
+
+class Image(models.Model):
+    img_url = models.TextField(default='')
+    name = models.TextField(default='')
 
 class Product(models.Model):
     name = models.TextField(default='')
@@ -34,6 +39,7 @@ class Product(models.Model):
     comments = models.ManyToManyField(Comment, blank=True)
     pub_date = models.DateTimeField(default=timezone.now)
     category =  models.ForeignKey(Category, on_delete=models.CASCADE)
+    images = models.ManyToManyField(Image, blank=True)
 
     def number_of_ratings(self):
         ratings = Rating.objects.filter(product=self)
