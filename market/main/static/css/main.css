@@ -8,6 +8,23 @@
     src: url('../fonts/Montserrat-Regular.ttf');
 }
 
+.important-text{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.regular-text{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.route{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 body{
     background-color: #FEFFFA;
 }
@@ -384,6 +401,15 @@ html{
     position: relative;
 }
 @media (max-width: 900px){
+    .mobile-none{
+        display: none;
+    }
+
+    .wrap{
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+
     .footer-wrap{
         padding-left: 15%;
         padding-right: 15%;

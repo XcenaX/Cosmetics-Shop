@@ -11,8 +11,8 @@
     background-color: #FEFFFA;
 }
 
-.mgt-180{
-    margin-top: 100px;
+.mgt-60{
+    margin-top: 60px;
 }
 
 .mgt-10{
@@ -70,18 +70,6 @@
     border-radius: 10px;
 }
 
-.important-text{
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-}
-
-.regular-text{
-    font-style: normal;
-    font-weight: 300;
-    font-size: 18px;
-}
-
 .contact-form-image{
     width: 100%;
 }
@@ -130,4 +118,10 @@
     height: 772.33px;
     right: -90px;
     top: 70vh;
+}
+
+@media (max-width: 900px){
+    .contact-form-image{
+        display: none;
+    }
 }

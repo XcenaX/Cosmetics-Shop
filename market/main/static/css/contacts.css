@@ -1,0 +1,9 @@
+.map{
+    box-shadow: 20px 20px 5px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 900px){
+    .map{
+        box-shadow: 0 0 0;
+    }
+}
