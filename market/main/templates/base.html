@@ -7,12 +7,10 @@
         <link rel="stylesheet" href="{%static 'css/bootstrap/bootstrap.min.css'%}">
         <link rel="stylesheet" href="{%static 'css/main.css'%}">
         <link rel="stylesheet" href="{%static 'css/submenu.css'%}">
-        <script src="{%static 'js/ajax/jquery.min.js'%}"></script>
+        <script src="{%static 'js/jquery.min.js'%}"></script>
         <script src="{%static 'js/bootstrap/bootstrap.min.js'%}"></script>
         
         <link rel="icon" href="{%static 'images/logo-cuted.png'%}">
-        <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
-        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 
         {% block styles %}
 
@@ -22,10 +20,50 @@
 
 {% block body%}
     <body style='overflow-x:hidden;'>
+        <div class="mobile-header-menu" id="mobile-header-menu">
+            <div class="mobile-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-2" style="text-align: center;">
+                            <img id="close-menu" src="{%static 'images/icons/header-menu.png'%}" alt=""class="mobile-header-menu-icon rotate">
+                        </div>
+                        <div class="col-7">
+                            
+                        </div>
+                        <div class="col-3 mobile-header-balance" >
+                            1999тг
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="mobile-header-menu-wrap">
+                <div class="mobile-header-menu-block">
+                    <a href="" class="mobile-header-menu-a">Регистрация/Вход</a>
+                </div>
+                <div class="mobile-header-menu-block">
+                    <a href="" class="mobile-header-menu-a">Каталог</a>
+                </div>
+                <div class="mobile-header-menu-block">
+                    <a href="" class="mobile-header-menu-a">Акции</a>
+                </div>
+                <div class="mobile-header-menu-block">
+                    <a href="" class="mobile-header-menu-a">О Нас</a>
+                </div>
+                <div class="mobile-header-menu-block">
+                    <a href="" class="mobile-header-menu-a">Контакты</a>
+                </div>
+                <div class="mobile-header-menu-block">
+                    <a href="" class="mobile-header-menu-a">Помощь</a>
+                </div>
+            </div>
+        </div>
         <div class="wrap">
             <!--header для каждой странички-->
             {% block header %}
-                <div class="header">
+                
+            
+                <div class="header hide-on-mobile">
                     <div class="row">
                         <div class="header-element col-md-4 col-sm-4">
                             +0 (000) 000 00 00
@@ -40,12 +78,15 @@
                         </div>
                         <div class="icons-block col-md-4 col-sm-4">
                             <div class="header-icon" id="search-icon" style="background-image:url('{%static "images/icons/search.svg" %}')">
-                                <input type="text" class="search-input" placeholder="Поиск">
+                                <input id="search" type="text" class="search-input" placeholder="Поиск">
                             </div>
                             <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
                                 <span class="basket-text">
                                     10000тг
                                 </span>
+                                <div class="basket-count">
+                                    4
+                                </div>
                             </div>
                             <div class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
                                 <span class="logout-text">
@@ -55,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu">
+                <div class="menu hide-on-mobile">
                     <div class="center-menu">
                         
                             <nav class="menu-block" style="padding-top:0px !important">
@@ -145,6 +186,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="mobile-header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2" style="text-align: center;">
+                                <img id="open-menu" src="{%static 'images/icons/header-menu.png'%}" alt=""class="mobile-header-menu-icon" style="transform: rotate(-90deg);">
+                            </div>
+                            <div class="col-8">
+                                <span class="header-title">LOVELINESS COSMETICS</span>
+                            </div>
+                            <div class="col-2" >
+                                <img class="mobile-header-right-icon">
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
             {% endblock %}
             <!--header для каждой странички-->
             
@@ -168,8 +226,8 @@
     <!-- Место для футера -->
         <div class="footer">
             <div class="footer-wrap">
-                <div class="row" style="height: 100%;position: relative;">
-                    <div class="col-md-5 col-sm-12 ">
+                <div class="row footer-row">
+                    <div class="col-md-5 col-sm-12 inline">
                         <div class="column">
                             <div class="footer-element">
                                 <span class="header-title">LOVELINESS COSMETICS</span>
@@ -180,7 +238,7 @@
                             <div class="footer-element">
                                 <a href="" class="footer-text" style="text-decoration: underline;">info@mail.ru</a>
                             </div>
-                            <div class="footer-element">
+                            <div class="footer-element" style="margin-bottom: 55px;">
                                 <a href=""><img src="{%static 'images/icons/instagram.svg'%}" alt="" class="footer-inst"></a>
                             </div>
                             <div class="footer-element under-footer-element" >
@@ -188,7 +246,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 col-sm-12 hide-on-mobile inline">
                         <div class="column">
                             <div class="footer-element">
                                 <span class="header-title" style="font-weight:500;">Меню</span>
@@ -207,7 +265,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 col-sm-12 hide-on-mobile inline">
                         <div class="column">
                             <div class="footer-element">
                                 <span class="header-title" style="font-weight:500;">Каталог</span>
@@ -226,21 +284,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12">
+                    <div class="col-md-3 col-sm-12 inline">
                         <div class="column">
-                            <div class="footer-element">
+                            <div class="footer-element hide-on-mobile">
                                 <span class="header-title" style="font-weight:500;">Личный Кабинет</span>
                             </div>
-                            <div class="footer-element">
+                            <div class="footer-element hide-on-mobile">
                                 <a href="" class="footer-text">Вход/Регистрация</a>
                             </div>
-                            <div class="footer-element">
+                            <div class="footer-element hide-on-mobile">
                                 <a href="" class="footer-text">Корзина</a>
                             </div>
-                            <div class="footer-element">
+                            <div class="footer-element hide-on-mobile">
                                 <a href="" class="footer-text">Баланс</a>
                             </div>
-                            <div class="footer-element under-footer-element">
+                            <div class="footer-element under-footer-element" style="margin-top: 26px;">
                                     <div class="footer-payment">
                                         <img src="{%static 'images/mastercard.png'%}" alt="" class="footer-payment-image">
                                     </div>
@@ -299,5 +357,6 @@
         };
 
     </script>
+    <script src="{%static 'js/header.js'%}"></script>
     
 {% endblock %}

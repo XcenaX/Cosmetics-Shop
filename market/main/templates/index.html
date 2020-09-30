@@ -4,6 +4,8 @@
 {%block styles %}
     <title>Магазин Косметики</title>
     <link rel="stylesheet" href="{%static 'css/rating.css'%}">
+    <link rel="stylesheet" href="{%static 'css/slider.css'%}">
+    
 {% endblock %}
 
 {% block content %}
@@ -27,9 +29,35 @@
             </fieldset>
         </div>
         {% endfor %} -->
-        
-        <div style="height: 500px;"></div>
+        <div class="slider-wrap">
+            <div class="slider">
+                <div class="slider__wrapper">
+                <div class="slider__item">
+                    <div class="slider-block">
+                        <img src="{%static 'images/people/4.jpg'%}" class="slider-image" alt="">
+                    </div>
+                </div>
+                <div class="slider__item">
+                    <div class="slider-block">
+                        <img src="{%static 'images/people/2.jpg'%}" class="slider-image" alt="">
+                    </div>
+                </div>
+                <div class="slider__item">
+                    <div class="slider-block">
+                        <img src="{%static 'images/people/3.jpg'%}" class="slider-image" alt="">
+                    </div>
+                </div>
+                <div class="slider__item">
+                    <div class="slider-block">
+                        <img src="{%static 'images/people/1.jpg'%}" class="slider-image" alt="">
+                    </div>
+                </div>
+                </div>
+                <a class="slider__control slider__control_left" href="#" role="button"></a>
+                <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+            </div>
+        </div>
 
 
-    
+        <script src="{%static 'js/slider.js'%}"></script>
 {% endblock %}
