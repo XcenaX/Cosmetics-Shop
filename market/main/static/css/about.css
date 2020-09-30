@@ -3,20 +3,13 @@
     height: 100vh;
     background-color: #ffffff;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+    z-index: 2;
 }
 
 .info{
     position: relative;
     width: 100%;
     background-color: #FEFFFA;
-}
-
-.mgt-60{
-    margin-top: 60px;
-}
-
-.mgt-10{
-    margin-top: 10px;
 }
 
 .description-block{
@@ -76,48 +69,6 @@
 
 .contact-form-image img{
     width: 100%;
-}
-
-.pic1{
-    position: absolute;
-    width: 443.18px;
-    height: 669.96px;
-    left: 0;
-    top: 1vh;
-}
-
-.pic2{
-    position: absolute;
-    width: 412.56px;
-    height: 367.85px;
-    right: -90px;
-    top: 2vh;
-}
-
-.pic3{
-    position: absolute;
-    width: auto;
-    height: 900px;
-    left: 6.5%;
-    right: 6.5%;
-    top: -0px;
-    z-index: -1;
-}
-
-.pic4{
-    position: absolute;
-    width: 206px;
-    height: 322px;
-    left: 0;
-    top: 110vh;
-}
-
-.pic5{
-    position: absolute;
-    width: 539.74px;
-    height: 772.33px;
-    right: -90px;
-    top: 70vh;
 }
 
 @media (max-width: 900px){

@@ -48,10 +48,10 @@
                     <a href="" class="mobile-header-menu-a">Акции</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a">О Нас</a>
+                    <a href="{% url 'main:about' %}" class="mobile-header-menu-a">О Нас</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a">Контакты</a>
+                    <a href="{% url 'main:contacts' %}" class="mobile-header-menu-a">Контакты</a>
                 </div>
                 <div class="mobile-header-menu-block">
                     <a href="" class="mobile-header-menu-a">Помощь</a>
@@ -104,7 +104,7 @@
                                     <li><a href="" class="active submenu-text">Каталог</a>
                                         <ul class="submenu">                                    
                                             <li>
-                                                <a href="" class="submenu-link">Категории</a>
+                                                <a href="{% url 'main:categories' %}" class="submenu-link">Категории</a>
                                                 <div class="submenu submenu-table">
                                                     <table class="">
                                                         <tr>
@@ -217,11 +217,28 @@
             <!--уведомление-->
 
             <!--содержимое для каждой странички-->
-            {% block content%}
 
-            {%endblock%}
-            <!--содержимое для каждой странички-->
-        </div>
+                <div class="info">
+                        <div class="pic1 mobile-none">
+                            <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
+                        </div>
+
+                        <div class="pic2 mobile-none">
+                            <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
+                        </div>
+
+                        <div class="pic4 mobile-none">
+                            <img src="{% static 'images/flowers/6 1.png' %}" alt="">
+                        </div>
+
+                        <div class="pic5 mobile-none">
+                            <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
+                        </div>
+                            {%endblock%}
+                            <!--содержимое для каждой странички-->
+                        </div>
+{% block content%}
+                </div>
     </body>
 {% endblock %}
 

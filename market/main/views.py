@@ -213,6 +213,10 @@ def contacts(request):
     return render(request, "contacts.html", {})
 
 
+def categories(request):
+    return render(request, "categories.html", {})
+
+
 def activate(request, uidb64, token):
     user = None
     try:
