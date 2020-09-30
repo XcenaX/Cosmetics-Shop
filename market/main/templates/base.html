@@ -175,12 +175,16 @@
                         <div class="menu-block">
                             Акции
                         </div>
-                        <div class="menu-block">
-                            <a href="{% url 'main:about' %}">О нас</a>
-                        </div>
-                        <div class="menu-block">
-                            Контакты
-                        </div>
+                        <a href="{% url 'main:about' %}">
+                            <div class="menu-block">
+                                О нас
+                            </div>
+                        </a>
+                        <a href="{% url 'main:contacts' %}">
+                            <div class="menu-block">
+                                Контакты
+                            </div>
+                        </a>
                         <div class="menu-block">
                             Помощь
                         </div>

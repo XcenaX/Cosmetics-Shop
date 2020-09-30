@@ -40,6 +40,10 @@ body{
     text-align: center;
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 .mobile-header-menu-icon{
     width: 30px;
     margin: auto;

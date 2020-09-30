@@ -20,7 +20,7 @@
 }
 
 .description-block{
-    height: 163px;
+    height: auto;
     width: 100%;
     padding: 30px;
     font-size: 24px;

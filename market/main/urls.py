@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),  
     path('register', views.register, name='register'),  
     path('about', views.about, name='about'),
+    path('contacts', views.contacts, name='contacts'),
     path('add_product', views.add_product, name='add_product'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),
