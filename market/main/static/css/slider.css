@@ -90,3 +90,16 @@ line-height: 250px;
 font-size: 100px;
 text-align: center;
 }
+
+
+@media (max-width:900px){
+  .slider-wrap{
+    height: 375px;
+}
+  .slider-block{
+    height: 375px;
+  }
+  .slider-wrap{
+    padding: 0px;
+  }
+}

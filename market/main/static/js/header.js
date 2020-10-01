@@ -3,13 +3,14 @@ $( document ).ready(function() {
         $("#open-menu").css("transform", "rotate(-90deg)");
         $("#close-menu").css("transform", "rotate(-90deg)");
         $("#mobile-header-menu").height("0%");
+        $("body").css("overflow", "scroll")
         setTimeout(function(){$("#mobile-header-menu").hide();}, 180)
         
     });
 
     $("#open-menu").click(function(){
         $("#open-menu").css("transform", "rotate(0deg)");
-        
+        $("body").css("overflow", "hidden")
         $("#mobile-header-menu").css("display", "block");
         $("#mobile-header-menu").height("101%");
         $("#close-menu").css("transform", "rotate(0deg)");
