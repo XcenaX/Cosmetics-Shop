@@ -5,8 +5,11 @@
     <title>Магазин Косметики</title>
     <link rel="stylesheet" href="{%static 'css/rating.css'%}">
     <link rel="stylesheet" href="{%static 'css/slider.css'%}">
-    
-    
+    <link rel="stylesheet" href="{% static 'css/categories.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vertical_slider.css' %}">
+    <script src="{%static 'js/vertical_slider.js'%}"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'slider/style.css'%}" />
+	<script type="text/javascript"         src= "{%static 'slider/jquery.js'%}"></script>
 {% endblock %}
 
 {% block content %}
@@ -82,25 +85,190 @@
         </div>
 
         <div class="my-wrap">
-            <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="our-pluses-icon-block">
+            <div class="container">
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-4 col-6" style="margin:auto">
+                        <div class="our-pluses-icon-block" style="background-image: url('{%static 'images/icons/paperclip.svg'%}');">
+                        </div>
+                        <div class="our-pluses-circle-1"></div>
+                        <div class="our-pluses-text">Lorem Ipsum is simply dummy text of the printing </div>
+                    </div>
+                    <div class="col-md-4 col-6" style="margin:auto">
+                        <div class="our-pluses-icon-block" style="background-image: url('{%static 'images/icons/checkmark.svg'%}');">
+                        </div>
+                        <div class="our-pluses-circle-2"></div>
+                        <div class="our-pluses-text">Lorem Ipsum is simply dummy text of the printing </div>
+                    </div>
+                    <div style="margin: 10px auto" class="col-md-4 col-6 our-pluses-icon-wrap" >
+                        <div class="our-pluses-icon-block" style="background-image: url('{%static 'images/icons/eye.svg'%}');">
+                        </div>
+                        <div class="our-pluses-circle-1"></div>
+                        <div class="our-pluses-text">Lorem Ipsum is simply dummy text of the printing </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="shares-wrap">
+            <div class="category-title">
+                Категории
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="category-item">
+                        <div class="category-item-text">Lorem Ipsum</div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="our-pluses-icon-block">
-                        
+                <div class="col-md-4 col-sm-12">
+                    <div class="category-item">
+                        <div class="category-item-text">Lorem Ipsum</div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="our-pluses-icon-block">
-                        
+                <div class="col-md-4 col-sm-12">
+                    <div class="category-item">
+                        <div class="category-item-text">Lorem Ipsum</div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="category-item">
+                        <div class="category-item-text">Lorem Ipsum</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="category-item">
+                        <div class="category-item-text">Lorem Ipsum</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="category-item">
+                        <div class="category-item-text">Lorem Ipsum</div>
+                    </div>
+                </div>
+            </div>
+            <div class="see-more"> <a href="">Смотреть еще</a></div>
+        </div>
+
+        <div class="shares-wrap">
+            <div class="category-title">
+                Акции
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="shares-block">
+                        <div class="shares-block-image" style="background-image: url('{%static 'images/shares1.jpg'%}');">
+                        </div>
+                        <div class="shares-block-text-block" style="background-color:#F5C4C4">
+                            <div class="shares-block-text">
+                                <div class="shares-block-title">Lorem Ipsum</div>
+                                <div class="shares-block-text-block-text">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    been the industry's standard dummy text ever since
+                                </div>
+                                <a class="shares-block-button hide-on-mobile" href="">
+                                    Смотреть подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="shares-block">
+                        <div class="shares-block-image" style="background-image: url('{%static 'images/shares2.jpg'%}');">
+                        </div>
+                        <div class="shares-block-text-block" style="background-color:#C4F3E5">
+                            <div class="shares-block-text">
+                                <div class="shares-block-title">Lorem Ipsum</div>
+                                <div class="shares-block-text-block-text">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    been the industry's standard dummy text ever since
+                                </div>
+                                <a class="shares-block-button hide-on-mobile" href="">
+                                    Смотреть подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shares-wrap">
+            <div class="category-title">
+                О Нас
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                   <div class="about-us-block">
+                       <div class="about-us-text">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                        <br>
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an 
+                        <br>
+                        unknown printer took a galley of type and scrambled it to                         
+                        <br>
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking 
+                       </div>
+                       <div class="container">
+                        <div class="row">
+                            <a href="" class="about-us-button">
+                                 Читать
+                             </a>
+                            <a class="about-us-inst" href="">
+                            </a>
+                        </div>
+                       </div>
+                       
+                   </div>
+                </div>
+                <div class="col-md-6 col-12 wow-slider-mobile">
+                    <div class="wow-slider-wrap">
+                        <div id="wowslider-container1">
+                            <div class="ws_images"><ul>
+                                <li><img src="{%static 'images/shares1.jpg'%}" alt="1" title="1" id="wows1_0"/></li>
+                                <li><img src="{%static 'images/shares2.jpg'%}" alt="2" title="2" id="wows1_1"/></li>
+                            </ul></div>
+                            <div class="ws_bullets"><div>
+                                <a href="#" title="1"><span><img src="{%static 'images/shares1.jpg'%}" alt="1"/>1</span></a>
+                                <a href="#" title="2"><span><img src="{%static 'images/shares2.jpg'%}" alt="2"/>2</span></a>
+                            </div></div><div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">jquery image carousel</a> by WOWSlider.com v9.0</div>
+                            <div class="ws_shadow"></div>
+                        </div>	
+                        <img src="{%static 'images/slider-background2.png'%}" alt="" class="wow-slider-background hide-on-mobile">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="shares-wrap">
+            <div class="login-form">
+                <div class="login-form-left-block">
+                    <div class="login-form-title">Lorem Ispum</div>
+                    <div class="login-form-text">
+                        Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    </div>
+                    <input type="text" placeholder="Email" class="login-form-input-email">
+                    <div class="container">
+                        <div class="row" style="margin-top: 30px;">
+                            <input placeholder="Phone" type="text" class="login-form-input-phone">
+                            <button class="login-form-button hide-on-mobile" type="submit">Отправить</button>
+                        </div>
+                    </div>
+                    <div class="login-form-text" style="margin-top: 30px;">
+                        Lorem Ipsum Lorem Ipsum is simply dummy text 
+                    </div>
+                    <button class="login-form-button show-on-mobile" type="submit">Отправить</button>
+                </div>
+                <div class="login-form-right-block hide-on-mobile">
                 </div>
             </div>
         </div>
         
         <script src="{%static 'js/slider.js'%}"></script>
+        <script type="text/javascript" src="{%static 'slider/wowslider.js'%}"></script>
+	    <script type="text/javascript" src="{%static 'slider/script.js'%}"></script>
+        
 
 {% endblock %}

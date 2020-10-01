@@ -74,7 +74,7 @@ a:hover{
     position: absolute;
     width: 100%;
     height: 0%;
-    background: rgba(211, 211, 211);
+    background: rgba(255, 237, 237);
     display: none;
     top: 0;
     left: 0;
@@ -88,7 +88,7 @@ a:hover{
     padding-left: 5%;
     padding-right: 5%;
     margin: auto;
-    padding-top: 25%;
+    padding-top: 10%;
 }
 
 .mobile-header-menu-a{
@@ -336,9 +336,30 @@ html{
     border-radius: 50%;
     width: 230px;
     height: 230px;
-    background-size: 75%;
+    background-size: 50%;
     margin: auto;
     background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-bottom: 36px;
+}
+
+.our-pluses-circle-1, .our-pluses-circle-2{
+    position: absolute;
+    width: 86px;
+    height: 86px;
+    background: #DDE7C8;
+    border-radius: 50%;
+}
+
+.our-pluses-circle-1{
+    bottom: 70px;
+    right: 80px;
+}
+
+.our-pluses-circle-2{
+    top: 0px;
+    left: 75px;
 }
 
 .search-input:focus{
@@ -499,6 +520,257 @@ html{
     padding-right: 10%;
 }
 
+.our-pluses-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 36px;
+}
+
+.category-title{
+    text-align: left;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.see-more{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    text-decoration-line: underline;
+    text-transform: capitalize;
+    margin-top: 30px;
+}
+
+.see-more a{
+    color: black;
+}
+.see-more a:hover{
+    color: gray;
+}
+
+.shares-block{
+    width: 100%;
+    height: 300px;
+}
+
+.shares-block-image{
+    width: 50%;
+    float: left;
+    height: 100%;
+    border-radius: 40px 0px 0px 40px;
+    background-size: cover;
+}
+
+.shares-block-text-block{
+    width: 50%;
+    float: left;
+    height: 100%;
+    text-align: left;
+    border-radius: 0px 40px 40px 0px;
+}
+
+.shares-block-text{
+    margin-top: 50px;
+    margin-left: 30px;
+    width: 70%;
+    height: auto;
+}
+
+.shares-block-title{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    text-transform: capitalize;
+}
+
+.shares-block-text-block-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.1em;
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
+.shares-block-button{
+    background: linear-gradient(93.21deg, #F8FFD8 -4.87%, #FFEBEB 126.07%);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 28px;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.shares-wrap{
+    width: 100%;
+    padding-left: 13%;
+    padding-right: 13%;
+    margin: 182px auto;
+    height: auto;
+}
+
+.about-us-block{
+    text-align: left;
+    width: 100%;
+    height: 100%;
+}
+
+.about-us-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    text-transform: capitalize;
+    margin-bottom: 74px;
+}
+
+.about-us-button{
+    text-align: center;
+    padding: 10px;
+    font-size: 24px;
+    width: 50%;
+    background: linear-gradient(271.55deg, #FFEBEB -10.33%, #F8FFD9 98.99%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+    border-radius: 36.5px;
+}
+
+.about-us-inst{
+    margin-left: auto;
+    width: 48px;
+    height: 48px;
+    background-image: url('../images/icons/instagram.svg');
+    background-size: cover;
+}
+
+.wow-slider-wrap{
+    width: 75%;
+    margin-left: auto;
+    position: relative;
+}
+
+.wow-slider-background{
+    position: absolute;
+    width: 100%;
+    height: 180%;
+    top: -37%;
+    left: 0%;
+    z-index: 1;
+}
+
+.login-form{
+    background: #F7DECA;
+    width: 90%;
+    margin: auto;
+    height: 450px;
+}
+
+.login-form-left-block{
+    width: 50%;
+    float: left;
+    height: 100%;
+    text-align: left;
+    padding: 60px;
+}
+
+.login-form-right-block{
+    width: 50%;
+    float: left;
+    height: 100%;
+    background-image: url("../images/talking.jpg");
+    background-size: cover;
+}
+
+.login-form-input-email{
+    border: none;
+    padding-left: 30px;
+    width: 100%;
+    height: 39px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.19);
+    outline: none;
+    margin-top: 30px;
+}
+
+.login-form-input-phone{
+    border: none;
+    padding-left: 30px;
+    width: 60%;
+    height: 39px;
+    float: left;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.19);
+    outline: none;
+}
+
+.login-form-button{
+    float: right;
+    margin-left: auto;
+    color: black;
+    /* padding-left: 15px; */
+    background: linear-gradient(93.88deg, #F8FED9 1.41%, #F5C4C4 147.98%);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 22px;
+    
+}
+.login-form-button:focus{
+    outline: none;
+}
+
+.login-form-title{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    color: black;
+}
+
+.login-form-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 20px;
+    font-size: 13px;
+    color: #0D0D0D;
+    margin-top: 20px;
+}
+
+.show-on-mobile{
+    display: none;
+}
+
 @media (max-width: 900px){
     .mobile-none{
         display: none;
@@ -542,7 +814,7 @@ html{
         display: none;
     }
     .header-title{
-        font-size: 14px;
+        font-size: 12px;
     }
     .footer-element{
         font-size: 13px;
@@ -571,5 +843,111 @@ html{
         margin-bottom: 20px;
         height: auto;
         padding: 0px;
+    }
+
+    .our-pluses-icon-block{
+        width: 120px;
+        height: 120px;
+        margin-bottom: 11px;
+    }
+
+    .our-pluses-circle-1{
+        bottom: 75px;
+        right: 30px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .our-pluses-circle-2{
+        top: unset;
+        left: unset;
+        bottom: 75px;
+        right: 30px;
+        width: 45px;
+        height: 45px;
+    }
+    .our-pluses-icon-wrap{
+        margin-top: 30px;
+    }
+
+    .our-pluses-text{
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .shares-wrap{
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+        margin: 60px auto;
+        height: auto;
+    }
+    .shares-block{
+        height: 147px;
+        margin-bottom: 20px;
+    }
+    .shares-block-text{
+        margin-top: 15px;
+        margin-left: 15px;
+        width: 90%;
+        height: auto;
+    }
+    .shares-block-title{
+        font-size: 17px;
+        line-height: 22px;
+    }
+    
+    .shares-block-text-block-text{
+        font-size: 10px;
+        line-height: 12px;
+    }
+
+    .wow-slider-mobile{
+        margin-top: 50px;
+        padding: 0px;
+    }
+    .wow-slider-wrap{
+        width: 100%;
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+    }
+    .category-title{
+        font-size: 18px;
+    }
+    .about-us-text{
+        font-size: 13px;
+        margin-bottom: 30px;
+    }
+    .about-us-inst{
+        width: 36px;
+        height: 36px;
+    }
+    .about-us-button{
+        font-size: 14px;
+        width: 70%;
+        padding: 5px;
+    }
+
+    .login-form{
+        width: 100%;
+        
+    }
+
+    .login-form-left-block{
+        width: 100%;
+        float: none;
+        padding-top: 30px;
+    }
+
+    .login-form-input-phone{
+        width: 100%;
+    }
+
+    .login-form-button{
+        float: none;
+        margin: 20px auto;
+        width: 60%;
+    }
+
+    .show-on-mobile{
+        display: block;
     }
 }
