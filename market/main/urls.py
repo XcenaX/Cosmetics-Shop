@@ -1,8 +1,6 @@
 from django.urls import path
 from django.conf.urls import url, include
 
-
-
 from . import views
 
 app_name= "main"
@@ -14,6 +12,7 @@ urlpatterns = [
     path('about', views.about, name='about'),
     path('contacts', views.contacts, name='contacts'),
     path('categories', views.categories, name='categories'),
+    path('catalog', views.catalog, name='catalog'),
     path('add_product', views.add_product, name='add_product'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),

@@ -217,6 +217,10 @@ def categories(request):
     return render(request, "categories.html", {})
 
 
+def catalog(request):
+    return render(request, "catalog.html", {})
+
+
 def activate(request, uidb64, token):
     user = None
     try:
