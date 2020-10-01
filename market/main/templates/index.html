@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{%static 'css/rating.css'%}">
     <link rel="stylesheet" href="{%static 'css/slider.css'%}">
     
+    
 {% endblock %}
 
 {% block content %}
@@ -29,35 +30,75 @@
             </fieldset>
         </div>
         {% endfor %} -->
+        
         <div class="slider-wrap">
-            <div class="slider">
-                <div class="slider__wrapper">
-                <div class="slider__item">
-                    <div class="slider-block">
-                        <img src="{%static 'images/people/4.jpg'%}" class="slider-image" alt="">
+            <div class="slider-block">
+                <div class="slider" style="z-index: 2;height: 620px;">
+                    <div class="slider__wrapper slider-image">
+                      <div class="slider__item slider-image">
+                        <div style=" background-image: url('{%static 'images/people/3.jpg'%}');" class="slider-image">
+                            
+                        </div>
+                      </div>
+                      <div class="slider__item slider-image">
+                        <div style="background-image: url('{%static 'images/people/2.jpg'%}');" class="slider-image">
+                        
+                        </div>
+                      </div>
+                      <div class="slider__item slider-image">
+                        <div style="background-image: url('{%static 'images/people/4.jpg'%}');" class="slider-image">
+                        
+                        </div>
+                      </div>
+                      <div class="slider__item slider-image">
+                        <div style="background-image: url('{%static 'images/people/1.jpg'%}');" class="slider-image">
+                        
+                        </div>
+                      </div>
                     </div>
-                </div>
-                <div class="slider__item">
-                    <div class="slider-block">
-                        <img src="{%static 'images/people/2.jpg'%}" class="slider-image" alt="">
+                    <div class="slider-image-opacity-block">
+
                     </div>
+                    <a class="slider__control slider__control_left" href="#" role="button"></a>
+                    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
                 </div>
-                <div class="slider__item">
-                    <div class="slider-block">
-                        <img src="{%static 'images/people/3.jpg'%}" class="slider-image" alt="">
+                <img src="{%static 'images/slider_back.png'%}" alt="" class="slider-background">
+                <div class="slider-text-block">
+                    <div class="slider-title">
+                        Lorem Ipsum
                     </div>
-                </div>
-                <div class="slider__item">
-                    <div class="slider-block">
-                        <img src="{%static 'images/people/1.jpg'%}" class="slider-image" alt="">
+                    <div class="slider-text">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores ratione deleniti provident quisquam. Facere tempora in nam facilis placeat rem voluptate, necessitatibus hic exercitationem porro consectetur illo dolorem expedita nostrum.
                     </div>
+                    <button class="slider-button">
+                        Смотреть Каталог
+                    </button>
                 </div>
-                </div>
-                <a class="slider__control slider__control_left" href="#" role="button"></a>
-                <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+                
+                
             </div>
         </div>
 
+        <div class="wrap">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-pluses-icon-block">
 
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-pluses-icon-block">
+                        
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-pluses-icon-block">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <script src="{%static 'js/slider.js'%}"></script>
+
 {% endblock %}

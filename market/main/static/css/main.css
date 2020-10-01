@@ -112,6 +112,14 @@ a:hover{
 
 }
 
+.wrap{
+    width: 100%;
+    padding-left: 18%;
+    padding-right: 18%;
+    margin: 100px auto;
+    height: auto;
+}
+
 .mobile-header-balance{
     font-family: Montserrat;
     font-style: normal;
@@ -297,6 +305,14 @@ html{
 /* .search-input:hover{
     opacity: 1;
 } */
+
+.our-pluses-icon-block{
+    background-color: #DDE7C8;
+    border-radius: 50%;
+    width: 50%;
+    background-size: 75%;
+    background-position: center;
+}
 
 .search-input:focus{
     outline: none;
@@ -523,5 +539,10 @@ html{
         background: #C4C4C4;
         margin: auto;
     }
-    
+    .wrap{
+        margin-top: 0px;
+        margin-bottom: 20px;
+        height: auto;
+        padding: 0px;
+    }
 }
