@@ -112,11 +112,11 @@ a:hover{
 
 }
 
-.wrap{
+.my-wrap{
     width: 100%;
-    padding-left: 18%;
-    padding-right: 18%;
-    margin: 100px auto;
+    padding-left: 13%;
+    padding-right: 13%;
+    margin: 182px auto;
     height: auto;
 }
 
@@ -231,7 +231,7 @@ html{
     letter-spacing: 0.1em;
     text-transform: capitalize;
     color: #000000;
-    padding-top: 20px;
+    padding-top: 25px;
     height: 100%;
 }
 
@@ -309,8 +309,10 @@ html{
 .our-pluses-icon-block{
     background-color: #DDE7C8;
     border-radius: 50%;
-    width: 50%;
+    width: 230px;
+    height: 230px;
     background-size: 75%;
+    margin: auto;
     background-position: center;
 }
 
@@ -539,7 +541,7 @@ html{
         background: #C4C4C4;
         margin: auto;
     }
-    .wrap{
+    .my-wrap{
         margin-top: 0px;
         margin-bottom: 20px;
         height: auto;
