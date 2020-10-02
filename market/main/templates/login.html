@@ -1,0 +1,105 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script src="{%static 'js/jquery.min.js'%}"></script>
+    <script src="{%static 'js/bootstrap/bootstrap.js'%}"></script>
+    <link rel="stylesheet" href="{%static 'css/bootstrap/bootstrap.min.css'%}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="login-block">
+        <div>
+            <div id="left" class="login-upper-button-left active-button"><span class="upper-button-text">Вход</span></div>
+            <div id="right" class="login-upper-button-right"><span class="upper-button-text">Регистрация</span></div>
+        </div>
+
+        <div class="login-form active-form" id="login">
+            <form action="{%url 'main:login'%}" method="POST">
+                <div class="login-title">
+                    loveliness cosmetics
+                </div>
+                <div class="input-form">
+                    <input type="text" placeholder="Email" class="login-input">
+                    <input type="text" placeholder="Пароль" class="login-input">
+                    <div class="remember-me">
+                        <input type="checkbox" value="lsRememberMe" id="rememberMe" class="login-check-box"> <label for="rememberMe" class="login-check-box-label">Запомнить меня</label>
+                    </div>
+                    
+                    <button class="login-button">Вход</button>
+                    
+                    <div class="container show-on-mobile social-block">
+                        <div class="row">
+                            <div class="col-3">
+                                <a href=""><div class="social-icon" style="background-image: url('{%static 'images/icons/google.svg'%}');"></div></a>
+                            </div>
+                            <div class="col-6">
+                                <a href=""></a><div class="social-icon" style="background-image: url('{%static 'images/icons/vk.svg'%}');margin:auto"></div></a>
+                            </div>
+                            <div class="col-3">
+                                <a href=""></a><div class="social-icon" style="background-image: url('{%static 'images/icons/facebook.svg'%}');margin-left:auto"></div></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="register-form" id="register">
+            <form action="{%url 'main:register'%}" method="POST">
+                <div class="login-title">
+                    loveliness cosmetics
+                </div>
+                <div class="input-form">
+                    <input type="text" placeholder="Email" class="login-input">
+                    <input type="text" placeholder="Пароль" class="login-input">
+                    <input type="text" placeholder="Повторите пароль" class="login-input">
+                    
+                    <button class="login-button">Регистрация</button>
+
+                    <div class="container show-on-mobile social-block">
+                        <div class="row">
+                            <div class="col-3">
+                                <a href=""><div class="social-icon" style="background-image: url('{%static 'images/icons/google.svg'%}');"></div></a>
+                            </div>
+                            <div class="col-6">
+                                <a href=""></a><div class="social-icon" style="background-image: url('{%static 'images/icons/vk.svg'%}');margin:auto"></div></a>
+                            </div>
+                            <div class="col-3">
+                                <a href=""></a><div class="social-icon" style="background-image: url('{%static 'images/icons/facebook.svg'%}');margin-left:auto"></div></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+
+        $("#left").click(function(){
+            if($("#left")[0].classList.contains("active-button") == false){
+                $("#left")[0].classList.toggle("active-button");
+                $("#right")[0].classList.toggle("active-button");
+                $("#register")[0].classList.toggle("active-form");
+                $("#login")[0].classList.toggle("active-form");
+            }
+        });
+
+        $("#right").click(function(){
+            if($("#right")[0].classList.contains("active-button") == false){
+                $("#left")[0].classList.toggle("active-button");
+                $("#right")[0].classList.toggle("active-button");
+                $("#register")[0].classList.toggle("active-form");
+                $("#login")[0].classList.toggle("active-form");
+            }
+        });
+
+    </script>
+</body>
+</html>

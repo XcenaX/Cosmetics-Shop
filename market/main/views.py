@@ -128,7 +128,7 @@ def login(request):
                 "notification": "Пользователя с таким email не сущетсвует!",
                 "notification_type": "login_error"
             })
-    return redirect(reverse('main:index'))
+    return render(request, "login.html", {})
 
 def register(request):
     user = True
