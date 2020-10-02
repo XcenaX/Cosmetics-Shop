@@ -145,6 +145,11 @@ a:hover{
     padding-top: 39px;
 }
 
+.active-menu{
+    font-weight: 700 !important;
+    border-bottom: 1px solid black;
+}
+
 .footer-title{
     font-family: Montserrat;
     font-style: normal;

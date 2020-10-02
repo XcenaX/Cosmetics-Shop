@@ -39,22 +39,22 @@
             </div>
             <div class="mobile-header-menu-wrap">
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a">Регистрация/Вход</a>
+                    <a href="" class="mobile-header-menu-a {% block login_register_mobile%}{%endblock%}">Регистрация/Вход</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a">Каталог</a>
+                    <a href="" class="mobile-header-menu-a {% block catalog_mobile%}{%endblock%}">Каталог</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a">Акции</a>
+                    <a href="" class="mobile-header-menu-a {% block shares_mobile%}{%endblock%}">Акции</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="{% url 'main:about' %}" class="mobile-header-menu-a">О Нас</a>
+                    <a href="{% url 'main:about' %}" class="mobile-header-menu-a {% block about_us_mobile%}{%endblock%}">О Нас</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="{% url 'main:contacts' %}" class="mobile-header-menu-a">Контакты</a>
+                    <a href="{% url 'main:contacts' %}" class="mobile-header-menu-a {% block contacts_mobile%}{%endblock%}">Контакты</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a">Помощь</a>
+                    <a href="" class="mobile-header-menu-a {% block help_mobile%}{%endblock%}">Помощь</a>
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                         
                             <nav class="menu-block" style="padding-top:0px !important">
                                 <ul class="topmenu">
-                                    <li><a href="" class="active submenu-text">Каталог</a>
+                                    <li><a href="" class="active submenu-text {%block catalog%}{%endblock%}">Каталог</a>
                                         <ul class="submenu">                                    
                                             <li>
                                                 <a href="{% url 'main:categories' %}" class="submenu-link">Категории</a>
@@ -172,20 +172,20 @@
                                 </ul>
                             </nav>
                         
-                        <div class="menu-block">
+                        <div class="menu-block {%block shares%}{%endblock%}">
                             Акции
                         </div>
                         <a href="{% url 'main:about' %}">
-                            <div class="menu-block">
+                            <div class="menu-block {%block about_us%}{%endblock%}">
                                 О нас
                             </div>
                         </a>
                         <a href="{% url 'main:contacts' %}">
-                            <div class="menu-block">
+                            <div class="menu-block {%block contacts%}{%endblock%}">
                                 Контакты
                             </div>
                         </a>
-                        <div class="menu-block">
+                        <div class="menu-block {%block help%}{%endblock%}">
                             Помощь
                         </div>
                     </div>
