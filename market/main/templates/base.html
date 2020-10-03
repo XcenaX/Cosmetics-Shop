@@ -54,7 +54,7 @@
                     <a href="{% url 'main:contacts' %}" class="mobile-header-menu-a {% block contacts_mobile%}{%endblock%}">Контакты</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a {% block help_mobile%}{%endblock%}">Помощь</a>
+                    <a href="{% url 'main:support' %}" class="mobile-header-menu-a {% block help_mobile%}{%endblock%}">Помощь</a>
                 </div>
             </div>
         </div>
@@ -185,9 +185,11 @@
                                 Контакты
                             </div>
                         </a>
-                        <div class="menu-block {%block help%}{%endblock%}">
-                            Помощь
-                        </div>
+                        <a href="{% url 'main:support' %}">
+                            <div class="menu-block {%block help%}{%endblock%}">
+                                Помощь
+                            </div>
+                        </a>
                     </div>
                 </div>
 

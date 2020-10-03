@@ -4,16 +4,128 @@
 {% block styles %}
     <title>Каталог</title>
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/support.css' %}">
 {% endblock %}
+
+{%block help%}active-menu{%endblock%}
+{%block help_mobile%}active-menu{%endblock%}
 
 {% block content %}
     <div class="wrap-content">
-        <div class="top-block">
+        <div class="top-block" style="margin-bottom: 0px;margin-top: 30px;">
             <div class="route">
                 Главная / Помощь 
             </div>
         </div>
+        <div class="title">Частые вопросы</div>
         
-    </div>
+        <div class="question-block" id="question1">
+            <div class="text-block">
+                <div class="question-title">Lorem Ipsum?</div>
+                <div class="question-text hide" id="text1">Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release</div>
+            </div>
+            <div class="icon-block">
+                <div class="open" id="1" onclick="Open_Close(this)"></div>
+            </div>
+        </div>
 
+        <div class="question-block" id="question2">
+            <div class="text-block">
+                <div class="question-title">Lorem Ipsum?</div>
+                <div class="question-text hide" id="text2">Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release</div>
+            </div>
+            <div class="icon-block">
+                <div class="open" id="2" onclick="Open_Close(this)"></div>
+            </div>
+        </div>
+
+        <div class="question-block" id="question3">
+            <div class="text-block">
+                <div class="question-title">Lorem Ipsum?</div>
+                <div class="question-text hide" id="text3">Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release</div>    
+            </div>
+            
+            <div class="icon-block">
+                <div class="open" id="3" onclick="Open_Close(this)"></div>
+            </div>
+        </div>
+
+        <div class="question-block" id="question4">
+            <div class="text-block">
+                <div class="question-title">Lorem Ipsum?</div>
+                <div class="question-text hide" id="text4">Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release</div>
+            </div>
+            <div class="icon-block">
+                <div class="open" id="4" onclick="Open_Close(this)"></div>
+            </div>
+        </div>
+
+        <div class="question-block" id="question5">
+            <div class="text-block">
+                <div class="question-title">Lorem Ipsum?</div>
+                <div class="question-text hide" id="text5">Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release</div>
+            </div>
+            <div class="icon-block">
+                <div class="open" id="5" onclick="Open_Close(this)"></div>
+            </div>
+        </div>
+
+        <div class="question-block" id="question6">
+            <div class="text-block">
+                <div class="question-title">Lorem Ipsum?</div>
+                <div class="question-text hide" id="text6">Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseIpsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release</div>
+            </div>
+            <div class="icon-block">
+                <div class="open" id="6" onclick="Open_Close(this)"></div>
+            </div>
+        </div>
+
+        <div class="form-wrap">
+            <div class="form-title">
+                Не нашли ответ на вопрос? 
+            </div>
+            <div class="under-title">
+                Мы ответим вам лично!
+            </div>
+            <textarea name="question" placeholder="Задайте вопрос и мы ответим вам в течении часа" class="question-input"></textarea>
+        
+                <div class="row" style="margin-bottom:30px">
+                    <div class="col-md-4 col-9 input-mobile" >
+                        <input class="question-input2" placeholder="Телефон">
+                    </div>
+                    <div class="col-md-4 col-9 input-mobile" >
+                        <input class="question-input2" placeholder="Email">
+                    </div>
+                    <div class="col-md-4 col-9 input-mobile" >
+                        <button class="question-button">Отправить</button>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    
+    <script>
+
+        function Open_Close(item){
+            var id = item.id;
+            
+            var text_name = "#text" + id;
+            
+            if($(text_name)[0].classList.contains("hide") == true){
+                $(text_name)[0].classList.toggle("hide");
+                var height = $(text_name).height() + $("#question"+id).height();
+                
+                $("#"+id).css("transform", "rotate(45deg)");
+                $("#question"+id).height(height+"px");
+            } else{
+                $(text_name)[0].classList.toggle("hide");
+                var height = $(text_name).height() + $("#question"+id).height() + 20;
+
+                $("#"+id).css("transform", "rotate(0deg)");
+                $("#question"+id).height("50px");
+            }
+            
+        }
+
+    </script>
 {% endblock %}
