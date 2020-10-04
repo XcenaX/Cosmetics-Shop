@@ -263,10 +263,12 @@ html{
     color: #000000;
     padding-top: 25px;
     height: 100%;
+    transition: 0.3s;
 }
 
 .menu-block:hover{
     background-color: #EEE9D7;
+    transition: 0.3s;
 }
 
 .submenu-text{
@@ -306,6 +308,7 @@ html{
     width: 100%;
     height: 100%;
     opacity: 0;
+    transition: 0.1;
 }
 
 .logout-text:hover{
@@ -386,6 +389,7 @@ html{
     width: 100%;
     height: 100%;
     opacity: 0;
+    transition: 0.1s;
 }
 
 .basket-text:hover{

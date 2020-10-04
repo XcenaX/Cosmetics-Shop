@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    <title>Каталог</title>
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    <link rel="stylesheet" href="{%static 'rateit/rateit.css'%}">
+    <script src="{%static 'rateit/jquery.rateit.js'%}"></script>
+    <style>
+        .rating > input:checked + label:hover, /* hover current star when changing rating */
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+        .rating > input:checked ~ label:hover ~ label { color: #FFD700;   } 
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+         /* hover current star */
+        .rating:not(:checked) > label:hover ~ label { color: #FFD700; }
+
+        .rating:not(:checked) > label:hover{
+            color: #ddd; 
+        }
+    </style>
+{% endblock %}
+
+{%block help%}active-menu{%endblock%}
+{%block help_mobile%}active-menu{%endblock%}
+
+{% block content %}
+    <div class="wrap-content">
+        <div class="top-block" style="margin-bottom: 0px;margin-top: 30px;">
+            <div class="route">
+                главная / Категории / Категория №1 / крем1
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 50px;margin-bottom: 70px;">
+            <div class="col-md-4 col-12">
+                <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-main-image">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-second-image">
+                    </div>
+                    <div class="col-3">
+                        <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-second-image">
+                    </div>
+                    <div class="col-3">
+                        <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-second-image">
+                    </div>
+                    <div class="col-3">
+                        <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-second-image">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-12" style="margin: auto;">
+                <div class="info-block">
+                    <div class="container">
+                        <div class="row">
+                            <div class="info-title">Lorem Ipsum</div>
+                            <div class="info-rating">
+                                
+                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-description">
+                        Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text 
+                    </div>
+                    <div class="info-price">
+                        2999тг
+                    </div>
+                    <div class="container info-container-margin">
+                        <div class="row">
+                            <div class="info-title-parameter">
+                                Объём
+                            </div>
+                            <div class="info-title-parameter-description">
+                                10мл
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="info-title-parameter" style="padding-top: 5px;">
+                                Количество
+                            </div>
+                            <div class="info-title-parameter-description">
+                                <button class="count-icon" onclick="remove()">-</button>
+                                <span id="count" style="margin-right: 10px;margin-left:10px">1</span>
+                                <button class="count-icon" onclick="add()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="info-button">Добавить в корзину</button>
+                </div>
+            </div>
+
+            
+        </div>
+        <div class="hide-on-mobile">
+            <div class="row ">
+                <div class="col-6">
+                    <div class="under-info-title">
+                        Описание
+                    </div>
+                    <div class="under-info-text" style="width: 80%;">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                    </div>
+                </div>
+                <div class="col-6" style="padding-left: 0px;">
+                    <div class="under-info-title">
+                        Состав
+                    </div>
+                    <div class="under-info-text">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="comments">
+            <div class="comments-title">Отзывы</div>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="comment-block">
+                        <div class="row">
+                            <img class="comment-avatar">
+                            <div class="comment-user-block">
+                                <div class="comment-user-block-title">Жмышенко Валерий</div>
+                                <div class="comment-user-block-text">10.10.2020</div>
+                            </div>
+                            <div class="comment-rating">
+                                
+                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12 comment-block-right">
+                    <div class="comment-block ">
+                        <div class="row">
+                            <img class="comment-avatar">
+                            <div class="comment-user-block">
+                                <div class="comment-user-block-title">Жмышенко Валерий</div>
+                                <div class="comment-user-block-text">10.10.2020</div>
+                            </div>
+                            <div class="comment-rating">
+                                
+                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                    <div class="comment-block">
+                        <div class="row">
+                            <img class="comment-avatar">
+                            <div class="comment-user-block">
+                                <div class="comment-user-block-title">Жмышенко Валерий</div>
+                                <div class="comment-user-block-text">10.10.2020</div>
+                            </div>
+                            <div class="comment-rating">
+                                
+                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>    
+        
+    </div>
+    
+    <script>
+
+        function remove(){
+            var count = parseInt($("#count").text()); 
+            if(count > 1){
+                $("#count").text(--count);
+            }
+            
+        }
+
+        function add(){
+            var count = parseInt($("#count").text()); 
+            if(count < 999){
+                $("#count").text(++count);
+            }
+        }
+
+    </script>
+{% endblock %}

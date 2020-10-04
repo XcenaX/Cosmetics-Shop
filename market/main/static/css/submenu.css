@@ -86,6 +86,14 @@ td>a{
   letter-spacing: 1px;
   padding: 20px 0px;
 }
+
+.submenu a:hover{
+  background-color: #d8d0b3;
+  font-weight: regular;
+  text-decoration: underline;
+  transition: 0.1s;
+}
+
 .submenu .submenu {
     position: absolute;
     top: 0;

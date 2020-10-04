@@ -214,6 +214,8 @@ def support(request):
 def contacts(request):
     return render(request, "contacts.html", {})
 
+def product(request, id):
+    return render(request, "product.html", {})
 
 def categories(request):
     return render(request, "categories.html", {})

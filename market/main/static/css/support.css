@@ -91,7 +91,7 @@
     margin-top: 10px;
 }
 
-.question-input{
+.question-input, .question-input:focus{
     height: 203px;
     width: 100%;
     background: #FFFFFF;
@@ -103,6 +103,7 @@
     min-height: 203px;
     margin-bottom: 30px;
     border:none;
+    outline: none;
 }
 
 .question-input2{

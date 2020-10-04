@@ -11,6 +11,7 @@ urlpatterns = [
     path('register', views.register, name='register'),  
     path('about', views.about, name='about'),
     path('support', views.support, name='support'),
+    path('product/<int:id>', views.product, name='product'),
     path('contacts', views.contacts, name='contacts'),
     path('categories', views.categories, name='categories'),
     path('catalog', views.catalog, name='catalog'),
