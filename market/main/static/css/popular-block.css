@@ -1,0 +1,82 @@
+.popular-block{
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.popular-block-padding{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+
+.popular-image-block{
+    width: 100%;
+    height: 350px;
+    border: 1px solid #C4C4C4;
+    position: relative;
+}
+
+.popular-image{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+.popular-under-block{
+    width: 100%;
+    padding: 10px;
+    background: #F7F5EE;
+    border: 1px solid #C4C4C4;
+}
+
+.popular-title, .popular-price{
+    display: inline-block;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.popular-title{
+    font-weight: 300;
+}
+
+.popular-price{
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.popular-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
+.popular-icon{
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    right: 21px;
+    top: 21px;
+    border-radius: 50%;
+    background-color: #EEE9D7;
+    background-image: url('../images/icons/basket.svg');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (max-width:700px){
+    .popular-wrap{
+        width: 100%;
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+    .popular-block{
+        margin-bottom: 47px;
+    }
+}

@@ -14,7 +14,7 @@ urlpatterns = [
     path('product/<int:id>', views.product, name='product'),
     path('contacts', views.contacts, name='contacts'),
     path('categories', views.categories, name='categories'),
-    path('catalog', views.catalog, name='catalog'),
+    path('category/<int:id>', views.category, name='category'),
     path('add_product', views.add_product, name='add_product'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),

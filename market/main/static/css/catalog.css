@@ -84,6 +84,8 @@
 
     .route{
         position: relative;
+        font-size: 12px;
+        line-height: 15px;
     }
 
     .filter-block{

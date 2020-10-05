@@ -211,3 +211,155 @@
     line-height: 17px;
     letter-spacing: 0.1em;
 }
+
+.add-comment-block{
+    padding-top: 15%;
+    width: 100%;
+    text-align: center;
+}
+
+.add-comment-block-title{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.add-comment-block-button, .add-comment-block-button:focus{
+    background: linear-gradient(271.55deg, #FFEBEB -10.33%, #F8FFD9 98.99%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+    border-radius: 36.5px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    width: 60%;
+    margin-top: 56px;
+}
+
+.text-block{
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.show-on-mobile{
+    display: none;
+}
+
+.popular-wrap{
+    width: 100%;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+@media (max-width:700px){
+    .image-padding{
+        padding-left: 43px;
+        padding-right: 43px;
+    }
+    .top-block{
+        height: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .info-container-margin{
+        margin-top: 35px;
+    }
+    .info-title{
+        font-size: 18px;
+        line-height: 22px;
+        padding-top: 7px;
+    }
+    .info-description{
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .info-block{
+        padding-top: 54px;
+    }
+    .hide-on-mobile{
+        display: none;
+    }
+    .show-on-mobile{
+        display: inherit;
+    }
+    .info-button{
+        height: 47px;
+        width: 60%;
+        font-size: 14px;
+        line-height: 17px;
+        float: left;
+        margin-top: 50px;
+    }
+    .info-price{
+        float: right;
+        margin-top: 60px;
+        margin-bottom: 0px;
+        font-size: 24px;
+        line-height: 29px;
+        margin-left: auto;
+    }
+    .wrap-content{
+        padding: 0px;
+    }
+    .comments-title{
+        padding-left: 20px;
+    }
+    .comment-block{
+        margin-bottom: 40px;
+        border-right: none;
+    }
+    
+    .add-comment-block-title{
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .add-comment-block{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .add-comment-block-button{
+        width: 80%;
+        font-size: 14px;
+        line-height: 17px;
+    }
+    
+    .comments-title{
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .comment-user-block-title{
+        font-size: 12px;
+        line-height: 15px;
+    }   
+    .comment-user-block-text{
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 10px;
+    }
+    .comment-text{
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .comment-avatar{
+        width: 51px;
+        height: 51px;
+    }
+    .comment-user-block{
+        padding: 0px;
+        padding-top: 5px;
+    }
+    .star-size{
+        font-size: 20px;
+    }
+    .comment-rating{
+        padding: 0px;
+    }
+}

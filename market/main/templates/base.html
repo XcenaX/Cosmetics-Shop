@@ -11,7 +11,7 @@
         <script src="{%static 'js/bootstrap/bootstrap.js'%}"></script>
         
         <link rel="icon" href="{%static 'images/logo-cuted.png'%}">
-
+        
         {% block styles %}
 
         {% endblock %}
@@ -99,49 +99,49 @@
                 <div class="menu hide-on-mobile">
                     <div class="center-menu">
                         
-                            <nav class="menu-block" style="padding-top:0px !important">
+                            <nav class="menu-block" style="padding-top:7px !important">
                                 <ul class="topmenu">
-                                    <li><a href="" class="active submenu-text {%block catalog%}{%endblock%}">Каталог</a>
+                                    <li><a  class="active submenu-text {%block catalog%}{%endblock%}">Каталог</a>
                                         <ul class="submenu">                                    
                                             <li>
                                                 <a href="{% url 'main:categories' %}" class="submenu-link">Категории</a>
                                                 <div class="submenu submenu-table">
                                                     <table class="">
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                             
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                             
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                             
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                             
                                                         </tr>
                                                         <tr>
-                                                            <td><a href="">Манекюр</a></td>
-                                                            <td><a href="">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
+                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -219,28 +219,47 @@
             <!--уведомление-->
 
             <!--содержимое для каждой странички-->
-
-                <div class="info">
-                        <div class="pic1 mobile-none">
-                            <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
-                        </div>
-
-                        <div class="pic2 mobile-none">
-                            <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
-                        </div>
-
-                        <div class="pic4 mobile-none">
-                            <img src="{% static 'images/flowers/6 1.png' %}" alt="">
-                        </div>
-
-                        <div class="pic5 mobile-none">
-                            <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
-                        </div>
-                            {%endblock%}
-                            <!--содержимое для каждой странички-->
-                        </div>
-{% block content%}
+            <div class="info">
+                <div class="pic1 mobile-none">
+                    <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
                 </div>
+
+                <div class="pic2 mobile-none">
+                    <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
+                </div>
+
+                <div class="pic4 mobile-none">
+                    <img src="{% static 'images/flowers/6 1.png' %}" alt="">
+                </div>
+
+                <div class="pic5 mobile-none">
+                    <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
+                </div>
+            </div>  
+                          
+                            <!--содержимое для каждой странички-->
+                
+                {%endblock%}
+{% block content%}
+                <div class="info">
+                    <div class="pic1 mobile-none">
+                        <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
+                    </div>
+
+                    <div class="pic2 mobile-none">
+                        <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
+                    </div>
+
+                    <div class="pic4 mobile-none">
+                        <img src="{% static 'images/flowers/6 1.png' %}" alt="">
+                    </div>
+
+                    <div class="pic5 mobile-none">
+                        <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
+                    </div>
+            </div>  
+                </div>
+                
     </body>
 {% endblock %}
 

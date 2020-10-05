@@ -5,22 +5,9 @@
     <title>Каталог</title>
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
     <link rel="stylesheet" href="{%static 'rateit/rateit.css'%}">
     <script src="{%static 'rateit/jquery.rateit.js'%}"></script>
-    <style>
-        .rating > input:checked + label:hover, /* hover current star when changing rating */
-        .rating > input:checked ~ label:hover,
-        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-        .rating > input:checked ~ label:hover ~ label { color: #FFD700;   } 
-
-        .rating > input:checked ~ label, /* show gold star when clicked */
-         /* hover current star */
-        .rating:not(:checked) > label:hover ~ label { color: #FFD700; }
-
-        .rating:not(:checked) > label:hover{
-            color: #ddd; 
-        }
-    </style>
 {% endblock %}
 
 {%block help%}active-menu{%endblock%}
@@ -35,7 +22,7 @@
         </div>
         
         <div class="row" style="margin-top: 50px;margin-bottom: 70px;">
-            <div class="col-md-4 col-12">
+            <div class="col-md-4 col-12 image-padding">
                 <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-main-image">
                 <div class="row">
                     <div class="col-3">
@@ -66,7 +53,7 @@
                     <div class="info-description">
                         Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text 
                     </div>
-                    <div class="info-price">
+                    <div class="info-price hide-on-mobile">
                         2999тг
                     </div>
                     <div class="container info-container-margin">
@@ -91,7 +78,13 @@
                             </div>
                         </div>
                     </div>
-                    <button class="info-button">Добавить в корзину</button>
+                    <div style="width: 100%;">
+                        <button class="info-button">Добавить в корзину</button>
+                        <div class="info-price show-on-mobile">
+                            2999тг
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -124,36 +117,20 @@
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="comment-block">
-                        <div class="row">
-                            <img class="comment-avatar">
-                            <div class="comment-user-block">
-                                <div class="comment-user-block-title">Жмышенко Валерий</div>
-                                <div class="comment-user-block-text">10.10.2020</div>
-                            </div>
-                            <div class="comment-rating">
-                                
-                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
-                            </div>
-                        </div>
-                        <div class="comment-text">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-12 comment-block-right">
-                    <div class="comment-block ">
-                        <div class="row">
-                            <img class="comment-avatar">
-                            <div class="comment-user-block">
-                                <div class="comment-user-block-title">Жмышенко Валерий</div>
-                                <div class="comment-user-block-text">10.10.2020</div>
-                            </div>
-                            <div class="comment-rating">
-                                
-                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                        <div class="container">
+                            <div class="row">
+                                <img class="comment-avatar">
+                                <div class="comment-user-block">
+                                    <div class="comment-user-block-title">Валерий</div>
+                                    <div class="comment-user-block-text">10.10.2020</div>
+                                </div>
+                                <div class="comment-rating">
+                                    
+                                    <div class="rateit star-size" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  ></div>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="comment-text">
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
                         </div>
@@ -162,25 +139,145 @@
 
                 <div class="col-md-6 col-12">
                     <div class="comment-block">
-                        <div class="row">
-                            <img class="comment-avatar">
-                            <div class="comment-user-block">
-                                <div class="comment-user-block-title">Жмышенко Валерий</div>
-                                <div class="comment-user-block-text">10.10.2020</div>
-                            </div>
-                            <div class="comment-rating">
-                                
-                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                        <div class="container">
+                            <div class="row">
+                                <img class="comment-avatar">
+                                <div class="comment-user-block">
+                                    <div class="comment-user-block-title">Валерий</div>
+                                    <div class="comment-user-block-text">10.10.2020</div>
+                                </div>
+                                <div class="comment-rating">
+                                    
+                                    <div class="rateit star-size" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  ></div>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="comment-text">
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-6 col-12">
+                    <div class="comment-block">
+                        <div class="container">
+                            <div class="row">
+                                <img class="comment-avatar">
+                                <div class="comment-user-block">
+                                    <div class="comment-user-block-title">Валерий</div>
+                                    <div class="comment-user-block-text">10.10.2020</div>
+                                </div>
+                                <div class="comment-rating">
+                                    
+                                    <div class="rateit star-size" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  ></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment-text">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                    <div class="add-comment-block">
+                        <div class="text-block">
+                            <div class="add-comment-block-title">
+                                Купили товар? Расскажите всем!
+                            </div>
+                            <button class="add-comment-block-button">Оставить коментарий</button>
+                        </div>
+                        
+                    </div>
+                </div>
                 
             </div>
         </div>    
+        
+        <div class="comments" style="margin-bottom: 100px;">
+            <div class="comments-title">Популярное</div>
+            <div class="popular-wrap">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <a href="">
+                            <div class="popular-block">
+                                <div class="popular-image-block">
+                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
+                                    <a href="#">
+                                        <div class="popular-icon"></div>
+                                    </a>
+                                </div>
+                                
+                                <div class="popular-under-block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="popular-title">Lorem Ipsum</div>
+                                            <div class="popular-price">2999тг</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
+                                </div>
+                                
+                            </div>
+                        </a>
+                    </div>
+    
+                    <div class="col-md-4 col-12">
+                        <a href="">
+                            <div class="popular-block">
+                                <div class="popular-image-block">
+                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
+                                    <a href="#">
+                                        <div class="popular-icon"></div>
+                                    </a>
+                                </div>
+                                
+                                <div class="popular-under-block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="popular-title">Lorem Ipsum</div>
+                                            <div class="popular-price">2999тг</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
+                                </div>
+                                
+                            </div>
+                        </a>
+                    </div>
+    
+                    <div class="col-md-4 col-12">
+                        <a href="">
+                            <div class="popular-block">
+                                <div class="popular-image-block">
+                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
+                                    <a href="#">
+                                        <div class="popular-icon"></div>
+                                    </a>
+                                </div>
+                                
+                                <div class="popular-under-block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="popular-title">Lorem Ipsum</div>
+                                            <div class="popular-price">2999тг</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
+                                </div>
+                                
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
         
     </div>
     
