@@ -437,8 +437,8 @@ html{
 }
 
 .footer-element>a:hover{
-    color: #EEE9D7;
-    text-decoration: none;
+    color: black;
+    text-decoration: underline;
 }
 
 .menu-block a{
@@ -842,10 +842,9 @@ a{
         position: absolute;
         width: 27px;
         height: 27px;
-        border-radius: 50%;
-        background-size: auto;
-        background: #C4C4C4;
+        background-size: cover;
         margin: auto;
+        border: none;
     }
     .my-wrap{
         margin-top: 0px;

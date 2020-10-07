@@ -39,7 +39,9 @@
             </div>
             <div class="mobile-header-menu-wrap">
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a {% block login_register_mobile%}{%endblock%}">Регистрация/Вход</a>
+                    {% if request.session.role %}
+                        <a href="" class="mobile-header-menu-a {% block login_register_mobile%}{%endblock%}">Регистрация/Вход</a>
+                    {% endif %}
                 </div>
                 <div class="mobile-header-menu-block">
                     <a href="" class="mobile-header-menu-a {% block catalog_mobile%}{%endblock%}">Каталог</a>
@@ -56,6 +58,11 @@
                 <div class="mobile-header-menu-block">
                     <a href="{% url 'main:support' %}" class="mobile-header-menu-a {% block help_mobile%}{%endblock%}">Помощь</a>
                 </div>
+                {% if not request.session.role %}
+                    <div class="mobile-header-menu-block">
+                        <a href="{% url 'main:login' %}" class="mobile-header-menu-a">Войти</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="wrap">
@@ -80,19 +87,33 @@
                             <div class="header-icon" id="search-icon" style="background-image:url('{%static "images/icons/search.svg" %}')">
                                 <input id="search" type="text" class="search-input" placeholder="Поиск">
                             </div>
-                            <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
-                                <span class="basket-text">
-                                    10000тг
-                                </span>
-                                <div class="basket-count">
-                                    4
+                            {% if request.session.role %}
+                                <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
+                                    <span class="basket-text">
+                                        10000тг
+                                    </span>
+                                    <div class="basket-count">
+                                        4
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
-                                <span class="logout-text">
-                                    Вход
-                                </span>
-                            </div>
+                            {% endif %}
+                            {% if request.session.role %}                                
+                                <form method="POST" action="{% url 'main:logout'%}">{% csrf_token %}
+                                    <button class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
+                                        <span class="logout-text">
+                                                Выход
+                                        </span>
+                                    </button>
+                                </form>
+                            {% else %}
+                                <a href="{% url 'main:login'%}">
+                                    <div class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
+                                        <span class="logout-text">
+                                                Вход
+                                        </span>
+                                    </div>
+                                </a>
+                            {%endif%}
                         </div>
                     </div>
                 </div>
@@ -202,9 +223,14 @@
                             <div class="col-8" style="text-align: center;">
                                 <span class="header-title">LOVELINESS COSMETICS</span>
                             </div>
-                            <div class="col-2" >
-                                <img class="mobile-header-right-icon">
-                            </div>
+                            {% if request.session.role %}
+                                <div class="col-2" >
+                                    <form action="{% url 'main:logout'%}" method="POST">{% csrf_token %}
+                                        <div id="logout-icon" onclick="logout()" class="mobile-header-right-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')"></div>
+                                        <button style="visibility:hidden" type="submit" id="logout"></button>
+                                    </form>
+                                </div>
+                            {%endif%}
                             
                         </div>
                     </div>
@@ -238,27 +264,27 @@
             </div>  
                           
                             <!--содержимое для каждой странички-->
+                            <div class="info">
+                                <div class="pic1 mobile-none">
+                                    <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
+                                </div>
+            
+                                <div class="pic2 mobile-none">
+                                    <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
+                                </div>
+            
+                                <div class="pic4 mobile-none">
+                                    <img src="{% static 'images/flowers/6 1.png' %}" alt="">
+                                </div>
+            
+                                <div class="pic5 mobile-none">
+                                    <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
+                                </div>
+                            </div>  
                 
+                {% block content%}
                 {%endblock%}
-{% block content%}
-                <div class="info">
-                    <div class="pic1 mobile-none">
-                        <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
-                    </div>
-
-                    <div class="pic2 mobile-none">
-                        <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
-                    </div>
-
-                    <div class="pic4 mobile-none">
-                        <img src="{% static 'images/flowers/6 1.png' %}" alt="">
-                    </div>
-
-                    <div class="pic5 mobile-none">
-                        <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
-                    </div>
-            </div>  
-                </div>
+        </div>
                 
     </body>
 {% endblock %}
@@ -398,6 +424,11 @@
         }, 100);
         };
 
+    </script>
+    <script>
+        function logout(){
+            $("#logout").click()
+        }
     </script>
     <script src="{%static 'js/header.js'%}"></script>
     

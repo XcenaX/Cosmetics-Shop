@@ -1,0 +1,174 @@
+.combo-description{
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    margin-top: 10%;
+}
+
+.combo-description-title{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.15em;
+    margin-bottom: 63px;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.combo-description-text{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    text-transform: capitalize;
+    margin-bottom: 75px;
+    width: 100%;
+}
+
+.cross-out{
+    text-decoration: line-through;
+}
+
+.combo-price{
+    display: inline-block;
+    width: 50%;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.combo-price-block{
+    display: inline-block;
+    background: linear-gradient(90.82deg, #F8FCDB -28.93%, #FFCDBE 127.5%);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    height: 45px;
+    text-align: center;
+    padding-top: 8px;
+    width: 45%;
+    margin-left: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    position: relative;
+    cursor: pointer;
+}
+
+.add-text{
+    display: none;
+    transition: 0.3s;
+}
+
+.combo-price-block:hover .add-text{
+    display: block;
+    transition: 0.3s;
+}
+
+.combo-price-block:hover .price-text{
+    display: none;
+    transition: 0.3s;
+}
+
+.shares-price-background{
+    background-image: url("../images/shares-price.svg");
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    top: -70%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    left: 0px;
+}
+
+.shares-price-background2{
+    background-image: url("../images/shares-price.svg");
+    background-size: cover;
+    transform: rotate(180deg);
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    bottom: -70%;
+    left: 0px;
+}
+
+.combo-block{
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border: 2px solid #828282;
+}
+
+.combo-margin{
+    margin-bottom: 100px;
+}
+
+.border-line{
+    position: absolute;
+    top: 3%;
+    left: 15px;
+    width: 2px;
+    height: 94%;
+    background: white;
+}
+
+
+@media (max-width: 700px){
+    .combo-block{
+        border: none;
+    }
+    .combo-block .popular-image-block{
+        height: 143px;
+    }
+    
+    .combo-block .popular-title{
+        font-size: 14px;
+        line-height: 17px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .combo-block .popular-price{
+        font-size: 13px;
+        line-height: 16px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .combo-price{
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .combo-price-block{
+        display: inherit;
+        width: 60%;
+    }
+    .combo-block .popular-text{
+        display: none;
+    }
+    .combo-description-text{
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+    .combo-description-title{
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.15em;
+        margin-bottom: 30px;
+    }
+    .comments{
+        margin-top: 50px;
+    }
+    .combo-margin{
+        margin-bottom: 50px;
+    }
+}
+

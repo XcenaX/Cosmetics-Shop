@@ -14,6 +14,18 @@
 {%block help_mobile%}active-menu{%endblock%}
 
 {% block content %}
+    <div class="comment-form-back" id="add_comment" >
+        <div class="comment-form">
+            <div class="comment-form-block">
+                <div class="comment-form-title">
+                    Оцените качество товара и расскажите это всем!
+                </div>
+                <textarea  type="text" placeholder="Коментарий" class="comment-form-textarea"></textarea>
+                <button class="comment-form-button">Отправить</button>
+                <div class="comment-form-back-text" onclick="close_comment_form()">Назад</div>
+            </div>
+        </div>
+    </div>
     <div class="wrap-content">
         <div class="top-block" style="margin-bottom: 0px;margin-top: 30px;">
             <div class="route">
@@ -187,7 +199,7 @@
                             <div class="add-comment-block-title">
                                 Купили товар? Расскажите всем!
                             </div>
-                            <button class="add-comment-block-button">Оставить коментарий</button>
+                            <button onclick="open_comment_form()" class="add-comment-block-button">Оставить коментарий</button>
                         </div>
                         
                     </div>
@@ -278,8 +290,12 @@
                 </div>
             </div>
         </div>
+
+        
         
     </div>
+
+    
     
     <script>
 
@@ -296,6 +312,22 @@
             if(count < 999){
                 $("#count").text(++count);
             }
+        }
+
+        function open_comment_form(){
+            $("#add_comment").css("display", "block");
+            $("#add_comment").css("opacity", "1");
+            $("body").css("overflow", "hidden");
+            $("html").css("overflow", "hidden");
+        }
+
+        function close_comment_form(){
+            $("#add_comment").css("opacity", "0");
+            setTimeout(function(){
+                $("#add_comment").css("display", "none");
+            }, 300)
+            $("body").css("overflow", "inherit");
+            $("html").css("overflow", "inherit");
         }
 
     </script>

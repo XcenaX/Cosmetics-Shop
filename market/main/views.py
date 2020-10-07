@@ -223,6 +223,9 @@ def category(request, id):
 def categories(request):
     return render(request, "categories.html", {})
 
+def shares(request):
+    return render(request, "shares.html", {})
+
 
 def activate(request, uidb64, token):
     user = None
