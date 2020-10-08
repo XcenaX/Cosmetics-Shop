@@ -12,6 +12,22 @@
 	<script type="text/javascript"         src= "{%static 'slider/jquery.js'%}"></script>
 {% endblock %}
 
+{%block notification %}
+    {%if notification%}
+        <div class="alert alert-dismissable alert-success mb-0 rounded-0" id="success-update" style="padding:15px">
+            <button aria-hidden="true" class="close" id="close" data-dismiss="alert" type="button"
+                style="top:0;right:0">×</button>
+            {{notification}}
+        </div>
+    {% elif error%}
+        <div class="alert alert-dismissable alert-danger mb-0 rounded-0" id="success-update" style="padding:15px">
+            <button aria-hidden="true" class="close" id="close" data-dismiss="alert" type="button"
+                style="top:0;right:0;font-size:25px">×</button>
+            {{error}}
+        </div>
+    {%endif%}
+{%endblock%}
+
 {% block content %}
     
         

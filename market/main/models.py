@@ -3,16 +3,21 @@ from django.utils import timezone
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+class Image(models.Model):
+    img_url = models.TextField(default='')
+    name = models.TextField(default='')
+
 class User(models.Model):
     email = models.TextField(default='')
     password = models.TextField(default='')
-    fullname= models.TextField(default="") 
-    username = models.TextField(default="") 
+    first_name = models.TextField(default="") 
+    last_name = models.TextField(default="") 
     balance = models.IntegerField(default=0)
     role = models.TextField(default='user')
     is_active = models.BooleanField(default=False)
+    img_url = models.TextField(default='')
     def __str__(self):
-        return self.username
+        return self.first_name
 
 
 class Comment(models.Model):
@@ -28,9 +33,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Image(models.Model):
-    img_url = models.TextField(default='')
-    name = models.TextField(default='')
+
 
 class Product(models.Model):
     name = models.TextField(default='')
@@ -77,7 +80,7 @@ class Bag(models.Model):
     products = models.ManyToManyField(Product, blank=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     def __str__(self):
-        return self.owner
+        return self.owner.first_name
 
 class Rating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

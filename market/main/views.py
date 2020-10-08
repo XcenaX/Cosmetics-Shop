@@ -119,39 +119,27 @@ def login(request):
                 request.session["role"] = user.role
                 return redirect(reverse('main:index'))
             else:
-                return redirect(reverse('main:index'), kwargs={
-                    "notification": "Неправильный логин или пароль!",
-                    "notification_type": "login_error"
+                return render(request, "login.html", {
+                    "login_error": "Неправильный логин или пароль!",
                 })
         else:
-            return redirect(reverse('main:index'), kwargs={
-                "notification": "Пользователя с таким email не сущетсвует!",
-                "notification_type": "login_error"
+            return render(request, "login.html", {
+                "login_error": "Пользователя с таким email не сущетсвует!",
             })
+
     return render(request, "login.html", {})
 
 def register(request):
     user = True
     if request.method == "POST":
-        username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
         password_confirm = request.POST['password_confirm']
         
         if password != password_confirm:
-            return redirect(reverse('main:index'), kwargs={
-                "notification": "Пароли не совпадают!",
-                "notification_type": "register_error",
+            return render(request, "login.html", {
+                "register_error": "Пароли не совпадают!",
                 "email": email,
-                "username": username,
-            })
-
-        if len(password) < 5:
-            return redirect(reverse('main:index'), kwargs={
-                "notification": "Пароль должен быть не менее 5 символов!",
-                "notification_type": "register_error",
-                "email": email,
-                "username": username,
             })
 
         try:
@@ -165,14 +153,12 @@ def register(request):
            user = False
         
         if not user:
-            return redirect(reverse('main:index'), kwargs={
-                "notification": "Такой пользователь уже существует!",
-                "notification_type": "register_error",
+            return render(request, "login.html", {
+                "register_error": "Такой пользователь уже существует!",
                 "email": email,
-                "username": username,
             })
         hash_password = make_pw_hash(password)
-        current_user = User.objects.create(email=email, password=hash_password, username=username)
+        current_user = User.objects.create(email=email, password=hash_password)
         current_user.save()
         bag = Bag.objects.create(owner=current_user)
         bag.save()
@@ -192,17 +178,16 @@ def register(request):
             
             send_email(message, mail_subject, to_email)
             request.session["user_id"] = current_user.id
-            request.session["role"] = role
-            return redirect(reverse('main:index'), kwargs={
+            request.session["role"] = "user"
+            return render(request, "login.html", {
                 "notification": "Вам на почту выслано письмо для подтверждения!",
-                "notification_type": "notification",
             })
         except Exception as error:
             return render(request, 'message.html', {
                 "text" : error,
             })
 
-    return render(request, "register.html", {})
+    return render(request, "login.html", {})
 
 
 def about(request):
@@ -246,15 +231,13 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         
-        return redirect(reverse('main:index'), kwargs={
+        return render(request, "index.html", {
             "notification": "Вы успешно подтвердили почту!",
-            "notification_type": "notification",
         })
         
     else:
-        return redirect(reverse('main:index'), kwargs={
-            "notification": "Неверная ссылка активации почты!",
-            "notification_type": "error"
+        return render(request, "index.html", {
+            "error": "Неверная ссылка активации почты!",
         })
 
 def rate_product(request):
@@ -291,6 +274,47 @@ def index(request):
         "category": category,
     })
 
+
+def update_avatar(request):
+    if request.method == "POST":
+        user = get_current_user(request)
+        if not user:
+            return redirect(reverse('main:index'))
+        image = post_file(request, 'avatar')
+        
+        try:
+            if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
+                upload_error = "Выберите .jpg или .png формат для картинки!" 
+                return render(request, 'profile.html', {
+                    "user": user,
+                    "upload_error": upload_error,
+                })
+        except:
+            upload_error = "Вы не выбрали картинку для аватара!"
+            if role == "student": 
+                return render(request, 'portfolio_edit.html', {
+                    "user": user,
+                    "upload_error": upload_error,
+                })
+            else:
+                return render(request, 'employer_profile.html', {
+                    "user": user,
+                    "upload_error": upload_error,
+                })
+
+        new_img_url = '/home/digitalportfolio/Digital-Portfolio/main/static/images/user/avatars/avatar'+str(user.id)+'.jpg'
+        with open(new_img_url, 'wb') as handler:
+            for chunk in image.chunks():
+                handler.write(chunk)
+        
+        new_img_url = "/static/images/user/avatars/avatar" + str(user.id) + ".jpg"
+        user.img_url = new_img_url
+        user.save()
+
+    if role == "student":
+        return redirect(reverse('main:portfolio_edit'))
+    else:
+        return redirect(reverse('main:employer_profile'))
     
 
 
