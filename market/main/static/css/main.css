@@ -17,6 +17,7 @@ a:hover{
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
+    text-transform: capitalize;
 }
 
 .regular-text{

@@ -1,0 +1,97 @@
+.items-block{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.item-pc-version{
+    display: grid;
+    grid-template-areas: 'left center center center center right';
+    grid-column-gap: 50px;
+    width: 100%;
+    height: auto;
+    border: 2px solid #cbccc8;
+    border-radius: 0 0 75px 0;
+}
+
+.item-pc-version-image{
+    grid-area: left;
+    padding: 5%;
+    text-align: center;
+}
+
+.item-pc-version-image img{
+    width: 220px;
+    height: 220px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+.item-pc-version-description{
+    grid-area: center;
+    padding-top: 2%;
+    max-height: 75px;
+    padding-right: 5%;
+}
+
+.item-pc-version-price{
+    grid-area: right;
+    padding-top: 5vw;
+    padding-right: 5vw;
+}
+
+.item-title{
+    font-size: 24px;
+    font-family: Montserrat-Regular;
+}
+
+.item-text{
+    font-family: Montserrat-Regular;
+    font-size: 16px;
+}
+
+.volume, .amount{
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.amount button{
+    border: 1px solid #FFD4D4;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    background-color: #FFD4D4;
+    padding-bottom: 10px;
+    font-weight: bold;
+    margin: 3px;
+}
+
+.item-price{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.total-price{
+    font-family: "Montserrat-Bold";
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.order-button button{
+    width: 240px;
+    height: 50px;
+    background: linear-gradient(271.55deg, #FFEBEB -10.33%, #F8FFD9 98.99%);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.13);
+    border-radius: 36px;
+    font-size: 18px;
+    font-family: "Montserrat-Bold";
+}
+
+.total-order-block{
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 1090px) {
+    .hide-on-mobile{
+        display: none;
+    }
+}

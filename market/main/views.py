@@ -201,23 +201,44 @@ def register(request):
 def about(request):
     return render(request, "about.html", {})
 
+
 def support(request):
     return render(request, "support.html", {})
+
 
 def contacts(request):
     return render(request, "contacts.html", {})
 
+
 def product(request, id):
     return render(request, "product.html", {})
+
 
 def category(request, id):
     return render(request, "category.html", {})
 
+
 def categories(request):
     return render(request, "categories.html", {})
 
+
 def shares(request):
-    return render(request, "shares.html", {})
+    user = get_current_user(request)
+    return render(request, "shares.html", {
+        'user': user
+    })
+
+
+def catalog(request):
+    return render(request, "catalog.html", {})
+
+
+def cart(request):
+    return render(request, "cart.html", {})
+
+
+def promotions(request):
+    return render(request, "promotions.html", {})
 
 
 def activate(request, uidb64, token):

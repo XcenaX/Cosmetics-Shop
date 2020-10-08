@@ -90,19 +90,21 @@
                                 <input id="search" type="text" class="search-input" placeholder="Поиск">
                             </div>
                             {% if user %}
-                                <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
-                                    <span class="basket-text">
-                                        {{user.balance}}тг
-                                    </span>
-                                    <div class="basket-count">
-                                        {{bag.products.all|length}}
+                                <a href="{% url 'main:cart' %}">
+                                    <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
+                                        <span class="basket-text">
+                                            {{user.balance}}тг
+                                        </span>
+                                        <div class="basket-count">
+                                            {{bag.products.all|length}}
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             {% endif %}
                             {% if user %}    
                                 <a href="{%url 'main:profile'%}">
                                     <div class="header-icon" id="profile-icon" style="border:none">
-                                        <div class="profile-icon" style="background-image:url('{{user.img_url}}'); border:none;float: right;">
+                                        <div class="profile-icon" style="background-image:url('{{user.img_url}}'); background-color: lightgray; border:none;float: right; background-size: 70%;">
                                         </div>
                                         <span class="logout-text">
                                                 Профиль

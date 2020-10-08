@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    <title>Категории</title>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/support.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
+{% endblock %}
+
+{%block catalog%}active-menu{%endblock%}
+{%block catalog_mobile%}active-menu{%endblock%}
+
+{% block content %}
+    <style>
+        .title-block{
+            background-image: url( {% static 'images/title-block-background-1.png' %});
+        }
+    </style>
+    <div class="wrap-content">
+        <br><br>
+
+        <div class="top-block">
+            <div class="route">
+                Вернуться к покупкам
+            </div>
+        </div>
+        <br>
+        <div class="title">Корзина</div>
+
+        <div class="items-block">
+            <div class="item-pc-version hide-on-mobile">
+                <div class="item-pc-version-image">
+                    <img src="{%static 'images/talking.jpg'%}" alt="">
+                </div>
+                <div class="item-pc-version-description">
+                    <div class="item-title">Lorem Ipsum</div>
+                    <br>
+                    <div class="item-text">
+                        Lorem Ipsum is simply dummy
+                        Lorem Ipsum is simply dummy text
+                        Lorem Ipsum is simply dummy
+                        Lorem Ipsum is simply dummy text
+                    </div>
+                    <br>
+                    <div class="volume-amount-block">
+                        <div class="item-text volume"><b>10мл</b></div>
+                        <div class="amount">
+                            <button>-</button>
+                            1
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-pc-version-price">
+                    <div class="item-price">2999тг</div>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="item-pc-version hide-on-mobile">
+                <div class="item-pc-version-image">
+                    <img src="{%static 'images/talking.jpg'%}" alt="">
+                </div>
+                <div class="item-pc-version-description">
+                    <div class="item-title">Lorem Ipsum</div>
+                    <br>
+                    <div class="item-text">
+                        Lorem Ipsum is simply dummy
+                        Lorem Ipsum is simply dummy text
+                        Lorem Ipsum is simply dummy
+                        Lorem Ipsum is simply dummy text
+                    </div>
+                    <br>
+                    <div class="volume-amount-block">
+                        <div class="item-text volume"><b>10мл</b></div>
+                        <div class="amount">
+                            <button>-</button>
+                            1
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-pc-version-price">
+                    <div class="item-price">2999тг</div>
+                </div>
+            </div>
+            <br><br>
+
+            <div class="total-order-block">
+                <div class="total-price">Итого: 2999тг</div>
+                <div class="order-button">
+                    <button>Оформить заказ</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br><br>
+{% endblock %}
