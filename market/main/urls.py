@@ -17,6 +17,7 @@ urlpatterns = [
     path('shares', views.shares, name='shares'),
     path('category/<int:id>', views.category, name='category'),
     path('add_product', views.add_product, name='add_product'),
+    path('profile', views.profile, name='profile'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.activate, name='activate'),    

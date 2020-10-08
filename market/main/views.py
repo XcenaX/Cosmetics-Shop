@@ -40,12 +40,20 @@ COUNT_PRODUCTS_ON_PAGE=20
 
 def get_current_user(req):
     try:
-        user = None
         user_id = req.session["user_id"]
         role = req.session["role"]
         user = User.objects.get(id=user_id)
+        return user
     except Exception as error:
+        print(error)
         return None  
+
+def get_users_bag(user):
+    try:
+        bag = Bag.objects.get(owner=user)
+        return bag
+    except:
+        return None
 
 def get_parameter(request, name):
     try:
@@ -265,15 +273,26 @@ def index(request):
     q = "" if not q else q
     category = get_parameter(request, "category")
     user = get_current_user(request)
+    bag = get_users_bag(user)
     blocks = filter_products(request)
         
     return render(request, 'index.html', {
         "user": user,
+        "bag": bag,
         "blocks": blocks,
         "q": q,
         "category": category,
     })
 
+def profile(request):
+    user = get_current_user(request)
+    if not user:
+        return redirect(reverse("main:index")) 
+    bag = get_users_bag(user)
+    return render(request, 'profile.html', {
+        "user": user,
+        "bag": bag,
+    })
 
 def update_avatar(request):
     if request.method == "POST":

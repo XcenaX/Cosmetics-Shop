@@ -39,15 +39,17 @@
             </div>
             <div class="mobile-header-menu-wrap">
                 <div class="mobile-header-menu-block">
-                    {% if request.session.role %}
-                        <a href="" class="mobile-header-menu-a {% block login_register_mobile%}{%endblock%}">Регистрация/Вход</a>
+                    {% if not user %}
+                        <a href="{% url 'main:login'%}" class="mobile-header-menu-a {% block login_register_mobile%}{%endblock%}">Регистрация/Вход</a>
+                    {% else %}
+                        <a href="{% url 'main:profile'%}" class="mobile-header-menu-a {% block profile_mobile%}{%endblock%}">Профиль</a>
                     {% endif %}
                 </div>
                 <div class="mobile-header-menu-block">
                     <a href="" class="mobile-header-menu-a {% block catalog_mobile%}{%endblock%}">Каталог</a>
                 </div>
                 <div class="mobile-header-menu-block">
-                    <a href="" class="mobile-header-menu-a {% block shares_mobile%}{%endblock%}">Акции</a>
+                    <a href="{% url 'main:shares'%}" class="mobile-header-menu-a {% block shares_mobile%}{%endblock%}">Акции</a>
                 </div>
                 <div class="mobile-header-menu-block">
                     <a href="{% url 'main:about' %}" class="mobile-header-menu-a {% block about_us_mobile%}{%endblock%}">О Нас</a>
@@ -87,24 +89,27 @@
                             <div class="header-icon" id="search-icon" style="background-image:url('{%static "images/icons/search.svg" %}')">
                                 <input id="search" type="text" class="search-input" placeholder="Поиск">
                             </div>
-                            {% if request.session.role %}
+                            {% if user %}
                                 <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
                                     <span class="basket-text">
-                                        10000тг
+                                        {{user.balance}}тг
                                     </span>
                                     <div class="basket-count">
-                                        4
+                                        {{bag.products.all|length}}
                                     </div>
                                 </div>
                             {% endif %}
-                            {% if request.session.role %}                                
-                                <form method="POST" action="{% url 'main:logout'%}">{% csrf_token %}
-                                    <button class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
+                            {% if user %}    
+                                <a href="{%url 'main:profile'%}">
+                                    <div class="header-icon" id="profile-icon" style="border:none">
+                                        <div class="profile-icon" style="background-image:url('{{user.img_url}}'); border:none;float: right;">
+                                        </div>
                                         <span class="logout-text">
-                                                Выход
+                                                Профиль
                                         </span>
-                                    </button>
-                                </form>
+                                    </div>  
+                                </a>                                        
+                                                              
                             {% else %}
                                 <a href="{% url 'main:login'%}">
                                     <div class="header-icon" id="login-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')">
@@ -192,10 +197,11 @@
                                     </li>
                                 </ul>
                             </nav>
-                        
-                        <div class="menu-block {%block shares%}{%endblock%}">
-                            Акции
-                        </div>
+                        <a href="{% url 'main:shares'%}">
+                            <div class="menu-block {%block shares%}{%endblock%}">
+                                Акции
+                            </div>
+                        </a>
                         <a href="{% url 'main:about' %}">
                             <div class="menu-block {%block about_us%}{%endblock%}">
                                 О нас
@@ -223,7 +229,7 @@
                             <div class="col-8" style="text-align: center;">
                                 <span class="header-title">LOVELINESS COSMETICS</span>
                             </div>
-                            {% if request.session.role %}
+                            {% if user %}
                                 <div class="col-2" >
                                     <form action="{% url 'main:logout'%}" method="POST">{% csrf_token %}
                                         <div id="logout-icon" onclick="logout()" class="mobile-header-right-icon" style="background-image:url('{%static "images/icons/logout.svg" %}')"></div>
@@ -245,26 +251,12 @@
             <!--уведомление-->
 
             <!--содержимое для каждой странички-->
-            <div class="info">
-                <div class="pic1 mobile-none">
-                    <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
-                </div>
 
-                <div class="pic2 mobile-none">
-                    <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
-                </div>
-
-                <div class="pic4 mobile-none">
-                    <img src="{% static 'images/flowers/6 1.png' %}" alt="">
-                </div>
-
-                <div class="pic5 mobile-none">
-                    <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
-                </div>
-            </div>  
+            <!-- Алиби меня эти цветы в край заебали, чуть ноут не разбил, поэтому пока закоментировал их -->
+            
                           
                             <!--содержимое для каждой странички-->
-                            <div class="info">
+                            <!-- <div class="info">
                                 <div class="pic1 mobile-none">
                                     <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
                                 </div>
@@ -280,7 +272,7 @@
                                 <div class="pic5 mobile-none">
                                     <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
                                 </div>
-                            </div>  
+                            </div>   -->
                 
                 {% block content%}
                 {%endblock%}
@@ -323,13 +315,13 @@
                                 <a class="footer-text" href="">Каталог</a>
                             </div>
                             <div class="footer-element">
-                                <a class="footer-text" href="">Акции</a>
+                                <a class="footer-text" href="{%url 'main:shares'%}">Акции</a>
                             </div>
                             <div class="footer-element">
-                                <a class="footer-text" href="">О Нас</a>
+                                <a class="footer-text" href="{%url 'main:about'%}">О Нас</a>
                             </div>
                             <div class="footer-element" >
-                                <a class="footer-text" href="">Помощь</a>
+                                <a class="footer-text" href="{%url 'main:support'%}">Помощь</a>
                             </div>
                         </div>
                     </div>

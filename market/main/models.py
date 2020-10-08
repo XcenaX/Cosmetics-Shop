@@ -15,7 +15,7 @@ class User(models.Model):
     balance = models.IntegerField(default=0)
     role = models.TextField(default='user')
     is_active = models.BooleanField(default=False)
-    img_url = models.TextField(default='')
+    img_url = models.TextField(default='/static/images/icons/user.svg')
     def __str__(self):
         return self.first_name
 
