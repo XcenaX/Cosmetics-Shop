@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-    <title>Категории</title>
+    <title>Корзина</title>
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <link rel="stylesheet" href="{% static 'css/support.css' %}">
     <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
@@ -18,15 +18,29 @@
         }
     </style>
     <div class="wrap-content">
-        <br><br>
 
-        <div class="top-block">
-            <div class="route">
-                Вернуться к покупкам
+        <div class="hide-on-mobile">
+            <br>
+            <div class="title">Корзина</div>
+            <br>
+            <div class="top-block">
+                <div class="route">
+                    Вернуться к покупкам
+                </div>
             </div>
         </div>
-        <br>
-        <div class="title">Корзина</div>
+
+        <div class="hide-on-pc">
+            <div class="title">Корзина</div>
+            <br>
+            <div class="top-block">
+                <div class="route">
+                    Вернуться к покупкам
+                </div>
+            </div>
+        </div>
+
+        <br><br>
 
         <div class="items-block">
 
