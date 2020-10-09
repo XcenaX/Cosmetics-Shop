@@ -222,6 +222,10 @@ def categories(request):
     return render(request, "categories.html", {})
 
 
+def thanks(request):
+    return render(request, "thanks.html", {})
+
+
 def shares(request):
     user = get_current_user(request)
     return render(request, "shares.html", {

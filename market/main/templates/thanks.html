@@ -4,9 +4,56 @@
 {% block styles %}
     <title>Оформление заказа</title>
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/support.css' %}">
 {% endblock %}
 
 {%block catalog%}active-menu{%endblock%}
 {%block catalog_mobile%}active-menu{%endblock%}
 
 {% block content %}
+    <style>
+        .wrap-content{
+            height: 65vh;
+        }
+
+        img{
+            width: 30px;
+            height: 30px;
+            border: 1px solid transparent;
+            border-radius: 50px;
+        }
+
+        .thanks-block{
+            width: 260px;
+            margin: 20vh auto;
+        }
+    </style>
+
+    <div class="wrap-content">
+        <div class="thanks-block" style="text-align: center;">
+            <div class="title" style="font-size: 20px;">
+                Спасибо за покупку!
+            </div>
+            <div style="font-family: Montserrat-Regular; font-size: 16px;font-weight: 550;">
+                Мы выслали чек вам на почту, <br> не потеряйте его :)
+            </div>
+            <br>
+            <div style="font-family: 'Montserrat-Regular'; font-size: 13px; margin-bottom: 3%;">
+                Расскажи о нас друзьям в соц сетях
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <img src="{% static 'images/icons/instagram.svg' %}" class="center">
+                </div>
+                <div class="col-4">
+                    <img src="{% static 'images/icons/vk.svg' %}" class="center">
+                </div>
+                <div class="col-4">
+                    <img src="{% static 'images/icons/facebook.svg' %}" class="center">
+                </div>
+            </div>
+            <br>
+            <a href="" style="font-family: 'Montserrat-Regular'; font-weight: 600;text-decoration: underline; color: black;">На главную</a>
+        </div>
+    </div>
+{% endblock %}
