@@ -1,0 +1,61 @@
+.form-header{
+    text-align: center;
+    font-weight: 600;
+    width: 100%;
+    /* margin: 50px auto; */
+    margin: 0px;
+    /* margin-bottom: 0px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ebebeb;
+}
+
+.comment{
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.15) !important;
+    border: 0 solid rgba(0,0,0,0.125);
+    margin-bottom: 40px;
+}
+
+.comment:hover{
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+}
+
+.widget-blog-items{
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.15) !important;
+    border: 0 solid rgba(0,0,0,0.125);
+}
+
+a.hidden-link:hover{
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+}
+
+.add-blog-form{
+    position: relative;
+    width: 100%;
+    margin-top: 120px;
+    padding: 0px;
+}
+
+form>button.btn{
+    margin: 10px;
+    font-size: 17px;
+}
+
+.form-group{
+    margin-bottom: 20px;
+}
+
+.form-block{
+    width:46%;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.form-group>label{
+    font-family: auto;
+    font-size: 17px;
+    font-weight: 600;
+}
