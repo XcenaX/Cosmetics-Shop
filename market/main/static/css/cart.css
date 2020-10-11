@@ -1,4 +1,35 @@
+.cart-content{
+    display: grid;
+    grid-template-areas: 'items inputs';
+    grid-column-gap: 5%;
+}
 
+.items-block{
+    grid-area: items;
+    border-right: 2px solid #cbccc8;
+}
+
+.inputs-block{
+    grid-area: inputs;
+}
+
+input{
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+    border: 1px solid transparent;
+    font-family: 'Montserrat-Regular';
+    padding-left: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.definition-text{
+    font-family: Montserrat-Regular;
+    font-weight: 600;
+    font-size: 18px;
+}
 
 .item-pc-version{
     display: grid;
@@ -6,8 +37,6 @@
     grid-column-gap: 50px;
     width: 100%;
     height: auto;
-    border: 2px solid #cbccc8;
-    border-radius: 0 0 75px 0;
 }
 
 .item-pc-version-image{
@@ -17,8 +46,8 @@
 }
 
 .item-pc-version-image img{
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -31,7 +60,7 @@
 
 .item-pc-version-price{
     grid-area: right;
-    padding-top: 5vw;
+    padding-top: 3vw;
     padding-right: 5vw;
 }
 
@@ -69,26 +98,25 @@
 .total-price{
     font-family: "Montserrat-Bold";
     font-size: 20px;
-    margin-bottom: 20px;
+    padding: 3%;
 }
 
 .order-button button{
-    width: 240px;
-    height: 50px;
+    width: 200px;
+    height: 40px;
     background: linear-gradient(271.55deg, #FFEBEB -10.33%, #F8FFD9 98.99%);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.13);
     border-radius: 36px;
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Montserrat-Bold";
-}
-
-.total-order-block{
-    text-align: center;
-    padding: 20px;
 }
 
 .hide-on-pc{
     display: none;
+}
+
+#delivery-inputs{
+    transition: 3s;
 }
 
 @media (max-width: 1090px) {
@@ -97,6 +125,18 @@
     }
     .hide-on-pc{
         display: block;
+    }
+
+    .items-block{
+        grid-area: items;
+        border-right: 0;
+    }
+
+    .cart-content{
+        display: grid;
+        grid-template-areas: 'items'
+        'inputs';
+        grid-column-gap: 5%;
     }
 
     .amount{
