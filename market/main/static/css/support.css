@@ -145,6 +145,8 @@
     }
     .input-mobile{
         margin: 20px auto;
-
+    }
+    .title{
+        font-size: 20px;
     }
 }

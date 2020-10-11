@@ -1,0 +1,70 @@
+#fullname{
+    font-size: 24px;
+    font-family: Montserrat-Regular;
+}
+
+.avatar{
+    width: 330px;
+    height: 330px;
+    border: 1px solid transparent;
+    border-radius: 50px;
+}
+
+.avatar img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 50%;
+}
+
+table img{
+    width: 150px;
+    height: 150px;
+}
+
+.table-text{
+    width: 200px;
+    font-size: 18px;
+    font-family: Montserrat-Regular;
+}
+
+tr{
+    border-bottom: 2px solid #D6D3BB;
+}
+
+td{
+    padding: 3%;
+}
+
+.profile-content{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+@media (max-width: 900px) {
+    table img {
+        display: none;
+    }
+
+    .profile-content{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .table-text{
+        width: 80px;
+        font-size: 16px;
+        font-family: Montserrat-Regular;
+    }
+
+    .important-text{
+        font-size: 18px;
+    }
+
+    .avatar{
+        width: 230px;
+        height: 230px;
+        border: 1px solid transparent;
+        border-radius: 50px;
+    }
+}

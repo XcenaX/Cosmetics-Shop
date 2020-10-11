@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    <title>Корзина</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/support.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
+{% endblock %}
+
+{% block catalog %}active-menu{% endblock %}
+{% block catalog_mobile %}active-menu{% endblock %}
+
+{% block content %}
+
+    <div class="wrap-content">
+
+        <div class="hide-on-mobile">
+            <br>
+        </div>
+
+
+        <div class="profile-content">
+            <div>
+                <div class="title">Личный кабинет</div>
+                <br>
+                <div class="top-block">
+                    <div class="route">
+                        Вернуться на главную
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="avatar" style="text-align: center">
+                        <img class="center" src="{% static 'images/people/5.jpg' %}">
+                        <a href="" style="color: grey;">Изменить</a>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-8">
+                            <p class="important-text">Валентина Васильевна</p>
+                        </div>
+                        <div class="col-4" style="color: grey; text-align: right">Редактировать</div>
+
+                        <div class="col-6">
+                            <p class="regular-text">Баланс: 12000тг</p>
+                        </div>
+                        <div class="col-6" style="color: grey; text-align: right">Пополнить</div>
+
+                        <div class="col-6"><br></div>
+                        <div class="col-6"><br></div>
+
+                        <div class="col-6" style="text-align: left">
+                            <p class="regular-text">Телефон:</p>
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            <p class="regular-text">+0 (000) 000 00 00</p>
+                        </div>
+
+                        <div class="col-6" style="text-align: left">
+                            <p class="regular-text">Почта:</p>
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            EXAMPLE@MAIL.RU
+                        </div>
+
+                        <div class="col-6" style="text-align: left">
+                            <p class="regular-text">Адрес:</p>
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            Ул. Пушкина 20
+                        </div>
+
+                        <div class="col-6" style="text-align: left">
+                            <p class="regular-text">Почтовый индекс:</p>
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            001001
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br><br><br><br>
+
+        <div class="title">История покупок</div>
+        <br><br>
+
+            <table style="width: 100%">
+                <tr>
+                    <td class="hide-on-mobile">
+                        <img src="{% static 'images/talking.jpg' %}" alt="">
+                    </td>
+                    <td>
+                        <div class="table-text">LOREM IPSUM</div>
+                    </td>
+                    <td>
+                        <div class="table-text">10мл</div>
+                    </td>
+                    <td>
+                        <div class="table-text">1 шт</div>
+                    </td>
+                    <td>
+                        <div class="table-text">2999тг</div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="hide-on-mobile">
+                        <img src="{% static 'images/talking.jpg' %}" alt="">
+                    </td>
+                    <td>
+                        <div class="table-text">LOREM IPSUM</div>
+                    </td>
+                    <td>
+                        <div class="table-text">10мл</div>
+                    </td>
+                    <td>
+                        <div class="table-text">1 шт</div>
+                    </td>
+                    <td>
+                        <div class="table-text">2999тг</div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="hide-on-mobile">
+                        <img src="{% static 'images/talking.jpg' %}" alt="">
+                    </td>
+                    <td>
+                        <div class="table-text">LOREM IPSUM</div>
+                    </td>
+                    <td>
+                        <div class="table-text">10мл</div>
+                    </td>
+                    <td>
+                        <div class="table-text">1 шт</div>
+                    </td>
+                    <td>
+                        <div class="table-text">2999тг</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <br><br>
+
+{% endblock %}
