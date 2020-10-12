@@ -29,14 +29,17 @@
     <div class="wrap-content">
         <div class="top-block" style="margin-bottom: 0px;margin-top: 30px;">
             <div class="route">
-                главная / Категории / Категория №1 / крем1
+                Главная / Категории / {{product.category.name}} / {{product.name}}
             </div>
         </div>
         
         <div class="row" style="margin-top: 50px;margin-bottom: 70px;">
             <div class="col-md-4 col-12 image-padding">
-                <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-main-image">
-                <div class="row">
+                {% with product.images.all|first as image %}
+                    <img src="{{image.img_url}}" alt="" class="product-main-image">
+                {% endwith %}
+                
+                {% comment %} <div class="row">
                     <div class="col-3">
                         <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-second-image">
                     </div>
@@ -49,24 +52,24 @@
                     <div class="col-3">
                         <img src="{%static 'images/icons/eye.svg'%}" alt="" class="product-second-image">
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
             <div class="col-md-5 col-12" style="margin: auto;">
                 <div class="info-block">
                     <div class="container">
                         <div class="row">
-                            <div class="info-title">Lorem Ipsum</div>
+                            <div class="info-title">{{product.name}}</div>
                             <div class="info-rating">
                                 
-                                <div class="rateit" data-rateit-value="3.2" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
+                                <div class="rateit" data-rateit-value="{{product.avarage_ratings}}" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  style="font-size:29px"></div>
                             </div>
                         </div>
                     </div>
                     <div class="info-description">
-                        Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text 
+                        {{product.description}}
                     </div>
                     <div class="info-price hide-on-mobile">
-                        2999тг
+                        {{product.price}}тг
                     </div>
                     <div class="container info-container-margin">
                         <div class="row">
@@ -93,7 +96,7 @@
                     <div style="width: 100%;">
                         <button class="info-button">Добавить в корзину</button>
                         <div class="info-price show-on-mobile">
-                            2999тг
+                            {{product.price}}тг
                         </div>
                     </div>
                     
@@ -109,7 +112,7 @@
                         Описание
                     </div>
                     <div class="under-info-text" style="width: 80%;">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                        {{product.description}}
                     </div>
                 </div>
                 <div class="col-6" style="padding-left: 0px;">
@@ -212,81 +215,35 @@
             <div class="comments-title">Популярное</div>
             <div class="popular-wrap">
                 <div class="row">
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
+                    {%for product in popular_products%}
+                        <div class="col-md-4 col-12">
+                            <a href="{% url 'main:product' product.id%}">
+                                <div class="popular-block">
+                                    <div class="popular-image-block">
+                                        {% with product.images.all|first as image %}
+                                            <img src="{{image.img_url}}" alt="" class="popular-image">
+                                        {% endwith %}
+                                        
+                                        <a href="#">
+                                            <div class="popular-icon"></div>
+                                        </a>
                                     </div>
                                     
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-    
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
+                                    <div class="popular-under-block">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="popular-title">{{product.name}}</div>
+                                                <div class="popular-price">{{product.price}}тг</div>
+                                            </div>
                                         </div>
+                                        
+                                        <div class="popular-text">{{product.description}} </div>
                                     </div>
                                     
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
                                 </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-    
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-                    
+                            </a>
+                        </div>
+                    {%endfor%}
                 </div>
             </div>
         </div>

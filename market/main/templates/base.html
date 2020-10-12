@@ -142,42 +142,14 @@
                                                 <a href="{% url 'main:categories' %}" class="submenu-link">Категории</a>
                                                 <div class="submenu submenu-table">
                                                     <table class="">
+                                                        {%for c1, c2 in categories%}
                                                         <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            
+                                                            <td><a href="{%url 'main:category' c1.id%}">{{c1.name}}</a></td>
+                                                            {%if c2%}
+                                                                <td><a href="{%url 'main:category' c2.id%}">{{c2.name}}</a></td>
+                                                            {% endif %}
                                                         </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                            <td><a href="{%url 'main:category' 1%}">Манекюр</a></td>
-                                                        </tr>
+                                                        {%endfor%}
                                                     </table>
                                                 </div>
                                                 

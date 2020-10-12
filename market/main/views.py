@@ -38,6 +38,10 @@ from django.views.generic import DetailView, TemplateView
 
 COUNT_PRODUCTS_ON_PAGE=20
 
+def pack(_list):
+    new_list = zip(_list[::2], _list[1::2])
+    return new_list
+
 def get_current_user(req):
     try:
         user_id = req.session["user_id"]
@@ -79,6 +83,9 @@ def session_parameter(request, name):
     except:
         return None
 
+def get_popular_products(count, product):
+    return Product.objects.filter(category=product.category, brand=product.brand).filter(~Q(id = product.id)).order_by('rating')[:count]
+
 def filter_products(request):
     role = session_parameter(request, "role")
     q = get_parameter(request, "q")
@@ -90,7 +97,7 @@ def filter_products(request):
     blocks = Product.objects.order_by("pub_date")
 
     if optional == "popular":
-        blocks = Product.objects.filter(ratings__isnull=False).order_by('ratings__average')
+        blocks = Product.objects.order_by('ratings__average')
     elif optional == "cheap":
         blocks = Product.objects.order_by("price")
     elif optional == "expencive":
@@ -260,8 +267,16 @@ def contacts(request):
 
 def product(request, id):
     user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user)
+    product = Product.objects.filter(id=id).first()
+    if not product:
+        return redirect(reverse("main:index"))
     return render(request, "product.html", {
         "user": user,
+        "bag": bag,
+        "product": product,
+        "categories": pack(list(Category.objects.all())),
+        "popular_products": get_popular_products(6, product),
     })
 
 

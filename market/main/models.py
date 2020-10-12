@@ -58,6 +58,7 @@ class Product(models.Model):
     brand =  models.ForeignKey(Brand, on_delete=models.CASCADE, blank=True, null=True)
     images = models.ManyToManyField(Image, blank=True)
     count_on_shop = models.IntegerField(null=True, blank=True, default=0)
+    
 
     def is_available(self):
         if count_on_shop <= 0:
@@ -81,6 +82,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 class Purchased_Product(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
