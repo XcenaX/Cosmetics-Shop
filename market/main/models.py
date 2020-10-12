@@ -2,10 +2,15 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
+import os
 
 class Image(models.Model):
     img_url = models.TextField(default='')
     name = models.TextField(default='')
+    absolute_path = models.TextField(default='')
+    
+    def delete_image(self):
+        os.remove(self.absolute_path)
 
 class User(models.Model):
     email = models.TextField(default='')
@@ -15,7 +20,7 @@ class User(models.Model):
     balance = models.IntegerField(default=0)
     role = models.TextField(default='user')
     is_active = models.BooleanField(default=False)
-    img_url = models.TextField(default='/static/images/icons/user.svg')
+    img_url = models.TextField(default='/static/images/icons/user.png')
     def __str__(self):
         return self.first_name
 
@@ -30,19 +35,35 @@ class Comment(models.Model):
 class Category(models.Model):
     name = models.TextField(default='')
     img_url = models.TextField(default='')
+    absolute_path = models.TextField(default='')
+    
+    def delete_image(self):
+        os.remove(self.absolute_path)
+
     def __str__(self):
         return self.name
 
-
+class Brand(models.Model):
+    name = models.TextField(default='')
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     name = models.TextField(default='')
+    description = models.TextField(default='')
     price = models.IntegerField(null=True, blank=True)
-    is_available = models.BooleanField(default=True)
     comments = models.ManyToManyField(Comment, blank=True)
     pub_date = models.DateTimeField(default=timezone.now)
-    category =  models.ForeignKey(Category, on_delete=models.CASCADE)
+    category =  models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    brand =  models.ForeignKey(Brand, on_delete=models.CASCADE, blank=True, null=True)
     images = models.ManyToManyField(Image, blank=True)
+    count_on_shop = models.IntegerField(null=True, blank=True, default=0)
+
+    def is_available(self):
+        if count_on_shop <= 0:
+            return False
+        else:
+            return True
 
     def number_of_ratings(self):
         ratings = Rating.objects.filter(product=self)

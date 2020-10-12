@@ -130,39 +130,19 @@
                 Категории
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <div class="category-item">
-                        <div class="category-item-text">Lorem Ipsum</div>
+                {%for category in categories %}
+                
+                    <div class="col-md-4 col-sm-12" style="margin-bottom:40px">
+                        <a href="{%url 'main:category' category.id%}">
+                            <div class="category-item" style="background-image: url('{{category.img_url}}')">
+                                <div class="category-item-text">{{category.name}}</div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="category-item">
-                        <div class="category-item-text">Lorem Ipsum</div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="category-item">
-                        <div class="category-item-text">Lorem Ipsum</div>
-                    </div>
-                </div>
+                
+                {%endfor%}
             </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <div class="category-item">
-                        <div class="category-item-text">Lorem Ipsum</div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="category-item">
-                        <div class="category-item-text">Lorem Ipsum</div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="category-item">
-                        <div class="category-item-text">Lorem Ipsum</div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="see-more"> <a href="">Смотреть еще</a></div>
         </div>
 

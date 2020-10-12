@@ -34,7 +34,7 @@ a.hidden-link:hover{
 .add-blog-form{
     position: relative;
     width: 100%;
-    margin-top: 120px;
+    margin-top: 0px;
     padding: 0px;
 }
 
@@ -48,8 +48,8 @@ form>button.btn{
 }
 
 .form-block{
-    width:46%;
-    padding: 10px;
+    width:48%;
+    padding: 1%;
     display: inline-block;
     vertical-align: top;
 }
@@ -58,4 +58,11 @@ div.form-group>label{
     font-family: auto;
     font-size: 17px;
     font-weight: 600;
+}
+
+@media (max-width:600px){
+    .form-block{
+        width: 100%;
+        padding: 5%;
+    }
 }

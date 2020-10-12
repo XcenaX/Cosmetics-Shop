@@ -65,6 +65,11 @@
                         <a href="{% url 'main:login' %}" class="mobile-header-menu-a">Войти</a>
                     </div>
                 {% endif %}
+                {% if user.role == "admin" %}
+                    <div class="mobile-header-menu-block">
+                        <a href="{% url 'main:myadmin' %}" class="mobile-header-menu-a {% block admin_mobile%}{%endblock%}">Админка</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="wrap">
@@ -86,9 +91,11 @@
                             
                         </div>
                         <div class="icons-block col-md-4 col-sm-4">
-                            <div class="header-icon" id="search-icon" style="background-image:url('{%static "images/icons/search.svg" %}')">
-                                <input id="search" type="text" class="search-input" placeholder="Поиск">
-                            </div>
+                            <form method="GET" action="{%url 'main:products'%}" class="header-icon" id="search-icon" >
+                                <div class="search-click-icon" id="search-click-icon"></div>
+                                <input id="search" type="text" class="search-input" name="q" placeholder="Поиск">
+                                <button type="submit" style="visibility:hidden; position:absolute" id="search_button"></button>
+                            </form>
                             {% if user %}
                                 <a href="{% url 'main:cart' %}">
                                     <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
@@ -104,7 +111,7 @@
                             {% if user %}    
                                 <a href="{%url 'main:profile'%}">
                                     <div class="header-icon" id="profile-icon" style="border:none">
-                                        <div class="profile-icon" style="background-image:url('{{user.img_url}}'); background-color: lightgray; border:none;float: right; background-size: 70%;">
+                                        <div class="profile-icon" style="background-image:url('{{user.img_url}}'); background-color: lightgray; border:none;float: right; background-size: cover;">
                                         </div>
                                         <span class="logout-text">
                                                 Профиль
@@ -219,6 +226,13 @@
                                 Помощь
                             </div>
                         </a>
+                        {% if user.role == "admin"%}
+                            <a href="{% url 'main:myadmin' %}">
+                                <div class="menu-block {%block admin%}{%endblock%}">
+                                    Админка
+                                </div>
+                            </a>
+                        {%endif%}
                     </div>
                 </div>
 
@@ -423,6 +437,9 @@
         function logout(){
             $("#logout").click()
         }
+        $("#search-click-icon").click(function(){
+            $("#search_button")[0].click(); 
+        });
     </script>
     <script src="{%static 'js/header.js'%}"></script>
     

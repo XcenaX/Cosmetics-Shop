@@ -1,6 +1,6 @@
 .category-item{
     position: relative;
-    background: #FFFFFF;
+    background-size: cover;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
     width: 100%;
     height: 220px;
@@ -9,6 +9,13 @@
 
 .category-item-text{
     position: absolute;
-    bottom: 3%;
-    left: 3%;
+    bottom: -40;
+    left: 0;
+    padding: 10px;
+    color: black;
+    font-weight: bold;
+    width: 100%;
+    height: 40px;
+    background-color: wheat;
+    
 }

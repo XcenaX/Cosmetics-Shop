@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 #from .forms import UserForm, CommentForm, BlogForm
-from .models import User, Product, Purchase, Bag, Rating
+from .models import User, Product, Purchase, Bag, Rating, Brand, Category, Image
 
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -50,7 +50,7 @@ def get_current_user(req):
 
 def get_users_bag(user):
     try:
-        bag = Bag.objects.get(owner=user)
+        bag = Bag.objects.filter(owner=user).first()
         return bag
     except:
         return None
@@ -82,23 +82,30 @@ def session_parameter(request, name):
 def filter_products(request):
     role = session_parameter(request, "role")
     q = get_parameter(request, "q")
-    category = get_parameter(request, "category")
-       
-    if category == "new":
-        blocks = Product.objects.order_by("pub_date")
-    elif category == "popular":
+    category_id = get_parameter(request, "category")
+    category = Category.objects.filter(id=category_id).first()
+    optional = get_parameter(request, "optional")
+    brand_id = get_parameter(request, "brand")
+    brand = Brand.objects.filter(id=brand_id).first()
+    blocks = Product.objects.order_by("pub_date")
+
+    if optional == "popular":
         blocks = Product.objects.filter(ratings__isnull=False).order_by('ratings__average')
-    elif category == "cheap":
+    elif optional == "cheap":
         blocks = Product.objects.order_by("price")
-    elif category == "expencive":
+    elif optional == "expencive":
         blocks = Product.objects.order_by("-price")
     else:
         blocks = Product.objects.all()
+    if brand:
+        blocks = blocks.filter(brand=brand)
+    if category:
+        blocks = blocks.filter(category=category)
     if q:
-        blocks = blocks.filter(Q(content__icontains=q) | Q(title__icontains=q) | Q(salary__icontains=q))
+        blocks = blocks.filter(Q(name__icontains=q) | Q(price__icontains=q) | Q(description__icontains=q))
                                                                         
     
-    blocks = blocks.filter(is_available=True)
+    blocks = blocks.filter(count_on_shop__gte=0)
     return blocks
 
 def logout(request):
@@ -197,52 +204,163 @@ def register(request):
 
     return render(request, "login.html", {})
 
+def get_paginated_blogs(request, paginator):
+    page = request.GET.get('page')
+    try:
+        page = int(page)
+    except:
+        page = 1
+    a = ""
+    block = ""
+    pages=[]
+    if page:
+        try:
+            block = paginator.page(page)
+        except EmptyPage:
+            block = paginator.page(paginator.num_pages)
+            page = paginator.num_pages
+
+        for i in range(page-2, page+3):
+            try:
+                a = paginator.page(i)
+                pages.append(i)
+            except:
+                continue
+        print(pages)
+        if pages[-1] != paginator.num_pages:
+            pages.append(paginator.num_pages)
+
+        if pages[0] != 1:
+            pages.insert(0, 1)
+    else:
+        pages = [1,2,3,4,5,paginator.num_pages]
+        block = paginator.page(1)
+    return block, pages
 
 def about(request):
-    return render(request, "about.html", {})
+    user = get_current_user(request)
+    return render(request, "about.html", {
+        "user": user,
+    })
 
 
 def support(request):
-    return render(request, "support.html", {})
+    user = get_current_user(request)
+    return render(request, "support.html", {
+        "user": user,
+    })
 
 
 def contacts(request):
-    return render(request, "contacts.html", {})
+    user = get_current_user(request)
+    return render(request, "contacts.html", {
+        "user": user,
+    })
 
 
 def product(request, id):
-    return render(request, "product.html", {})
+    user = get_current_user(request)
+    return render(request, "product.html", {
+        "user": user,
+    })
 
+
+def products(request):
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    q = get_parameter(request, "q")
+    q = "" if not q else q
+    brand_id = get_parameter(request, "brand")
+    brand = None
+    try:
+        brand = Brand.objects.get(id=brand_id)
+    except:
+        pass
+    price = get_parameter(request, "price")
+
+    blocks = filter_products(request)
+
+    paginator = Paginator(blocks, COUNT_PRODUCTS_ON_PAGE)
+    paginated_blocks, pages = get_paginated_blogs(request, paginator)
+
+    brands = Brand.objects.all()
+
+    return render(request, "products.html", {
+        "user": user,
+        "bag": bag,
+        "pages": pages,
+        "products": paginated_blocks,
+        "brand": brand,
+        "price": price,
+        "q": q,
+        "price_values": {
+            "all": "Цена",
+            "cheaper": "Дешевле",
+            "expencive": "Дороже"
+        },
+        "brands": brands,
+    })
 
 def category(request, id):
-    return render(request, "category.html", {})
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    return render(request, "category.html", {
+        "user": user,
+        "bag": bag,
+    })
 
 
 def categories(request):
-    return render(request, "categories.html", {})
-
-
-def thanks(request):
-    return render(request, "thanks.html", {})
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    return render(request, "categories.html", {
+        "user": user,
+        "bag": bag,
+    })
 
 
 def shares(request):
     user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
     return render(request, "shares.html", {
-        'user': user
+        "user": user,
+        "bag": bag,
     })
 
 
 def catalog(request):
-    return render(request, "catalog.html", {})
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    return render(request, "catalog.html", {
+        "user": user,
+        "bag": bag,
+    })
 
 
 def cart(request):
-    return render(request, "cart.html", {})
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    return render(request, "cart.html", {
+        "user": user,
+        "bag": bag,
+    })
 
+
+def thanks(request):
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    return render(request, "thanks.html", {
+        "user": user,
+        "bag": bag,
+    })
 
 def promotions(request):
-    return render(request, "promotions.html", {})
+    user = get_current_user(request)
+    bag = Bag.objects.filter(owner=user).first()
+    return render(request, "promotions.html", {
+        "user": user,
+        "bag": bag,
+    })
 
 
 def activate(request, uidb64, token):
@@ -289,25 +407,203 @@ def rate_product(request):
     return redirect(reverse("main:index")) 
 
 def add_product(request):
+    current_user = get_current_user(request)
+    if not current_user:
+        return redirect(reverse("main:index"))
     if request.method == "POST":
-        product_images = post_file(request, 'files')
-        # дописать добавление продукта
+        
+        bag = Bag.objects.filter(owner=current_user).first()
+
+        current_path = os.path.abspath(os.path.dirname(__file__))
+        images = post_file(request, 'preview')
+        description = post_parameter(request, "description")
+        name = post_parameter(request, "name")
+        category_id = int(post_parameter(request, 'category'))
+        brand_id = int(post_parameter(request, 'brand'))
+        price = int(post_parameter(request, 'price'))
+        count = int(post_parameter(request, 'count'))
+
+        brand = Brand.objects.get(id=brand_id)
+        category = Category.objects.get(id=category_id)
+        
+        for image in images:
+            if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
+                upload_error = "Одна из картинок имеет неверный формат! Допустимые форматы: jpg, png, jpeg" 
+                return render(request, 'admin.html', {
+                    "user": user,
+                    "bag": bag,
+                    "upload_error": upload_error,
+                    "error_code": "1",
+                    "categories": Category.objects.all(),
+                    "brands": Brand.objects.all(),
+                    "products": Product.objects.all()
+                })
+            
+        product = Product.objects.create(name=name, description=description, price=price, count_on_shop=count, category=category, brand=brand)
+        count = 1
+        for image in images:
+            new_img_url = current_path + "\\static\\images\\products\\product" + str(product.id) + "." + str(count) + ".jpg"
+            with open(new_img_url, 'wb') as handler:
+                for chunk in image.chunks():
+                    handler.write(chunk)
+            
+            static_img_url = "/static/images/products/product" + str(product.id) + "." + str(count) + ".jpg"
+            new_image = Image.objects.create(img_url=static_img_url, name=image.name, absolute_path=new_img_url)
+            product.images.add(new_image)
+            count += 1
+        product.save()
+        
+        return render(request, 'admin.html', {
+            "user": current_user,
+            "bag": bag,
+            "upload_product": True,
+            "categories": Category.objects.all(),
+            "brands": Brand.objects.all(),
+            "products": Product.objects.all(),
+        })
+    return redirect(reverse("main:index"))
+    
+def delete_category(request):
+    if request.method == "POST":
+        ids = request.POST.getlist("delete_category")
+        for id in ids:
+            category = Category.objects.filter(id=int(id)).first()
+            category.delete_image()
+            category.delete()
+        
+        return redirect(reverse('main:myadmin') + "?delete_category=true")
+    else:
+        return redirect(reverse('main:index'))
+
+def delete_product(request):
+    if request.method == "POST":
+        ids = request.POST.getlist("delete_category")
+        for id in ids:
+            product = Product.objects.filter(id=int(id)).first()
+            for image in product.images.all():
+                image.delete_image()
+                image.delete()
+            product.delete()
+        
+        return redirect(reverse('main:myadmin') + "?delete_category=true")
+    else:
+        return redirect(reverse('main:index'))
+
+def add_category(request):
+    current_user = get_current_user(request)
+    if not current_user:
+        return redirect(reverse("main:index"))
+    if request.method == "POST":
+        bag = Bag.objects.filter(owner=current_user).first()
+
+        current_path = os.path.abspath(os.path.dirname(__file__))
+        images = post_file(request, 'category_image')
+        name = post_parameter(request, "category_name")
+        
+        for image in images:
+            if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
+                upload_error = "Одна из картинок имеет неверный формат! Допустимые форматы: jpg, png, jpeg" 
+                return render(request, 'admin.html', {
+                    "user": user,
+                    "bag": bag,
+                    "upload_error": upload_error,
+                    "error_code": "3",
+                    "categories": Category.objects.all(),
+                    "brands": Brand.objects.all(),
+                    "products": Product.objects.all()
+                })
+            
+        
+        category = Category.objects.create(name=name)
+        new_img_url = current_path + "\\static\\images\\categories\\category" + str(category.id) + ".jpg"
+        with open(new_img_url, 'wb') as handler:
+            for chunk in images[0].chunks():
+                handler.write(chunk)
+        
+        static_img_url = "/static/images/categories/category" + str(category.id) + ".jpg"
+        category.img_url = static_img_url
+        category.absolute_path = new_img_url
+        category.save()
+        
+        return render(request, 'admin.html', {
+            "user": current_user,
+            "bag": bag,
+            "upload_category": True,
+            "categories": Category.objects.all(),
+            "brands": Brand.objects.all(),
+            "products": Product.objects.all(),
+        })
+    return redirect(reverse("main:index"))
+
+def add_brand(request):
+    current_user = get_current_user(request)
+    if not current_user:
+        return redirect(reverse("main:index"))
+    if request.method == "POST":
+        bag = Bag.objects.filter(owner=current_user).first()
+        name = post_parameter(request, "add_brand")
+        
+        brand = Brand.objects.create(name=name)
+        
+        return render(request, 'admin.html', {
+            "user": current_user,
+            "bag": bag,
+            "upload_brand": True,
+            "categories": Category.objects.all(),
+            "brands": Brand.objects.all(),
+            "products": Product.objects.all(),
+        })
+    return redirect(reverse("main:index"))
+
+def delete_brand(request):
+    if request.method == "POST":
+        brand_id = request.POST.getlist("delete_brand")
+        brand = Brand.objects.filter(id=int(brand_id))
+        brand.delete()
+        return redirect(reverse('main:myadmin') + "?delete_category=true")
+    else:
+        return redirect(reverse('main:index'))
 
 def index(request):
-    q = get_parameter(request, "q")
-    q = "" if not q else q
-    category = get_parameter(request, "category")
     user = get_current_user(request)
     bag = get_users_bag(user)
-    blocks = filter_products(request)
         
     return render(request, 'index.html', {
         "user": user,
         "bag": bag,
-        "blocks": blocks,
-        "q": q,
-        "category": category,
+        "categories": Category.objects.all()[:6],
     })
+
+def admin_panel(request):
+    user = get_current_user(request)
+    if not user:
+        return redirect(reverse('main:index'))
+    if not user.role == "admin":
+        return redirect(reverse('main:index'))
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    bag = Bag.objects.filter(owner=user).first()
+    
+    upload_category = get_parameter(request, "upload_category")
+    upload_product = get_parameter(request, "upload_product")
+    delete_category = get_parameter(request,"delete_category")
+    delete_product = get_parameter(request, "delete_product")
+
+    
+        
+
+    return render(request, 'admin.html', {
+        "user": user,
+        "categories": categories,
+        "brands": Brand.objects.all(),
+        "upload_category": upload_category,
+        "delete_category": delete_category,
+        "upload_product": upload_product,
+        "delete_product": delete_product,
+        "products": products,
+    })
+
+
 
 def profile(request):
     user = get_current_user(request)

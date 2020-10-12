@@ -7,27 +7,35 @@
 
 {% endblock %}
 
+{%block admin%}active-menu{%endblock%}
+{%block admin_mobile%}active-menu{%endblock%}
+
 {% block content %}
-{% if upload_category or upload_blog or delete_category or delete_blog  %}
+{% if upload_category or upload_product or delete_category or delete_product or upload_brand or delete_brand %}
 <div class="alert alert-dismissable alert-success mb-0 rounded-0" id="success-update" style="padding:15px">
     <button aria-hidden="true" class="close" id="close" data-dismiss="alert" type="button"
         style="top:0;right:0">×</button>
     {% if upload_category%}
-    Категория қосылды!
-    {% elif upload_blog %}
-    Блог қосылды!
+    Категория добавлена!
+    {% elif upload_product %}
+    Продукт добавлен!
     {% elif delete_category %}
-    Категориялар жойылды!
-    {% elif delete_blog %}
-    Блог жойылды!
+    Категория удалена!
+    {% elif delete_product %}
+    Продукт удален!
+    {% elif delete_brand %}
+    Бренд удален!
+    {% elif upload_brand %}
+    Бренд добавлен!
     {% endif %}
+
 </div>
 {% endif %}
 
-<div class="container">
+<div class="container" style="margin-top:120px">
     <div class="row">
         <div class="col-md-6 col-12">
-            <form method="post" action="{% url 'main:myadmin'%}" class="comment add-blog-form"
+            <form method="post" action="{% url 'main:add_product'%}" class="comment add-blog-form"
                 enctype="multipart/form-data">{% csrf_token %}
                 <h2 class="form-header">Добавить продукт</h2>
                 {% if error_code == "2" %}
@@ -43,13 +51,21 @@
                         <label for="category">Категория</label>
                         <select multiple class="form-control" name="category" id="category">
                             {% for category in categories%}
-                            <option value="{{category.name}}">{{category.name}}</option>
+                            <option value="{{category.id}}">{{category.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">Бренд</label>
+                        <select multiple class="form-control" name="brand" id="brand">
+                            {% for brand in brands%}
+                            <option value="{{brand.id}}">{{brand.name}}</option>
                             {%endfor%}
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="image">Картинки продукта</label>
-                        <input type="file" class="form-control-file" name="preview" accept=".gif,.jpg,.jpeg,.png"
+                        <input type="file" class="form-control-file" id="images" multiple name="preview" accept=".gif,.jpg,.jpeg,.png"
                             id="image">
                         {% if error_code == "1" %}
                         <span style="color:red;font-family:auto;">{{upload_error}}</span>
@@ -59,58 +75,100 @@
                 <div class="form-block">
                     <div class="form-group">
                         <label for="desc">Описание продукта</label>
-                        <textarea rows="15" cols="12" style="resize:none;width:100%;" type="text" class="form-control"
+                        <textarea rows="8" cols="12" style="resize:none;width:100%;" type="text" class="form-control"
                             name="description" id="desc" placeholder="Введите описание продукта"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Цена продукта</label>
+                        <input type="number" class="form-control"
+                            name="price" id="price" placeholder="Введите цену продукта">
+                    </div>
+                    <div class="form-group">
+                        <label for="count">Кол-во продукта</label>
+                        <input type="number" class="form-control"
+                            name="count" id="count" placeholder="Кол-во продукта на складе">
                     </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary m-10">Добавить</button>
+            </form>
+            <form method="post" action="{%url 'main:add_brand'%}"  class="comment add-blog-form"
+                enctype="multipart/form-data">{% csrf_token %}
+                <h2 class="form-header">Добавить бренд</h2>
+                <div>
+                    <div class="form-group" style="width:100%;padding:4%">
+                        <label for="add_brand">Бренд</label>
+                        <input type="text" class="form-control" name="add_brand" id="add_brand"
+                            aria-describedby="emailHelp" placeholder="Введите название бренда" style="width:100%">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary m-10">Добавить</button>
+            </form>
+            <form method="post" action="{%url 'main:delete_brand'%}"  class="comment add-blog-form"
+                enctype="multipart/form-data" >{% csrf_token %}
+                <h2 class="form-header">Удалить бренд</h2>
+                <div>
+                    <div class="form-group" style="width:100%;padding:4%">
+                        <label for="delete_brand">Выберите бренд</label>
+                        <select multiple class="form-control" name="delete_brand" id="delete_brand">
+                            {% for brand in brands%}
+                            <option value="{{brand.id}}">{{brand.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary m-10">Удалить</button>
             </form>
         </div>
         <div class="col-md-6 col-12">
-            <form method="post"  class="comment add-blog-form"
+            <form method="post" action="{%url 'main:add_category'%}" class="comment add-blog-form"
                 enctype="multipart/form-data">{% csrf_token %}
                 <h2 class="form-header">Добавить категорию</h2>
+                {% if error_code == "3" %}
+                <h2 style="color:red;font-size:17px;text-align:center;">{{upload_error}}</h2>
+                {% endif %}
                 <div>
-                    <div class="form-group" style="width:95%;padding:10px">
-                        <label for="category_name">Атауы</label>
+                    <div class="form-group" style="width:100%;padding:4%">
+                        <label for="category_name">Категория</label>
                         <input type="text" class="form-control" name="category_name" id="category_name"
                             aria-describedby="emailHelp" placeholder="Введите название категории" style="width:100%">
+                    </div>
+                    <div class="form-group"style="width:100%;padding:4%">
+                        <label for="category_image">Картинка категории</label>
+                        <input type="file" class="form-control-file" id="category_image" name="category_image" accept=".gif,.jpg,.jpeg,.png">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary m-10">Добавить</button>
             </form>
-            <form method="post"  class="comment add-blog-form"
-                enctype="multipart/form-data" style="margin-top:0px">{% csrf_token %}
-                <h2 class="form-header">Удалить продукт</h2>
-                <div>
-                    <div class="form-group" style="width:95%;padding:10px">
-                        <label for="category_name2">Выберите продукт</label>
-                        <select multiple class="form-control" name="delete_blog" id="category_name2">
-                            {% for blog in blogs%}
-                            <option value="{{blog.id}}">{{blog.title}}</option>
-                            {%endfor%}
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary m-10">Удалить</button>
-            </form>
-
-
-            <form method="post"  class="comment add-blog-form"
-                enctype="multipart/form-data" style="margin-top:0px">{% csrf_token %}
+            <form method="post" action="{%url 'main:delete_category'%}"  class="comment add-blog-form"
+                enctype="multipart/form-data" >{% csrf_token %}
                 <h2 class="form-header">Удалить категорию</h2>
                 <div>
-                    <div class="form-group" style="width:95%;padding:10px">
+                    <div class="form-group" style="width:100%;padding:4%">
                         <label for="category_name2">Выберите категорию</label>
                         <select multiple class="form-control" name="delete_category" id="category_name2">
                             {% for category in categories%}
-                            <option value="{{category.name}}">{{category.name}}</option>
+                            <option value="{{category.id}}">{{category.name}}</option>
                             {%endfor%}
                         </select>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-primary m-10">Удалить</button>
+            </form>
+            <form method="post" action="{%url 'main:delete_product'%}"  class="comment add-blog-form"
+                enctype="multipart/form-data" >{% csrf_token %}
+                <h2 class="form-header">Удалить продукт</h2>
+                <div>
+                    <div class="form-group" style="width:100%;padding:4%">
+                        <label for="category_name2">Выберите продукт</label>
+                        <select multiple class="form-control" name="delete_blog" id="category_name2">
+                            {% for product in products%}
+                            <option value="{{product.id}}">{{product.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary m-10">Удалить</button>
             </form>
         </div>
@@ -129,5 +187,11 @@
             modal.style.display = "none";
         };
     }
+    $("#images").on("change", function() {
+        if ($("#images")[0].files.length > 5) {
+            alert("У каждого товара может быть максимум 5 картинок");
+            $("#images")[0].value = "";
+        }
+    });
 </script>
 {% endblock %}
