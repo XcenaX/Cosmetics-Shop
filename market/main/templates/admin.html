@@ -4,33 +4,14 @@
 {%block styles %}
 <title>Админка</title>
 <link rel="stylesheet" href="{%static 'css/admin.css'%}">
-
+<script src="{%static 'js/admin.js'%}"></script>
 {% endblock %}
 
 {%block admin%}active-menu{%endblock%}
 {%block admin_mobile%}active-menu{%endblock%}
 
 {% block content %}
-{% if upload_category or upload_product or delete_category or delete_product or upload_brand or delete_brand %}
-<div class="alert alert-dismissable alert-success mb-0 rounded-0" id="success-update" style="padding:15px">
-    <button aria-hidden="true" class="close" id="close" data-dismiss="alert" type="button"
-        style="top:0;right:0">×</button>
-    {% if upload_category%}
-    Категория добавлена!
-    {% elif upload_product %}
-    Продукт добавлен!
-    {% elif delete_category %}
-    Категория удалена!
-    {% elif delete_product %}
-    Продукт удален!
-    {% elif delete_brand %}
-    Бренд удален!
-    {% elif upload_brand %}
-    Бренд добавлен!
-    {% endif %}
 
-</div>
-{% endif %}
 
 <div class="container" style="margin-top:120px">
     <div class="row">
@@ -50,7 +31,7 @@
                     <div class="form-group">
                         <label for="category">Категория</label>
                         <select multiple class="form-control" name="category" id="category">
-                            {% for category in categories%}
+                            {% for category in product_categories%}
                             <option value="{{category.id}}">{{category.name}}</option>
                             {%endfor%}
                         </select>
@@ -147,7 +128,7 @@
                     <div class="form-group" style="width:100%;padding:4%">
                         <label for="category_name2">Выберите категорию</label>
                         <select multiple class="form-control" name="delete_category" id="category_name2">
-                            {% for category in categories%}
+                            {% for category in product_categories%}
                             <option value="{{category.id}}">{{category.name}}</option>
                             {%endfor%}
                         </select>
@@ -194,4 +175,15 @@
         }
     });
 </script>
+    {%if request.session.admin_success%}
+        <script>
+            alertify.success("{{request.session.admin_success}}",4);
+            remove_parameter("admin_success", "{{csrf_token}}");
+        </script>
+    {%elif request.session.admin_error%}
+        <script>
+            alertify.error("{{request.session.admin_error}}",4);
+            remove_parameter("admin_error", "{{csrf_token}}");
+        </script>
+    {%endif%}
 {% endblock %}

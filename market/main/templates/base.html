@@ -2,14 +2,17 @@
 {% block links %}    
     
     <head>        
+        <script src="{%static 'js/alertify.js'%}"></script>
+        <link rel="stylesheet" href="{%static 'css/alertify/alertify.min.css'%}">
+        <link rel="stylesheet" href="{%static 'css/alertify/themes/default.min.css'%}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{%static 'css/bootstrap/bootstrap.min.css'%}">
         <link rel="stylesheet" href="{%static 'css/main.css'%}">
         <link rel="stylesheet" href="{%static 'css/submenu.css'%}">
+
         <script src="{%static 'js/jquery.min.js'%}"></script>
         <script src="{%static 'js/bootstrap/bootstrap.js'%}"></script>
-        
         <link rel="icon" href="{%static 'images/logo-cuted.png'%}">
         
         {% block styles %}
@@ -102,8 +105,8 @@
                                         <span class="basket-text">
                                             {{user.balance}}тг
                                         </span>
-                                        <div class="basket-count">
-                                            {{bag.products.all|length}}
+                                        <div class="basket-count" id="bag_count">
+                                            {{bag.count_of_products}}
                                         </div>
                                     </div>
                                 </a>

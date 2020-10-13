@@ -88,8 +88,13 @@ class Product(models.Model):
 class Purchased_Product(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.IntegerField(null=True, blank=True)
+    
+    def get_total_price(self):
+        price = self.product.price
+        return price * self.count
+
     def __str__(self):
-        return self.product
+        return self.product.name
 
 class Purchase(models.Model):
     purchased_products = models.ManyToManyField(Purchased_Product, blank=True)
@@ -101,8 +106,15 @@ class Purchase(models.Model):
         return self.owner
 
 class Bag(models.Model):
-    products = models.ManyToManyField(Product, blank=True)
+    products = models.ManyToManyField(Purchased_Product, blank=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    
+    def count_of_products(self):
+        count = 0
+        for purchased_product in self.products.all():
+            count += purchased_product.count
+        return count
+
     def __str__(self):
         return self.owner.first_name
 

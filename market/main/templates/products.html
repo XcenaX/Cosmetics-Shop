@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
     <script src="{%static 'js/search.js'%}"></script>
+    <script src="{%static 'js/add_product_to_bag.js'%}"></script>
 {% endblock %}
 
 {%block catalog%}active-menu{%endblock%}
@@ -60,16 +61,14 @@
 
                     {%for product in products %}
                         <div class="col-md-4 col-12">
-                            <a href="{% url 'main:product' product.id%}">
-                                <div class="popular-block">
+                            <div class="popular-block">
+                                <a href="{% url 'main:product' product.id%}">
                                     <div class="popular-image-block">
                                         {% with product.images.all|first as image %}
                                         <img src="{{image.img_url}}" alt="" class="popular-image">
                                         {% endwith %}
+                                    
                                         
-                                        <a href="">
-                                            <div class="popular-icon"></div>
-                                        </a>
                                     </div>
                                     
                                     <div class="popular-under-block">
@@ -82,9 +81,11 @@
                                         
                                         <div class="popular-text">{{product.description}}</div>
                                     </div>
-                                    
-                                </div>
-                            </a>
+                                </a> 
+                                <form action="{% url 'main:add_product_to_bag'%}" method="POST">{% csrf_token %}
+                                    <div class="popular-icon" onclick="buy({{product.id}}, '{{ csrf_token }}')"></div>       
+                                </form>
+                            </div>
                         </div>
                     {%endfor%}
                     

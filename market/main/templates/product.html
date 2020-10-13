@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
     <link rel="stylesheet" href="{%static 'rateit/rateit.css'%}">
     <script src="{%static 'rateit/jquery.rateit.js'%}"></script>
+    <script src="{%static 'js/add_product_to_bag.js'%}"></script>
 {% endblock %}
 
 {%block help%}active-menu{%endblock%}
@@ -93,12 +94,12 @@
                             </div>
                         </div>
                     </div>
-                    <div style="width: 100%;">
-                        <button class="info-button">Добавить в корзину</button>
+                    <form style="width: 100%;" action="{% url 'main:add_product_to_bag'%}" method="POST">{% csrf_token %}
+                        <button class="info-button success" onclick="buy({{product.id}}, '{{ csrf_token }}')">Добавить в корзину</button>
                         <div class="info-price show-on-mobile">
                             {{product.price}}тг
                         </div>
-                    </div>
+                    </form>
                     
                 </div>
             </div>

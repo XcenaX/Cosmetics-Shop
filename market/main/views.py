@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 #from .forms import UserForm, CommentForm, BlogForm
-from .models import User, Product, Purchase, Bag, Rating, Brand, Category, Image
+from .models import User, Product, Purchase, Bag, Rating, Brand, Category, Image, Purchased_Product
 
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -296,7 +296,7 @@ def contacts(request):
 
 def product(request, id):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user)
+    bag = get_users_bag(user)
     product = Product.objects.filter(id=id).first()
     if not product:
         return redirect(reverse("main:index"))
@@ -343,6 +343,7 @@ def products(request):
             "expencive": "Дороже"
         },
         "brands": brands,
+        "categories": pack(list(Category.objects.all())),
     })
 
 def category(request, id):
@@ -385,6 +386,7 @@ def category(request, id):
         },
         "brands": brands,
         "category": category,
+        "categories": pack(list(Category.objects.all())),
     })
 
 
@@ -446,6 +448,11 @@ def promotions(request):
         "categories": pack(list(Category.objects.all())),
     })
 
+def delete_session_parameter(request):
+    if request.method == "POST":
+        name = post_parameter(request, "name")
+        del request.session[name]
+    return redirect(reverse("main:myadmin"))
 
 def activate(request, uidb64, token):
     user = None
@@ -513,15 +520,9 @@ def add_product(request):
         for image in images:
             if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
                 upload_error = "Одна из картинок имеет неверный формат! Допустимые форматы: jpg, png, jpeg" 
-                return render(request, 'admin.html', {
-                    "user": user,
-                    "bag": bag,
-                    "upload_error": upload_error,
-                    "error_code": "1",
-                    "categories": pack(list(Category.objects.all())),
-                    "brands": Brand.objects.all(),
-                    "products": Product.objects.all()
-                })
+                del request.session['admin_success'] 
+                request.session['admin_error'] = upload_error
+                return redirect(reverse("main:myadmin"))
             
         product = Product.objects.create(name=name, description=description, price=price, count_on_shop=count, category=category, brand=brand)
         count = 1
@@ -537,14 +538,8 @@ def add_product(request):
             count += 1
         product.save()
         
-        return render(request, 'admin.html', {
-            "user": current_user,
-            "bag": bag,
-            "upload_product": True,
-            "categories": pack(list(Category.objects.all())),
-            "brands": Brand.objects.all(),
-            "products": Product.objects.all(),
-        })
+        request.session['admin_success'] = 'Продукт успешно добавлен!'
+        return redirect(reverse('main:myadmin'))
     return redirect(reverse("main:index"))
     
 def delete_category(request):
@@ -554,8 +549,8 @@ def delete_category(request):
             category = Category.objects.filter(id=int(id)).first()
             category.delete_image()
             category.delete()
-        
-        return redirect(reverse('main:myadmin') + "?delete_category=true")
+        request.session['admin_success'] = 'Категория успешно удалена!'
+        return redirect(reverse('main:myadmin'))
     else:
         return redirect(reverse('main:index'))
 
@@ -568,7 +563,7 @@ def delete_product(request):
                 image.delete_image()
                 image.delete()
             product.delete()
-        
+        request.session['admin_success'] = 'Продукт успешно удален!'
         return redirect(reverse('main:myadmin') + "?delete_category=true")
     else:
         return redirect(reverse('main:index'))
@@ -587,15 +582,9 @@ def add_category(request):
         for image in images:
             if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
                 upload_error = "Одна из картинок имеет неверный формат! Допустимые форматы: jpg, png, jpeg" 
-                return render(request, 'admin.html', {
-                    "user": user,
-                    "bag": bag,
-                    "upload_error": upload_error,
-                    "error_code": "3",
-                    "categories": pack(list(Category.objects.all())),
-                    "brands": Brand.objects.all(),
-                    "products": Product.objects.all()
-                })
+                del request.session['admin_success'] 
+                request.session['admin_error'] = upload_error
+                return redirect(reverse("main:myadmin"))
             
         
         category = Category.objects.create(name=name)
@@ -609,14 +598,8 @@ def add_category(request):
         category.absolute_path = new_img_url
         category.save()
         
-        return render(request, 'admin.html', {
-            "user": current_user,
-            "bag": bag,
-            "upload_category": True,
-            "categories": pack(list(Category.objects.all())),
-            "brands": Brand.objects.all(),
-            "products": Product.objects.all(),
-        })
+        request.session['admin_success'] = 'Категория успешно добавлена!'
+        return redirect(reverse("main:myadmin"))
     return redirect(reverse("main:index"))
 
 def add_brand(request):
@@ -628,15 +611,10 @@ def add_brand(request):
         name = post_parameter(request, "add_brand")
         
         brand = Brand.objects.create(name=name)
-        
-        return render(request, 'admin.html', {
-            "user": current_user,
-            "bag": bag,
-            "upload_brand": True,
-            "categories": pack(list(Category.objects.all())),
-            "brands": Brand.objects.all(),
-            "products": Product.objects.all(),
-        })
+        brand.save()
+
+        request.session['admin_success'] = 'Бренд успешно добавлен!'
+        return redirect(reverse("main:myadmin"))
     return redirect(reverse("main:index"))
 
 def delete_brand(request):
@@ -646,7 +624,8 @@ def delete_brand(request):
             brand = Brand.objects.filter(id=int(id)).first()
             brand.delete()
         
-        return redirect(reverse('main:myadmin') + "?delete_brand=true")
+        request.session['admin_success'] = 'Бренд успешно удален!'
+        return redirect(reverse('main:myadmin'))
     else:
         return redirect(reverse('main:index'))
 
@@ -669,24 +648,14 @@ def admin_panel(request):
         return redirect(reverse('main:index'))
     
     products = Product.objects.all()
-    bag = Bag.objects.filter(owner=user).first()
-    
-    upload_category = get_parameter(request, "upload_category")
-    upload_product = get_parameter(request, "upload_product")
-    delete_category = get_parameter(request,"delete_category")
-    delete_product = get_parameter(request, "delete_product")
-
-    
-        
+    bag = get_users_bag(user)
 
     return render(request, 'admin.html', {
         "user": user,
+        "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "product_categories": Category.objects.all(),
         "brands": Brand.objects.all(),
-        "upload_category": upload_category,
-        "delete_category": delete_category,
-        "upload_product": upload_product,
-        "delete_product": delete_product,
         "products": products,
     })
 
@@ -702,6 +671,31 @@ def profile(request):
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
     })
+
+def add_product_to_bag(request):
+    if request.method == "POST":
+        
+        product_id = post_parameter(request, "product_id")
+        if not product_id:
+            return JsonResponse({"error": "Нет параметра product_id!"})
+        
+        product = Product.objects.filter(id=product_id).first()
+        
+        user = get_current_user(request)
+        if not user:
+            return JsonResponse({"error": "Not Authorized!"})
+
+        bag = get_users_bag(user)
+
+        for purchased_product in bag.products.all():
+            if purchased_product.product == product:
+                purchased_product.count += 1
+                purchased_product.save()
+                return JsonResponse({"success": True})
+        new_product = Purchased_Product.objects.create(product=product, count=1)
+        bag.products.add(new_product)
+        return JsonResponse({"success": True})
+    return redirect(reverse("main:index"))
 
 def update_avatar(request):
     if request.method == "POST":

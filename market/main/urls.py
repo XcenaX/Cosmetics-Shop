@@ -29,8 +29,11 @@ urlpatterns = [
     path('delete_brand', views.delete_brand, name='delete_brand'),
     path('profile', views.profile, name='profile'),
     path('myadmin', views.admin_panel, name='myadmin'),
+    path('delete_session_parameter', views.delete_session_parameter, name='delete_session_parameter'),
+    path('add_product_to_bag', views.add_product_to_bag, name='add_product_to_bag'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.activate, name='activate'),    
     
 ]
+#

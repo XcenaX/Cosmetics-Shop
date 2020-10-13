@@ -1,6 +1,7 @@
 .popular-block{
     width: 100%;
     margin-bottom: 60px;
+    position: relative;
 }
 
 .popular-block-padding{
@@ -68,6 +69,7 @@
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 }
 
 @media (max-width:700px){
