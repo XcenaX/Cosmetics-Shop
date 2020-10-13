@@ -29,7 +29,7 @@
     <div class="wrap-content">
         <div class="top-block" style="margin-bottom: 0px;margin-top: 30px;">
             <div class="route">
-                Главная / Категории / {{product.category.name}} / {{product.name}}
+                <a href="{%url 'main:index'%}">Главная</a> / <a href="{%url 'main:categories'%}">Категории</a> / {{product.category.name}} / {{product.name}}
             </div>
         </div>
         

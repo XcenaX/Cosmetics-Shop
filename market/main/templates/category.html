@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
+    <script src="{%static 'js/search.js'%}"></script>
 {% endblock %}
 
 {%block catalog%}active-menu{%endblock%}
@@ -30,35 +31,43 @@
 
         <div class="top-block">
             <div class="route">
-                Главная / Категории / {{category.name}}
+                <a href="{%url 'main:index'%}">Главная</a> / <a href="{%url 'main:categories'%}">Категории</a> / {{category.name}}
             </div>
 
             <div class="filter-block">
-                <select name="price">
-                    <option value="all">Цена</option>
-                    <option value="cheaper">Дешевле</option>
-                    <option value="expencive">Дороже</option>
-                </select>
-                <select name="brand">
-                    <option value="all">Бренд</option>
-                    {%for brand in brands %}
-                        <option value="{{product.brand.id}}">{{product.brand.name}}</option>
-                    {%endfor%}
-                </select>
+                <form action="" method="GET">
+                    <select name="price" id="select-price">
+                        {% for key, value in price_values.items %}
+                            <option {%if key == price%} selected {%endif%}value="{{key}}">{{value}}</option>
+                        {% endfor%}
+                    </select>
+                    <select name="brand" id="select-brand">
+                        <option value="">Бренд</option>
+                        {% for item in brands %}
+                            <option {%if item.id == brand.id%} selected {%endif%}value="{{item.id}}">{{item.name}}</option>
+                        {% endfor%}
+                    </select>
+                    <input type="text" style="visibility: hidden;" value="{{q}}" name="q">
+                    <button style="visibility: hidden;" type="submit" id="search_button2"></button>
+                </form>
+                
             </div>
         </div>
-
+        {% if products %}
         <div class="comments" style="margin-bottom: 40px; margin-top: 60px;">
             <div class="popular-wrap">
-                {% if products %}
-                    <div class="row">
-                        {%for product in products%}
+                <div class="row">
+
+                    {%for product in products %}
                         <div class="col-md-4 col-12">
-                            <a href="{%url 'main:product' product.id%}">
+                            <a href="{% url 'main:product' product.id%}">
                                 <div class="popular-block">
                                     <div class="popular-image-block">
-                                        <img src="{{product.images.all.0.img_url}}" alt="" class="popular-image">
-                                        <a href="#">
+                                        {% with product.images.all|first as image %}
+                                        <img src="{{image.img_url}}" alt="" class="popular-image">
+                                        {% endwith %}
+                                        
+                                        <a href="">
                                             <div class="popular-icon"></div>
                                         </a>
                                     </div>
@@ -77,28 +86,31 @@
                                 </div>
                             </a>
                         </div>
-                        {%endfor%}
-                    </div>
-                {%else%}
-                    <h2 class="empty-text">Ничего не найдено!</h2>
-                {%endif%}
-                {% if products and pages|length > 1%}
-                    <div class="navigation">
-                        <ul>
-                            {% for page in pages%}
-                                {% if page == blocks.number %}
-                                    <li class="page-current">
-                                        <span>{{page}}</span>
-                                    </li>
-                                {% else %}
-                                    <li class="page-nav">
-                                        <a href="?page={{page}}"> {{page}} </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {%endif%}
+                    {%endfor%}
+                    
+                    
+                </div>
             </div>
         </div>
+        {% else %}
+            <h2 class="empty-text">Ничего не найдено!</h2>
+        {% endif %}
+
+        {% if products and pages|length > 1%}
+            <div class="navigation">
+                <ul>
+                    {% for page in pages%}
+                        {% if page == blocks.number %}
+                            <li class="page-current">
+                                <span>{{page}}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-nav">
+                                <a href="?page={{page}}"> {{page}} </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {%endif%}
 {% endblock %}

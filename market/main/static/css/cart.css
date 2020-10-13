@@ -13,7 +13,7 @@
     grid-area: inputs;
 }
 
-input{
+.inputs-block input{
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
     border: 1px solid transparent;
     font-family: 'Montserrat-Regular';
@@ -79,7 +79,7 @@ input{
     margin-right: 20px;
 }
 
-.amount button{
+.amount button, .amount button:focus{
     border: 1px solid #FFD4D4;
     border-radius: 50px;
     width: 30px;
@@ -88,6 +88,7 @@ input{
     padding-bottom: 10px;
     font-weight: bold;
     margin: 3px;
+    outline: none;
 }
 
 .item-price{
@@ -101,7 +102,7 @@ input{
     padding: 3%;
 }
 
-.order-button button{
+.order-button button, .order-button button:focus{
     width: 200px;
     height: 40px;
     background: linear-gradient(271.55deg, #FFEBEB -10.33%, #F8FFD9 98.99%);
@@ -109,6 +110,8 @@ input{
     border-radius: 36px;
     font-size: 16px;
     font-family: "Montserrat-Bold";
+    border: none;
+    outline: none;
 }
 
 .hide-on-pc{

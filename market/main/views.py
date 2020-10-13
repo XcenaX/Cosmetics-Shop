@@ -115,6 +115,35 @@ def filter_products(request):
     blocks = blocks.filter(count_on_shop__gte=0)
     return blocks
 
+def filter_products_with_category(request, category_id):
+    role = session_parameter(request, "role")
+    q = get_parameter(request, "q")
+    
+    category = Category.objects.filter(id=category_id).first()
+    optional = get_parameter(request, "optional")
+    brand_id = get_parameter(request, "brand")
+    brand = None
+    if brand_id:
+        brand = Brand.objects.filter(id=brand_id).first()
+    blocks = Product.objects.order_by("pub_date").filter(category__id=category_id)
+
+    if optional == "popular":
+        blocks = Product.objects.order_by('ratings__average')
+    elif optional == "cheap":
+        blocks = Product.objects.order_by("price")
+    elif optional == "expencive":
+        blocks = Product.objects.order_by("-price")
+    else:
+        blocks = Product.objects.all()
+    if brand:
+        blocks = blocks.filter(brand=brand)
+    if q:
+        blocks = blocks.filter(Q(name__icontains=q) | Q(price__icontains=q) | Q(description__icontains=q))
+                                                                        
+    
+    blocks = blocks.filter(count_on_shop__gte=0)
+    return blocks
+
 def logout(request):
     if request.method == "POST":
         try:
@@ -319,9 +348,43 @@ def products(request):
 def category(request, id):
     user = get_current_user(request)
     bag = Bag.objects.filter(owner=user).first()
+
+    q = get_parameter(request, "q")
+    q = "" if not q else q
+    
+    category = Category.objects.filter(id=id).first()
+
+    products = Product.objects.filter(category__id = id)
+
+    brand_id = get_parameter(request, "brand")
+    brand = None
+    if brand_id != '':
+        brand = Brand.objects.filter(id=brand_id).first()
+
+    price = get_parameter(request, "price")
+
+    blocks = filter_products_with_category(request, id)
+
+    paginator = Paginator(blocks, COUNT_PRODUCTS_ON_PAGE)
+    paginated_blocks, pages = get_paginated_blogs(request, paginator)
+
+    brands = Brand.objects.all()
+
     return render(request, "category.html", {
         "user": user,
         "bag": bag,
+        "pages": pages,
+        "products": paginated_blocks,
+        "brand": brand,
+        "price": price,
+        "q": q,
+        "price_values": {
+            "all": "Цена",
+            "cheaper": "Дешевле",
+            "expencive": "Дороже"
+        },
+        "brands": brands,
+        "category": category,
     })
 
 
@@ -331,6 +394,7 @@ def categories(request):
     return render(request, "categories.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 
@@ -340,6 +404,7 @@ def shares(request):
     return render(request, "shares.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 
@@ -349,6 +414,7 @@ def catalog(request):
     return render(request, "catalog.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 
@@ -358,6 +424,7 @@ def cart(request):
     return render(request, "cart.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 
@@ -367,6 +434,7 @@ def thanks(request):
     return render(request, "thanks.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 def promotions(request):
@@ -375,6 +443,7 @@ def promotions(request):
     return render(request, "promotions.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 
@@ -449,7 +518,7 @@ def add_product(request):
                     "bag": bag,
                     "upload_error": upload_error,
                     "error_code": "1",
-                    "categories": Category.objects.all(),
+                    "categories": pack(list(Category.objects.all())),
                     "brands": Brand.objects.all(),
                     "products": Product.objects.all()
                 })
@@ -472,7 +541,7 @@ def add_product(request):
             "user": current_user,
             "bag": bag,
             "upload_product": True,
-            "categories": Category.objects.all(),
+            "categories": pack(list(Category.objects.all())),
             "brands": Brand.objects.all(),
             "products": Product.objects.all(),
         })
@@ -523,7 +592,7 @@ def add_category(request):
                     "bag": bag,
                     "upload_error": upload_error,
                     "error_code": "3",
-                    "categories": Category.objects.all(),
+                    "categories": pack(list(Category.objects.all())),
                     "brands": Brand.objects.all(),
                     "products": Product.objects.all()
                 })
@@ -544,7 +613,7 @@ def add_category(request):
             "user": current_user,
             "bag": bag,
             "upload_category": True,
-            "categories": Category.objects.all(),
+            "categories": pack(list(Category.objects.all())),
             "brands": Brand.objects.all(),
             "products": Product.objects.all(),
         })
@@ -564,7 +633,7 @@ def add_brand(request):
             "user": current_user,
             "bag": bag,
             "upload_brand": True,
-            "categories": Category.objects.all(),
+            "categories": pack(list(Category.objects.all())),
             "brands": Brand.objects.all(),
             "products": Product.objects.all(),
         })
@@ -572,10 +641,12 @@ def add_brand(request):
 
 def delete_brand(request):
     if request.method == "POST":
-        brand_id = request.POST.getlist("delete_brand")
-        brand = Brand.objects.filter(id=int(brand_id))
-        brand.delete()
-        return redirect(reverse('main:myadmin') + "?delete_category=true")
+        ids = request.POST.getlist("delete_brand")
+        for id in ids:
+            brand = Brand.objects.filter(id=int(id)).first()
+            brand.delete()
+        
+        return redirect(reverse('main:myadmin') + "?delete_brand=true")
     else:
         return redirect(reverse('main:index'))
 
@@ -586,7 +657,8 @@ def index(request):
     return render(request, 'index.html', {
         "user": user,
         "bag": bag,
-        "categories": Category.objects.all()[:6],
+        "preview_categories": Category.objects.all()[:6],
+        "categories": pack(list(Category.objects.all())),
     })
 
 def admin_panel(request):
@@ -595,7 +667,7 @@ def admin_panel(request):
         return redirect(reverse('main:index'))
     if not user.role == "admin":
         return redirect(reverse('main:index'))
-    categories = Category.objects.all()
+    
     products = Product.objects.all()
     bag = Bag.objects.filter(owner=user).first()
     
@@ -609,7 +681,7 @@ def admin_panel(request):
 
     return render(request, 'admin.html', {
         "user": user,
-        "categories": categories,
+        "categories": pack(list(Category.objects.all())),
         "brands": Brand.objects.all(),
         "upload_category": upload_category,
         "delete_category": delete_category,
@@ -628,6 +700,7 @@ def profile(request):
     return render(request, 'profile.html', {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
     })
 
 def update_avatar(request):

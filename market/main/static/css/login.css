@@ -13,6 +13,12 @@
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.login_back{
+    background-image: url("../images/login_back.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .login-upper-button-left, .login-upper-button-right{
     height: 80px;
     text-align: center;
@@ -138,6 +144,7 @@
     font-size: 18px;
     line-height: 22px;
     text-transform: capitalize;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.15);
 }
 
 .show-on-mobile{
@@ -155,6 +162,9 @@
 }
 
 @media (max-width:700px){
+    .login_back{
+        background: #FECDCD;
+    }
     .login-block{
         width: 90%;
         height: 530px;

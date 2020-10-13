@@ -130,7 +130,7 @@
                 Категории
             </div>
             <div class="row">
-                {%for category in categories %}
+                {%for category in preview_categories %}
                 
                     <div class="col-md-4 col-sm-12" style="margin-bottom:40px">
                         <a href="{%url 'main:category' category.id%}">
@@ -143,7 +143,7 @@
                 {%endfor%}
             </div>
             
-            <div class="see-more"> <a href="">Смотреть еще</a></div>
+            <div class="see-more"> <a href="{%url 'main:categories'%}">Смотреть еще</a></div>
         </div>
 
         <div class="shares-wrap">
