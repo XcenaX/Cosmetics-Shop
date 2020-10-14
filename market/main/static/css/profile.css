@@ -17,7 +17,7 @@
     border-radius: 50%;
 }
 
-table img{
+.purchases-table img{
     width: 150px;
     height: 150px;
 }
@@ -28,11 +28,11 @@ table img{
     font-family: Montserrat-Regular;
 }
 
-tr{
+.purchases-table tr{
     border-bottom: 2px solid #D6D3BB;
 }
 
-td{
+.purchases-table td{
     padding: 3%;
 }
 
@@ -42,7 +42,7 @@ td{
 }
 
 @media (max-width: 900px) {
-    table img {
+    .purchases-table table img {
         display: none;
     }
 
