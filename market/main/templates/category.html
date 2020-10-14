@@ -58,7 +58,7 @@
         <div class="comments" style="margin-bottom: 40px; margin-top: 60px;">
             <div class="popular-wrap">
                 <div class="row">
-
+                    {% csrf_token %}
                     {%for product in products %}
                         <div class="col-md-4 col-12">
                             <div class="popular-block">
@@ -82,8 +82,8 @@
                                         <div class="popular-text">{{product.description}}</div>
                                     </div>
                                 </a> 
-                                <form action="{% url 'main:add_product_to_bag'%}" method="POST">{% csrf_token %}
-                                    <div class="popular-icon" onclick="buy({{product.id}}, '{{ csrf_token }}')"></div>       
+                                <form action="{% url 'main:add_product_to_bag'%}" method="POST">
+                                    <div class="popular-icon" onclick="buy({{product.id}}"></div>       
                                 </form>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
             <div class="navigation">
                 <ul>
                     {% for page in pages%}
-                        {% if page == blocks.number %}
+                        {% if page == products.number %}
                             <li class="page-current">
                                 <span>{{page}}</span>
                             </li>

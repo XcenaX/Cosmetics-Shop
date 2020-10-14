@@ -36,7 +36,7 @@ from django.db.models import Q
 
 from django.views.generic import DetailView, TemplateView
 
-COUNT_PRODUCTS_ON_PAGE=20
+COUNT_PRODUCTS_ON_PAGE=12
 
 def pack(_list):
     new_list = zip(_list[::2], _list[1::2])
@@ -298,14 +298,38 @@ def product(request, id):
     user = get_current_user(request)
     bag = get_users_bag(user)
     product = Product.objects.filter(id=id).first()
+    
+    is_bought = False
+    purchases = Purchase.objects.filter(owner=user, is_delivered=True)
+    for purchase in purchases:
+        for current_product in purchase.purchased_products.all():
+            if current_product.product == product:
+                is_bought = True
+                break
+    
+    is_comment_before = False
+    comments = Rating.objects.filter(user=user)
+    for comment in comments:
+        if comment.product == product:
+            is_comment_before = True
+            break
+
+    can_comment = False
+    if user and is_bought and not is_comment_before:
+        can_comment = True
+
     if not product:
         return redirect(reverse("main:index"))
+
+    ratings = Rating.objects.filter(product=product)
     return render(request, "product.html", {
         "user": user,
         "bag": bag,
         "product": product,
         "categories": pack(list(Category.objects.all())),
         "popular_products": get_popular_products(6, product),
+        "can_comment": can_comment,
+        "ratings": ratings,
     })
 
 
@@ -674,10 +698,10 @@ def profile(request):
 
 def add_product_to_bag(request):
     if request.method == "POST":
-        
+        count = int(post_parameter(request, "count"))
         product_id = post_parameter(request, "product_id")
         if not product_id:
-            return JsonResponse({"error": "Нет параметра product_id!"})
+            return JsonResponse({"error": "No parameter product_id given! " + " Product_id is " + str(product_id)})
         
         product = Product.objects.filter(id=product_id).first()
         
@@ -689,12 +713,30 @@ def add_product_to_bag(request):
 
         for purchased_product in bag.products.all():
             if purchased_product.product == product:
-                purchased_product.count += 1
+                purchased_product.count += count
                 purchased_product.save()
                 return JsonResponse({"success": True})
-        new_product = Purchased_Product.objects.create(product=product, count=1)
+        new_product = Purchased_Product.objects.create(product=product, count=count-1)
         bag.products.add(new_product)
         return JsonResponse({"success": True})
+    return redirect(reverse("main:index"))
+
+def add_rating(request):
+    if request.method == "POST":
+        user = get_current_user(request)
+        stars = post_parameter(request, "stars")
+        text = post_parameter(request, "text")
+        product_id = post_parameter(request, "id")
+        product = Product.objects.filter(id=product_id).first()
+
+        if not stars or not text:
+            return redirect(reverse("main:index"))
+
+        stars = int(stars)
+        rating = Rating.objects.create(text=text, product=product, stars=stars, user=user)
+        rating.save()
+        request.session["rate_product"] = True
+        return redirect(reverse("main:product", kwargs={"id": product_id}))
     return redirect(reverse("main:index"))
 
 def update_avatar(request):

@@ -119,6 +119,9 @@
     border-radius: 36.5px;
     margin-top: 80px;
     outline: none;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .under-info-title{
@@ -174,7 +177,7 @@
     margin-right: 10px;
     border-radius: 50%;
     border: none;
-    background-color: gray;
+    background-size: cover;
 }
 
 .comment-user-block{
@@ -207,13 +210,13 @@
 
 .comment-text{
     margin-top: 30px;
-    font-size: 14px;
+    font-size: 20px;
     line-height: 17px;
     letter-spacing: 0.1em;
 }
 
 .add-comment-block{
-    padding-top: 15%;
+    padding-top: 10%;
     width: 100%;
     text-align: center;
 }
@@ -272,6 +275,20 @@
     transition: 0.3s;
 }
 
+.comment-quality{
+    font-family: Montserrat-Regular;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px
+}
+
+.comment-rate{
+    margin-left: auto;
+    width: auto;
+    height: auto;
+}
+
 .comment-form{
     width: 500px;
     height: 520px;
@@ -318,7 +335,7 @@
     font-weight: 300;
     font-size: 16px;
     line-height: 22px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     outline: none;
 }
 
@@ -454,9 +471,9 @@
     }
     .comment-form{
         width: 90%;
-        height: 80%;
+        height: 56%;
         margin-left: 5%;
-        margin-top: 15%;
+        margin-top: 44%;
         padding: 20px;
         border-radius: 0;
         top: 0;

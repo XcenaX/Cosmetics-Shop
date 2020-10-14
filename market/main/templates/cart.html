@@ -130,9 +130,9 @@
                         <div class="volume-amount-block">
                             <div class="item-text volume"><b>10мл</b></div>
                             <div class="amount">
-                                <button onclick="remove()">-</button>
+                                <button >-</button>
                                 <span id="count">1</span>
-                                <button onclick="add()">+</button>
+                                <button >+</button>
                             </div>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
         function add(product_id){
             var count = parseInt($("#count" + product_id).text()); 
             if(count < 999){
-                $("#count" product_id).text(++count);
+                $("#count" + product_id).text(++count);
             }
         }
     </script>

@@ -30,6 +30,7 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('myadmin', views.admin_panel, name='myadmin'),
     path('delete_session_parameter', views.delete_session_parameter, name='delete_session_parameter'),
+    path('add_rating', views.add_rating, name='add_comment'),
     path('add_product_to_bag', views.add_product_to_bag, name='add_product_to_bag'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),
