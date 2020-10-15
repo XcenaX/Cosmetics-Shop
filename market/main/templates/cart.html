@@ -6,13 +6,36 @@
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <link rel="stylesheet" href="{% static 'css/support.css' %}">
     <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
+    <script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}
 
 
 {% block content %}
     <style>
-        .title-block{
+        .title-block {
             background-image: url( {% static 'images/title-block-background-1.png' %});
+        }
+
+        .item-pc-version{
+            position: relative;
+        }
+
+        .delete-button{
+            position: absolute;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            padding-right: 5vw;
+            cursor: pointer;
+        }
+
+        .icon{
+            background-image: url("{% static 'images/icons/x.png' %}");
+            background-size: cover;
+            background-repeat: repeat;
+            background-position: center;
+            width: 15px;
+            height: 15px;
         }
     </style>
     <div class="wrap-content">
@@ -21,10 +44,8 @@
             <br>
         </div>
 
-
         <div>
             <div class="title">Корзина</div>
-            <br>
             <div class="top-block">
                 <div class="route">
                     Вернуться к покупкам
@@ -42,134 +63,78 @@
 
                 <br>
 
-                <div class="item-mobile-version hide-on-pc">
-                    <div class="item-mobile-version-image">
-                        <img src="{%static 'images/talking.jpg'%}" alt="">
-                    </div>
-                    <div class="item-mobile-version-volume-amount-block">
-                        <div class="item-price">2999тг</div>
-                        <br>
-                        <div class="amount">
-                            <button>-</button>
-                            1
-                            <button>+</button>
+                {% for item in bag.products.all %}
+
+                    <div class="item-mobile-version hide-on-pc">
+                        <div class="item-mobile-version-image">
+                            <img src="{% static 'images/talking.jpg' %}" alt="">
                         </div>
-                        <br><br>
-                        <div class="item-text volume"><b>10мл</b></div>
-                    </div>
-                    <div class="item-mobile-version-description">
-                        <br>
-                        <div class="item-title">Lorem Ipsum</div>
-                        <br>
-                        <div class="item-text">
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hide-on-pc">
-                    <br>
-                    <hr>
-                    <br>
-                </div>
-
-                <div class="item-mobile-version hide-on-pc">
-                    <div class="item-mobile-version-image">
-                        <img src="{%static 'images/talking.jpg'%}" alt="">
-                    </div>
-                    <div class="item-mobile-version-volume-amount-block">
-                        <div class="item-price">2999тг</div>
-                        <br>
-                        <div class="amount">
-                            <button>-</button>
-                            1
-                            <button>+</button>
-                        </div>
-                        <br><br>
-                        <div class="item-text volume"><b>10мл</b></div>
-                    </div>
-                    <div class="item-mobile-version-description">
-                        <br>
-                        <div class="item-title">Lorem Ipsum</div>
-                        <br>
-                        <div class="item-text">
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hide-on-pc">
-                    <br>
-                    <hr>
-                    <br>
-                </div>
-
-
-    {#            -------------------------------------------#}
-
-                <div class="item-pc-version hide-on-mobile">
-                    <div class="item-pc-version-image">
-                        <img src="{%static 'images/talking.jpg'%}" alt="">
-                    </div>
-                    <div class="item-pc-version-description">
-                        <div class="item-title">Lorem Ipsum</div>
-                        <br>
-                        <div class="item-text">
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                        </div>
-                        <br>
-                        <div class="volume-amount-block">
-                            <div class="item-text volume"><b>10мл</b></div>
+                        <div class="item-mobile-version-volume-amount-block">
+                            <div class="item-price">{{ item.product.price }}</div>
+                            <br>
                             <div class="amount">
-                                <button >-</button>
-                                <span id="count">1</span>
-                                <button >+</button>
+                                <button onclick="remove({{ item.product.id }})">-</button>
+                                <span id="count{{ item.product.id }}.1">{{ item.count }}</span>
+                                <button onclick="add({{ item.product.id }}, '{{ csrf_token }}')">+</button>
+                            </div>
+                            <br><br>
+                            <div class="item-text volume"><b>10мл</b></div>
+                        </div>
+                        <div class="item-mobile-version-description">
+                            <br>
+                            <div class="item-title">{{ item.product.name }}</div>
+                            <br>
+                            <div class="item-text">{{ item.product.description }}</div>
+                        </div>
+                    </div>
+
+                    <div class="hide-on-pc">
+                        <br>
+                        <hr>
+                        <br>
+                    </div>
+
+                    <div class="item-pc-version hide-on-mobile">
+                        <div class="item-pc-version-image">
+                            <img src="{% static 'images/talking.jpg' %}" alt="">
+                        </div>
+                        <div class="delete-button">
+                            <form action="{% url 'main:delete_product_from_bag'%}" method="POST">
+                                <div class="icon" onclick="delete_product({{item.product.id}}, {{ item.count }}, '{{ csrf_token }}')"></div>
+                            </form>
+                        </div>
+                        <div class="item-pc-version-description">
+                            <div class="item-title">{{ item.product.name }}</div>
+                            <br>
+                            <div class="item-text">{{ item.product.description }}</div>
+                            <br>
+                            <div class="volume-amount-block">
+                                <div class="item-text volume"><b>10мл</b></div>
+                                <div class="amount">
+                                    <button onclick="remove({{ item.product.id }})">-</button>
+                                    <span id="count{{ item.product.id }}.2">{{ item.count }}</span>
+                                    <button onclick="add({{ item.product.id }}, {{ item.product.price }}, '{{ csrf_token }}')">
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="item-pc-version-price">
-                        <div class="item-price">2999тг</div>
-                    </div>
-                </div>
-
-                <br><br>
-
-                <div class="item-pc-version hide-on-mobile">
-                    <div class="item-pc-version-image">
-                        <img src="{%static 'images/talking.jpg'%}" alt="">
-                    </div>
-                    <div class="item-pc-version-description">
-                        <div class="item-title">Lorem Ipsum</div>
-                        <br>
-                        <div class="item-text">
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                            Lorem Ipsum is simply dummy
-                            Lorem Ipsum is simply dummy text
-                        </div>
-                        <br>
-                        <div class="volume-amount-block">
-                            <div class="item-text volume"><b>10мл</b></div>
-                            <div class="amount">
-                                <button>-</button>
-                                1
-                                <button>+</button>
-                            </div>
+                        <div class="item-pc-version-price">
+                            <div class="item-price">{{ item.product.price }}</div>
                         </div>
                     </div>
-                    <div class="item-pc-version-price">
-                        <div class="item-price">2999тг</div>
+
+                    <div class="hide-on-pc">
+                        <br>
+                        <br>
                     </div>
-                </div>
+
+                    <script>
+                        $("#count{{ item.product.id }}.1").text({{ item.count }});
+                        $("#count{{ item.product.id }}.2").text({{ item.count }});
+                    </script>
+
+                {% endfor %}
             </div>
 
             <div class="inputs-block">
@@ -200,7 +165,7 @@
                         <input type="text" placeholder="Email" name="email">
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12"
-                    style="font-family: Montserrat-Regular; font-size: 16px; padding-top: 1.5%;">
+                         style="font-family: Montserrat-Regular; font-size: 16px; padding-top: 1.5%;">
                         <input type="checkbox" name="follow" style="width: auto;"> Следить за нами
                     </div>
                 </div>
@@ -233,9 +198,9 @@
 
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: center">
-                            <div class="total-price">Итого: 2999тг</div>
+                            <div class="total-price">Итого: <b id="total-price">{{ bag.sum_of_products }}</b>тг</div>
                             <div class="order-button">
-                                <button>Оплатить</button>
+                                <button onclick="buy({{ bag.sum_of_products }})">Оплатить</button>
                             </div>
                         </div>
                     </div>
@@ -251,37 +216,22 @@
 
         document.getElementById("deliveryText").style.color = "grey";
 
-        function check(){
+        function check() {
             deliveryInputs.hidden = !deliveryChecked;
         }
 
-        function pickupTextClick(){
+        function pickupTextClick() {
             deliveryChecked = false;
             document.getElementById("pickupText").style.color = "black";
             document.getElementById("deliveryText").style.color = "grey";
             check();
         }
 
-        function deliveryTextClick(){
+        function deliveryTextClick() {
             deliveryChecked = true;
             document.getElementById("pickupText").style.color = "grey";
             document.getElementById("deliveryText").style.color = "black";
             check();
-        }
-
-        function remove(product_id){
-            var count = parseInt($("#count" + product_id).text()); 
-            if(count > 1){
-                $("#count" + product_id).text(--count);
-            }
-            
-        }
-
-        function add(product_id){
-            var count = parseInt($("#count" + product_id).text()); 
-            if(count < 999){
-                $("#count" + product_id).text(++count);
-            }
         }
     </script>
 {% endblock %}

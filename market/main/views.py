@@ -694,11 +694,32 @@ def add_product_to_bag(request):
             if purchased_product.product == product:
                 purchased_product.count += count
                 purchased_product.save()
-                return JsonResponse({"success": True})
+                return JsonResponse({
+                    "success": True,
+                    "sum_of_products": bag.sum_of_products()
+                })
         new_product = Purchased_Product.objects.create(product=product, count=count, user=user)
         bag.products.add(new_product)
-        return JsonResponse({"success": True})
+        return JsonResponse({
+                "success": True,
+                "sum_of_products": bag.sum_of_products()
+            })
     return redirect(reverse("main:index"))
+
+
+def delete_product_from_bag(request):
+    if request.method == "POST":
+        purchased_product_id = post_parameter(request, "purchased_product_id")
+        if not purchased_product_id:
+            return JsonResponse({"error": "No parameter product_id given! " + " Product_id is " + str(purchased_product_id)})
+        user = get_current_user(request)
+        bag = get_users_bag(user)
+        bag.products.filter(id=purchased_product_id).delete()
+        return JsonResponse({
+            "success": True,
+            "sum_of_products": bag.sum_of_products()
+        })
+
 
 def add_rating(request):
     if request.method == "POST":

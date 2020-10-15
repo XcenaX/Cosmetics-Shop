@@ -121,6 +121,13 @@ class Bag(models.Model):
             count += purchased_product.count
         return count
 
+    def sum_of_products(self):
+        sum = 0
+        for purchased_product in self.products.all():
+            for i in range(purchased_product.count):
+                sum += purchased_product.product.price
+        return sum
+
     def __str__(self):
         return self.owner.first_name
 
