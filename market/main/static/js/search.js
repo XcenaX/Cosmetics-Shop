@@ -1,12 +1,12 @@
 $( document ).ready(function() {
-    $("#select-price").change(function(){
+    function selectCkick(){
+        this.size=1; 
+        this.blur();
         button = $("#search_button2");
         button.click();
-        console.log("test")
-    });
+    }
     
-    $("#select-brand").change(function(){
-        button = $("#search_button2");
-        button.click();
-    });
+    $("#select-price").change(selectCkick);
+    $("#select-brand").change(selectCkick);
+    $("#select-category").change(selectCkick);
 });

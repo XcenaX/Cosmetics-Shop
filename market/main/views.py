@@ -38,6 +38,7 @@ from django.views.generic import DetailView, TemplateView
 
 COUNT_PRODUCTS_ON_PAGE=12
 
+
 def pack(_list):
     new_list = zip(_list[::2], _list[1::2])
     return new_list
@@ -54,7 +55,7 @@ def get_current_user(req):
 
 def get_users_bag(user):
     try:
-        bag = Bag.objects.filter(owner=user).first()
+        bag = Bag.objects.get(owner=user)
         return bag
     except:
         return None
@@ -90,15 +91,22 @@ def filter_products(request):
     role = session_parameter(request, "role")
     q = get_parameter(request, "q")
     category_id = get_parameter(request, "category")
-    category = Category.objects.filter(id=category_id).first()
+    
     optional = get_parameter(request, "optional")
     brand_id = get_parameter(request, "brand")
+    
+    category = None
     brand = None
     try:
         brand = Brand.objects.filter(id=brand_id).first()
     except:
         pass
     blocks = Product.objects.order_by("pub_date")
+
+    try:
+        category = Category.objects.filter(id=category_id).first()
+    except:
+        pass
 
     if brand:
         blocks = blocks.filter(brand=brand)
@@ -337,15 +345,25 @@ def product(request, id):
 
 def products(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     q = get_parameter(request, "q")
     q = "" if not q else q
     brand_id = get_parameter(request, "brand")
+    category_id = get_parameter(request, "category")
+    
     brand = None
+    category = None
     try:
         brand = Brand.objects.get(id=brand_id)
     except:
         pass
+
+    try:
+        category = Category.objects.get(id=category_id)
+    except:
+        pass
+
+
     price = get_parameter(request, "optional")
 
     blocks = filter_products(request)
@@ -362,6 +380,7 @@ def products(request):
         "products": paginated_blocks,
         "brand": brand,
         "price": price,
+        "category": category,
         "q": q,
         "price_values": {
             "all": "Фильтр",
@@ -371,65 +390,22 @@ def products(request):
         },
         "brands": brands,
         "categories": pack(list(Category.objects.all())),
+        "all_categories": Category.objects.all()
     })
-
-def category(request, id):
-    user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
-
-    q = get_parameter(request, "q")
-    q = "" if not q else q
-    
-    category = Category.objects.filter(id=id).first()
-
-    products = Product.objects.filter(category__id = id)
-
-    brand_id = get_parameter(request, "brand")
-    brand = None
-    if brand_id != '':
-        brand = Brand.objects.filter(id=brand_id).first()
-
-    price = get_parameter(request, "price")
-
-    blocks = filter_products_with_category(request, id)
-
-    paginator = Paginator(blocks, COUNT_PRODUCTS_ON_PAGE)
-    paginated_blocks, pages = get_paginated_blogs(request, paginator)
-
-    brands = Brand.objects.all()
-
-    return render(request, "category.html", {
-        "user": user,
-        "bag": bag,
-        "pages": pages,
-        "products": paginated_blocks,
-        "brand": brand,
-        "price": price,
-        "q": q,
-        "price_values": {
-            "all": "Цена",
-            "cheaper": "Дешевле",
-            "expencive": "Дороже"
-        },
-        "brands": brands,
-        "category": category,
-        "categories": pack(list(Category.objects.all())),
-    })
-
 
 def categories(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     return render(request, "categories.html", {
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_categories": Category.objects.all(),
     })
-
 
 def shares(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     return render(request, "shares.html", {
         "user": user,
         "bag": bag,
@@ -439,7 +415,7 @@ def shares(request):
 
 def catalog(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     return render(request, "catalog.html", {
         "user": user,
         "bag": bag,
@@ -449,7 +425,7 @@ def catalog(request):
 
 def cart(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     return render(request, "cart.html", {
         "user": user,
         "bag": bag,
@@ -459,7 +435,7 @@ def cart(request):
 
 def thanks(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     return render(request, "thanks.html", {
         "user": user,
         "bag": bag,
@@ -468,7 +444,7 @@ def thanks(request):
 
 def promotions(request):
     user = get_current_user(request)
-    bag = Bag.objects.filter(owner=user).first()
+    bag = get_users_bag(user)
     return render(request, "promotions.html", {
         "user": user,
         "bag": bag,
@@ -610,7 +586,6 @@ def add_category(request):
         for image in images:
             if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
                 upload_error = "Одна из картинок имеет неверный формат! Допустимые форматы: jpg, png, jpeg" 
-                del request.session['admin_success'] 
                 request.session['admin_error'] = upload_error
                 return redirect(reverse("main:myadmin"))
             
@@ -720,7 +695,7 @@ def add_product_to_bag(request):
                 purchased_product.count += count
                 purchased_product.save()
                 return JsonResponse({"success": True})
-        new_product = Purchased_Product.objects.create(product=product, count=count-1)
+        new_product = Purchased_Product.objects.create(product=product, count=count, user=user)
         bag.products.add(new_product)
         return JsonResponse({"success": True})
     return redirect(reverse("main:index"))

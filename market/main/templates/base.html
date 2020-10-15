@@ -148,9 +148,9 @@
                                                     <table class="">
                                                         {%for c1, c2 in categories%}
                                                         <tr>
-                                                            <td><a href="{%url 'main:category' c1.id%}">{{c1.name}}</a></td>
+                                                            <td><a href="{%url 'main:products'%}?category={{c1.id}}">{{c1.name}}</a></td>
                                                             {%if c2%}
-                                                                <td><a href="{%url 'main:category' c2.id%}">{{c2.name}}</a></td>
+                                                                <td><a href="{%url 'main:products'%}?category={{c2.id}}">{{c2.name}}</a></td>
                                                             {% endif %}
                                                         </tr>
                                                         {%endfor%}

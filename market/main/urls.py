@@ -16,7 +16,6 @@ urlpatterns = [
     path('contacts', views.contacts, name='contacts'),
     path('categories', views.categories, name='categories'),
     path('shares', views.shares, name='shares'),
-    path('category/<int:id>', views.category, name='category'),
     path('catalog', views.catalog, name='catalog'),
     path('cart', views.cart, name='cart'),
     path('thanks', views.thanks, name='thanks'),

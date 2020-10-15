@@ -19,7 +19,7 @@
 
 .popular-image{
     width: 100%;
-    
+    max-height: 380px;
     background-size: cover;
 }
 

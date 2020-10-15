@@ -44,14 +44,16 @@
     <div class="wrap-content">
         <div class="top-block" style="margin-bottom: 0px;margin-top: 30px;">
             <div class="route">
-                <a href="{%url 'main:index'%}">Главная</a> / <a href="{%url 'main:categories'%}">Категории</a> / {{product.category.name}} / {{product.name}}
+                <a href="{%url 'main:index'%}">Главная</a> / <a href="{%url 'main:categories'%}">Категории</a> / <a href="{%url 'main:products'%}?category={{product.category.id}}">{{product.category.name}}</a> / {{product.name}}
             </div>
         </div>
         
         <div class="row" style="margin-top: 50px;margin-bottom: 70px;">
             <div class="col-md-5 col-12 image-padding">
                 {% with product.images.all|first as image %}
-                    <img src="{{image.img_url}}" alt="" class="product-main-image">
+                    <div style="width: 100%; padding-bottom: 100%;">
+                        <img src="{{image.img_url}}" alt="" class="product-main-image" >
+                    </div>
                 {% endwith %}
                 
                 {% comment %} <div class="row">
@@ -109,7 +111,7 @@
                         </div>
                     </div>
                     <form style="width: 100%;" action="{% url 'main:add_product_to_bag'%}" method="POST">{% csrf_token %}
-                        <div class="info-button success" onclick="buy({{product.id}})">Добавить в корзину</div>
+                        <div class="info-button success" onclick="buy({{product.id}}, false)">Добавить в корзину</div>
                         <div class="info-price show-on-mobile">
                             {{product.price}}тг
                         </div>
@@ -150,7 +152,7 @@
                             <div class="comment-block">
                                 <div class="container">
                                     <div class="row">
-                                        <img class="comment-avatar" src="{{user.img_url}}">
+                                        <img class="comment-avatar" src="{{rating.user.img_url}}">
                                         <div class="comment-user-block">
                                             <div class="comment-user-block-title">{{rating.user.first_name}}</div>
                                             <div class="comment-user-block-text">{{rating.pub_date}}</div>
@@ -209,35 +211,33 @@
                 <div class="row">
                     {% csrf_token %}
                     {%for product in popular_products%}
-                        <div class="col-md-4 col-12">
+                    <div class="col-md-4 col-12">
+                        <div class="popular-block">
                             <a href="{% url 'main:product' product.id%}">
-                                <div class="popular-block">
-                                    <div class="popular-image-block">
-                                        {% with product.images.all|first as image %}
-                                            <img src="{{image.img_url}}" alt="" class="popular-image">
-                                        {% endwith %}
-                                        
-                                        
-                                        <form action="{% url 'main:add_product_to_bag'%}" method="POST" style="margin: 0px;">
-                                            <div class="popular-icon" onclick="buy({{product.id}})"></div>       
-                                        </form>
-                                        
-                                    </div>
-                                    
-                                    <div class="popular-under-block">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="popular-title">{{product.name}}</div>
-                                                <div class="popular-price">{{product.price}}тг</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="popular-text">{{product.description}} </div>
-                                    </div>
+                                <div class="popular-image-block">
+                                    {% with product.images.all|first as image %}
+                                    <img src="{{image.img_url}}" alt="" class="popular-image">
+                                    {% endwith %}
+                                
                                     
                                 </div>
-                            </a>
+                                
+                                <div class="popular-under-block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="popular-title">{{product.name}}</div>
+                                            <div class="popular-price">{{product.price}}тг</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="popular-text">{{product.description|slice:"0:80"}}...</div>
+                                </div>
+                            </a> 
+                            <form action="{% url 'main:add_product_to_bag'%}" method="POST">
+                                <div class="popular-icon" onclick="buy({{product.id}}, true)"></div>       
+                            </form>
                         </div>
+                    </div>
                     {%endfor%}
                 </div>
             </div>

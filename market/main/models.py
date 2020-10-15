@@ -93,8 +93,8 @@ class Product(models.Model):
 
 class Purchased_Product(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    count = models.IntegerField(null=True, blank=True)
-    
+    count = models.IntegerField(null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def get_total_price(self):
         price = self.product.price
         return price * self.count

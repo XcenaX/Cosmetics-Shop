@@ -19,6 +19,13 @@
         .title-block{
             background-image: url( {% static 'images/title-block-background-1.png' %});
         }
+        .wrapper{
+            width:30%;
+            height: 150px;
+            vertical-align: top;
+            display: inline-block;
+        }
+        
     </style>
 
     <div class="wrap-content">
@@ -37,17 +44,31 @@
 
             <div class="filter-block">
                 <form action="" method="GET">
-                    <select name="optional" id="select-price">
-                        {% for key, value in price_values.items %}
-                            <option {%if key == price%} selected {%endif%}value="{{key}}">{{value}}</option>
-                        {% endfor%}
-                    </select>
-                    <select name="brand" id="select-brand">
-                        <option value="">Бренд</option>
-                        {% for item in brands %}
-                            <option {%if item.id == brand.id%} selected {%endif%}value="{{item.id}}">{{item.name}}</option>
-                        {% endfor%}
-                    </select>
+                    <div class="wrapper">
+                        <select name="optional" class="form-control"  id="select-price"  onfocus='this.size=5;' onblur='this.size=1;'>
+                            {% for key, value in price_values.items %}
+                                <option {%if key == price%} selected {%endif%}value="{{key}}">{{value}}</option>
+                            {% endfor%}
+                           
+                        </select>
+                    </div>
+                   <div class="wrapper">
+                        <select name="brand" class="form-control" id="select-brand"  onfocus='this.size=5;' onblur='this.size=1;' >
+                            <option value="">Бренд</option>
+                            {% for item in brands %}
+                                <option {%if item.id == brand.id%} selected {%endif%}value="{{item.id}}">{{item.name}}</option>
+                            {% endfor%}
+                        </select>
+                   </div>
+                    <div class="wrapper">
+                        <select name="category" class="form-control" id="select-category"  onfocus='this.size=5;' onblur='this.size=1;' >
+                            <option value="">Категория</option>
+                            {% for item in all_categories %}
+                                <option {%if item.id == category.id%} selected {%endif%}value="{{item.id}}">{{item.name}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                    
                     <input type="text" style="visibility: hidden;position: absolute;" value="{{q}}" name="q">
                     <button style="visibility: hidden;position: absolute;" type="submit" id="search_button2"></button>
                 </form>
@@ -55,7 +76,7 @@
             </div>
         </div>
         {% if products %}
-        <div class="comments" style="margin-bottom: 40px; margin-top: 60px;">
+        <div class="comments" style="margin-bottom: 40px; margin-top: 120px;">
             <div class="popular-wrap">
                 <div class="row">
                     {% csrf_token %}
@@ -79,11 +100,11 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="popular-text">{{product.description}}</div>
+                                        <div class="popular-text">{{product.description|slice:"0:80"}}...</div>
                                     </div>
                                 </a> 
                                 <form action="{% url 'main:add_product_to_bag'%}" method="POST">
-                                    <div class="popular-icon" onclick="buy({{product.id}})"></div>       
+                                    <div class="popular-icon" onclick="buy({{product.id}}, true)"></div>       
                                 </form>
                             </div>
                         </div>

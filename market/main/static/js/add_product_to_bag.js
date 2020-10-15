@@ -1,8 +1,9 @@
-function buy(product_id){
+function buy(product_id, is_one_product, count=1){
     var csrf = $('input[name="csrfmiddlewaretoken"]').val();
-    count = 1
-    if($("#count").length > 0){
-        count = parseInt($("#count").text());
+    if(!is_one_product){
+        if($("#count").length > 0){
+            count = parseInt($("#count").text());
+        }
     }
     console.log(count);
     $.ajax({

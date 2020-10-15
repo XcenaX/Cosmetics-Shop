@@ -1,5 +1,7 @@
 .product-main-image{
     width: 100%;
+    height: 100%;
+    position: absolute;
     background-size: cover;
     margin-bottom: 20px;
     background: #FFFFFF;

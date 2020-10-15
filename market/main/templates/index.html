@@ -133,7 +133,7 @@
                 {%for category in preview_categories %}
                 
                     <div class="col-md-4 col-sm-12" style="margin-bottom:40px">
-                        <a href="{%url 'main:category' category.id%}">
+                        <a href="{%url 'main:products'%}?category={{category.id}}">
                             <div class="category-item" style="background-image: url('{{category.img_url}}')">
                                 <div class="category-item-text">{{category.name}}</div>
                             </div>
