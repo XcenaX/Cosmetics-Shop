@@ -37,7 +37,7 @@
 
             <div class="filter-block">
                 <form action="" method="GET">
-                    <select name="price" id="select-price">
+                    <select name="optional" id="select-price">
                         {% for key, value in price_values.items %}
                             <option {%if key == price%} selected {%endif%}value="{{key}}">{{value}}</option>
                         {% endfor%}
@@ -48,8 +48,8 @@
                             <option {%if item.id == brand.id%} selected {%endif%}value="{{item.id}}">{{item.name}}</option>
                         {% endfor%}
                     </select>
-                    <input type="text" style="visibility: hidden;" value="{{q}}" name="q">
-                    <button style="visibility: hidden;" type="submit" id="search_button2"></button>
+                    <input type="text" style="visibility: hidden;position: absolute;" value="{{q}}" name="q">
+                    <button style="visibility: hidden;position: absolute;" type="submit" id="search_button2"></button>
                 </form>
                 
             </div>

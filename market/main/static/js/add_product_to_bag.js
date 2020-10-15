@@ -1,9 +1,8 @@
 function buy(product_id){
     var csrf = $('input[name="csrfmiddlewaretoken"]').val();
-    try{
+    count = 1
+    if($("#count").length > 0){
         count = parseInt($("#count").text());
-    } catch{
-        count = 1;
     }
     console.log(count);
     $.ajax({

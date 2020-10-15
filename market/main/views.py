@@ -93,17 +93,13 @@ def filter_products(request):
     category = Category.objects.filter(id=category_id).first()
     optional = get_parameter(request, "optional")
     brand_id = get_parameter(request, "brand")
-    brand = Brand.objects.filter(id=brand_id).first()
+    brand = None
+    try:
+        brand = Brand.objects.filter(id=brand_id).first()
+    except:
+        pass
     blocks = Product.objects.order_by("pub_date")
 
-    if optional == "popular":
-        blocks = Product.objects.order_by('ratings__average')
-    elif optional == "cheap":
-        blocks = Product.objects.order_by("price")
-    elif optional == "expencive":
-        blocks = Product.objects.order_by("-price")
-    else:
-        blocks = Product.objects.all()
     if brand:
         blocks = blocks.filter(brand=brand)
     if category:
@@ -111,7 +107,13 @@ def filter_products(request):
     if q:
         blocks = blocks.filter(Q(name__icontains=q) | Q(price__icontains=q) | Q(description__icontains=q))
                                                                         
-    
+    if optional == "popular":
+        blocks = Product.objects.order_by('-rating__stars')
+    elif optional == "cheaper":
+        blocks = Product.objects.order_by("price")
+    elif optional == "expencive":
+        blocks = Product.objects.order_by("-price")
+
     blocks = blocks.filter(count_on_shop__gte=0)
     return blocks
 
@@ -344,7 +346,7 @@ def products(request):
         brand = Brand.objects.get(id=brand_id)
     except:
         pass
-    price = get_parameter(request, "price")
+    price = get_parameter(request, "optional")
 
     blocks = filter_products(request)
 
@@ -362,9 +364,10 @@ def products(request):
         "price": price,
         "q": q,
         "price_values": {
-            "all": "Цена",
+            "all": "Фильтр",
             "cheaper": "Дешевле",
-            "expencive": "Дороже"
+            "expencive": "Дороже",
+            "popular": "Популярное",
         },
         "brands": brands,
         "categories": pack(list(Category.objects.all())),
@@ -580,11 +583,12 @@ def delete_category(request):
 
 def delete_product(request):
     if request.method == "POST":
-        ids = request.POST.getlist("delete_category")
+        ids = request.POST.getlist("delete_product")
+        print(ids)
         for id in ids:
             product = Product.objects.filter(id=int(id)).first()
             for image in product.images.all():
-                image.delete_image()
+                image.delete_image(product.id)
                 image.delete()
             product.delete()
         request.session['admin_success'] = 'Продукт успешно удален!'

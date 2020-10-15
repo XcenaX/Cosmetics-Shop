@@ -9,8 +9,17 @@ class Image(models.Model):
     name = models.TextField(default='')
     absolute_path = models.TextField(default='')
     
-    def delete_image(self):
-        os.remove(self.absolute_path)
+    def delete_image(self, product_id):
+        product = Product.objects.filter(id=product_id).first()
+        length = len(product.images.all())
+        current_path = os.path.abspath(os.path.dirname(__file__))
+
+        for i in range(1, length+1):
+            new_img_url = current_path + "\\static\\images\\products\\product" + str(product.id) + "." + str(i) + ".jpg"
+            os.remove(new_img_url)
+
+        
+        
 
 class User(models.Model):
     email = models.TextField(default='')
@@ -24,21 +33,19 @@ class User(models.Model):
     def __str__(self):
         return self.first_name
 
-
-class Comment(models.Model):
-    text = models.TextField(default='')
-    pub_date = models.DateTimeField(default=timezone.now)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.text
-
 class Category(models.Model):
     name = models.TextField(default='')
     img_url = models.TextField(default='')
     absolute_path = models.TextField(default='')
     
-    def delete_image(self):
-        os.remove(self.absolute_path)
+    def delete_image(self, category_id):
+        category = Category.objects.filter(id=category_id).first()
+        length = len(category.images.all())
+        current_path = os.path.abspath(os.path.dirname(__file__))
+
+        for i in range(1, length+1):
+            new_img_url = current_path + "\\static\\images\\categories\\category" + str(category.id) + "." + str(i) + ".jpg"
+            os.remove(new_img_url)
 
     def __str__(self):
         return self.name
@@ -52,7 +59,6 @@ class Product(models.Model):
     name = models.TextField(default='')
     description = models.TextField(default='')
     price = models.IntegerField(null=True, blank=True)
-    comments = models.ManyToManyField(Comment, blank=True)
     pub_date = models.DateTimeField(default=timezone.now)
     category =  models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     brand =  models.ForeignKey(Brand, on_delete=models.CASCADE, blank=True, null=True)
@@ -121,6 +127,6 @@ class Bag(models.Model):
 class Rating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    stars = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     text = models.TextField(default='')
     pub_date = models.DateTimeField(default=timezone.now)
