@@ -84,7 +84,7 @@ def session_parameter(request, name):
         return None
 
 def get_popular_products(count, product):
-    return Product.objects.filter(category=product.category, brand=product.brand).filter(~Q(id = product.id)).order_by('rating')[:count]
+    return Product.objects.filter(~Q(id = product.id)).order_by('-rating__stars')[:count]
 
 def filter_products(request):
     role = session_parameter(request, "role")
