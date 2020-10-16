@@ -690,19 +690,25 @@ def add_product_to_bag(request):
 
         bag = get_users_bag(user)
 
+        purchased_product = bag.products.all().filter(product=product, user=user).first()
+
         for purchased_product in bag.products.all():
             if purchased_product.product == product:
                 purchased_product.count += count
                 purchased_product.save()
                 return JsonResponse({
                     "success": True,
-                    "sum_of_products": bag.sum_of_products()
+                    "sum_of_products": bag.sum_of_products(),
+                    "count": purchased_product.count,
+                    "all_count": bag.count_of_products(),
                 })
         new_product = Purchased_Product.objects.create(product=product, count=count, user=user)
         bag.products.add(new_product)
         return JsonResponse({
                 "success": True,
-                "sum_of_products": bag.sum_of_products()
+                "sum_of_products": bag.sum_of_products(),
+                "count": purchased_product.count,
+                "all_count": bag.count_of_products(),
             })
     return redirect(reverse("main:index"))
 

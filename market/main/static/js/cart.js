@@ -44,8 +44,6 @@ function delete_one_product(product_id, csrf_token){
 }
 
 function add(product_id, product_price, csrf_token) {
-    let count = parseInt(document.getElementById("count" + product_id + ".2").innerHTML)
-
     $.ajax({
         type: "POST",
         url: "/add_product_to_bag",
@@ -56,10 +54,12 @@ function add(product_id, product_price, csrf_token) {
             "csrfmiddlewaretoken": csrf_token,
         },
         success: function(result){
-            document.getElementById("count" + product_id + ".2").innerHTML = (count + 1).toString();
-            document.getElementById("count" + product_id + ".1").innerHTML = (count + 1).toString();
+            var count = result["count"];
+            var all_count = result["all_count"];
+            document.getElementById("count" + product_id + ".2").innerHTML = (count).toString();
+            document.getElementById("count" + product_id + ".1").innerHTML = (count).toString();
             let bag_count = document.getElementById("bag_count").innerHTML;
-            document.getElementById("bag_count").innerHTML = (parseInt(bag_count) + 1).toString();
+            document.getElementById("bag_count").innerHTML = (all_count).toString();
             document.getElementById("total-price").innerHTML = result['sum_of_products']
         }
     });
