@@ -25,7 +25,7 @@
             right: 0;
             width: 15px;
             height: 15px;
-            padding-right: 5vw;
+            padding-right: 7vw;
             cursor: pointer;
         }
 
@@ -65,15 +65,20 @@
 
                 {% for item in bag.products.all %}
 
-                    <div class="item-mobile-version hide-on-pc">
+                    <div id="product{{ item.id }}.1" class="item-mobile-version hide-on-pc">
                         <div class="item-mobile-version-image">
-                            <img src="{% static 'images/talking.jpg' %}" alt="">
+                            <img src="{{ item.product.images.first }}" alt="">
+                        </div>
+                        <div class="delete-button">
+                            <form action="{% url 'main:delete_product_from_bag'%}" method="POST">
+                                <div class="icon" onclick="delete_product({{item.id}}, {{ item.count }}, '{{ csrf_token }}')"></div>
+                            </form>
                         </div>
                         <div class="item-mobile-version-volume-amount-block">
                             <div class="item-price">{{ item.product.price }}</div>
                             <br>
                             <div class="amount">
-                                <button onclick="remove({{ item.product.id }})">-</button>
+                                <button onclick="delete_one_product({{ item.product.id }}, '{{ csrf_token }}')">-</button>
                                 <span id="count{{ item.product.id }}.1">{{ item.count }}</span>
                                 <button onclick="add({{ item.product.id }}, '{{ csrf_token }}')">+</button>
                             </div>
@@ -94,9 +99,11 @@
                         <br>
                     </div>
 
-                    <div class="item-pc-version hide-on-mobile">
+                    <div id="product{{ item.id }}.2" class="item-pc-version hide-on-mobile">
                         <div class="item-pc-version-image">
-                            <img src="{% static 'images/talking.jpg' %}" alt="">
+                            {% with item.product.images.all|first as image %}
+                                <img src="{{image.img_url}}" alt="">
+                            {% endwith %}
                         </div>
                         <div class="delete-button">
                             <form action="{% url 'main:delete_product_from_bag'%}" method="POST">
@@ -106,12 +113,12 @@
                         <div class="item-pc-version-description">
                             <div class="item-title">{{ item.product.name }}</div>
                             <br>
-                            <div class="item-text">{{ item.product.description }}</div>
+                            <div class="item-text">{{item.product.description|slice:"0:60"}}..</div>
                             <br>
                             <div class="volume-amount-block">
                                 <div class="item-text volume"><b>10мл</b></div>
                                 <div class="amount">
-                                    <button onclick="remove({{ item.product.id }})">-</button>
+                                    <button onclick="delete_one_product({{ item.product.id }}, '{{ csrf_token }}')">-</button>
                                     <span id="count{{ item.product.id }}.2">{{ item.count }}</span>
                                     <button onclick="add({{ item.product.id }}, {{ item.product.price }}, '{{ csrf_token }}')">
                                         +
