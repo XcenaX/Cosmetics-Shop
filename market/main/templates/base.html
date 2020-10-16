@@ -76,7 +76,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="wrap">
+        <div class="wrap" style="position: relative;z-index: 4;">
             <!--header для каждой странички-->
             {% block header %}
                 
@@ -104,7 +104,7 @@
                                 <a href="{% url 'main:cart' %}">
                                     <div class="header-icon" id="basket-icon" style="background-image:url('{%static "images/icons/basket.svg" %}')">
                                         <span class="basket-text">
-                                            {{user.balance}}тг
+                                            Корзина
                                         </span>
                                         <div class="basket-count" id="bag_count">
                                             {{bag.count_of_products}}
@@ -248,28 +248,31 @@
             
                           
                             <!--содержимое для каждой странички-->
-                            <!-- <div class="info">
-                                <div class="pic1 mobile-none">
-                                    <img src="{% static 'images/flowers/leaf branch 1.png' %}" alt="">
-                                </div>
-            
-                                <div class="pic2 mobile-none">
-                                    <img src="{% static 'images/flowers/branch2 1.png' %}" alt="">
-                                </div>
-            
-                                <div class="pic4 mobile-none">
-                                    <img src="{% static 'images/flowers/6 1.png' %}" alt="">
-                                </div>
-            
-                                <div class="pic5 mobile-none">
-                                    <img src="{% static 'images/flowers/branch 1.png' %}" alt="">
-                                </div>
-                            </div>   -->
+                            <div class="info">
+                                
+                            </div> 
+                            
                 
                 {% block content%}
                 {%endblock%}
         </div>
-                
+        <div class="pic1 mobile-none">
+            <img src="{% static 'images/flowers/leaf branch 1.png' %}" class="back-image" alt="">
+        </div>
+
+        <div class="pic2 mobile-none">
+            <img src="{% static 'images/flowers/branch2 1.png' %}" class="back-image" alt="">
+        </div>
+
+        <div class="pic4 mobile-none">
+            <img src="{% static 'images/flowers/6 1.png' %}" class="back-image" alt="">
+        </div>
+
+        <div class="pic5 mobile-none">
+            <img src="{% static 'images/flowers/branch 1.png' %}" class="back-image" alt="">
+        </div>   
+
+         
     </body>
 {% endblock %}
 

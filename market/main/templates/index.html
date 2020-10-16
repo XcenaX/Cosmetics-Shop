@@ -132,13 +132,12 @@
             <div class="row">
                 {%for category in preview_categories %}
                 
-                    <div class="col-md-4 col-sm-12" style="margin-bottom:40px">
-                        <a href="{%url 'main:products'%}?category={{category.id}}">
-                            <div class="category-item" style="background-image: url('{{category.img_url}}')">
-                                <div class="category-item-text">{{category.name}}</div>
-                            </div>
-                        </a>
-                    </div>
+                <div class="col-md-3 col-sm-12" style="margin-bottom: 40px;">
+                    <div style="box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);">
+                        <div class="category-item" style="background-image: url('{{category.img_url}}')"></div>
+                        <div class="category-item-text">{{category.name}}</div>
+                    </div>                    
+                </div>
                 
                 {%endfor%}
             </div>
@@ -239,7 +238,7 @@
         </div>
 
         <div class="shares-wrap">
-            <div class="login-form">
+            <div class="login-form" style="position: relative;">
                 <div class="login-form-left-block">
                     <div class="login-form-title">Lorem Ispum</div>
                     <div class="login-form-text">
@@ -258,6 +257,9 @@
                     <button class="login-form-button show-on-mobile" type="submit">Отправить</button>
                 </div>
                 <div class="login-form-right-block hide-on-mobile">
+                </div>
+                <div class="pic6 mobile-none">
+                    <img src="{% static 'images/flowers/flower 4.png' %}" class="back-image" alt="">
                 </div>
             </div>
         </div>

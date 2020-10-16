@@ -10,6 +10,7 @@
     <script src="{%static 'rateit/jquery.rateit.js'%}"></script>
     <script src="{%static 'js/add_product_to_bag.js'%}"></script>
     <script src="{%static 'js/admin.js'%}"></script>
+    <script src="{%static 'js/load_more.js'%}"></script>
 {% endblock %}
 
 {%block help%}active-menu{%endblock%}
@@ -143,54 +144,62 @@
             </div>
         </div>
         
-        {%if ratings %}
+        
             <div class="comments">
                 <div class="comments-title">Отзывы</div>
                 <div class="row">
-                    {%for rating in ratings %}
-                        <div class="col-md-6 col-12">
-                            <div class="comment-block">
-                                <div class="container">
-                                    <div class="row">
-                                        <img class="comment-avatar" src="{{rating.user.img_url}}">
-                                        <div class="comment-user-block">
-                                            <div class="comment-user-block-title">{{rating.user.first_name}}</div>
-                                            <div class="comment-user-block-text">{{rating.pub_date}}</div>
+                    {%if ratings %}
+                        {%for rating in ratings|slice:"0:4" %}
+                            <div class="col-md-6 col-12 moreBox blogBox">
+                                <div class="comment-block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <img class="comment-avatar" src="{{rating.user.img_url}}">
+                                            <div class="comment-user-block">
+                                                <div class="comment-user-block-title">{{rating.user.first_name}}</div>
+                                                <div class="comment-user-block-text">{{rating.pub_date}}</div>
+                                            </div>
+                                            <div class="comment-rating">
+                                                
+                                                <div class="rateit star-size" data-rateit-value="{{rating.stars}}" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  ></div>
+                                            </div>
                                         </div>
-                                        <div class="comment-rating">
-                                            
-                                            <div class="rateit star-size" data-rateit-value="{{rating.stars}}" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  ></div>
+                                    </div>
+                                    
+                                    <div class="comment-text">
+                                        {{rating.text}}
+                                    </div>
+                                </div>
+                            </div>
+                        {%endfor%}
+                        {% if ratings|length > 4%}
+                            {%for rating in ratings|slice:"5:" %}
+                                <div class="col-md-6 col-12 moreBox blogBox hide-rate">
+                                    <div class="comment-block">
+                                        <div class="container">
+                                            <div class="row">
+                                                <img class="comment-avatar" src="{{rating.user.img_url}}">
+                                                <div class="comment-user-block">
+                                                    <div class="comment-user-block-title">{{rating.user.first_name}}</div>
+                                                    <div class="comment-user-block-text">{{rating.pub_date}}</div>
+                                                </div>
+                                                <div class="comment-rating">
+                                                    
+                                                    <div class="rateit star-size" data-rateit-value="{{rating.stars}}" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-mode="font"  ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="comment-text">
+                                            {{rating.text}}
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="comment-text">
-                                    {{rating.text}}
-                                </div>
-                            </div>
-                        </div>
-                    {%endfor%}
-                    {%if can_comment%}
-                    <div class="col-md-6 col-12">
-                        <div class="add-comment-block">
-                            <div class="text-block">
-                                <div class="add-comment-block-title">
-                                    Купили товар? Расскажите всем!
-                                </div>
-                                <button onclick="open_comment_form()" class="add-comment-block-button">Оставить коментарий</button>
-                            </div>
-                            
-                        </div>
-                    </div>
+                            {%endfor%}
+                        {%endif%}                        
                     {%endif%}
-                    
-                </div>
-            </div> 
-        {%else%}
-            {%if can_comment%}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-12" style="margin: 20px auto;">
+                    {%if can_comment%}
+                        <div class="col-md-6 col-12">
                             <div class="add-comment-block">
                                 <div class="text-block">
                                     <div class="add-comment-block-title">
@@ -198,12 +207,20 @@
                                     </div>
                                     <button onclick="open_comment_form()" class="add-comment-block-button">Оставить коментарий</button>
                                 </div>
+                                
                             </div>
                         </div>
-                    </div>
+                    {%else%}
+                        <div class="important-text" style="margin: auto;">Нет отзывов!</div>
+                    {%endif%}
                 </div>
-            {%endif%}
-        {%endif%}
+            </div> 
+            {%if ratings|length > 3%}
+                <div id="loadMore" class="show-more">
+                    Показать еще
+                </div>
+            {% endif %}
+        
         
         <div class="comments" style="margin-bottom: 100px;">
             <div class="comments-title">Популярное</div>

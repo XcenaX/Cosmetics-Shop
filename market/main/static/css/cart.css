@@ -13,6 +13,16 @@
     grid-area: inputs;
 }
 
+.empty-cart-text{
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Montserrat-Regular;
+    width: 100%;
+    text-align: center;
+    margin: 10px auto;
+    margin-bottom: 30px;
+}
+
 .inputs-block input{
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
     border: 1px solid transparent;
@@ -130,7 +140,9 @@
     .hide-on-pc{
         display: block;
     }
-
+    .inputs-block{
+        margin-top: 20px;
+    }
     .items-block{
         grid-area: items;
         border-right: 0;

@@ -30,67 +30,16 @@
         </div>
 
         <br><br>
-
+        
         <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
+            {%for category in all_categories %}
+                <div class="col-md-3 col-sm-12" style="margin-bottom: 40px;">
+                    <div style="box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);">
+                        <div class="category-item" style="background-image: url('{{category.img_url}}')"></div>
+                        <div class="category-item-text">{{category.name}}</div>
+                    </div>                    
                 </div>
-            </div>
-             <div class="col-md-6 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-             <div class="col-md-6 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="category-item">
-                    <div class="category-item-text">Lorem Ipsum</div>
-                </div>
-            </div>
+            {%endfor%}
         </div>
     </div>
 
