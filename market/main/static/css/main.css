@@ -568,10 +568,11 @@ html{
 
 .pic1{
     position: absolute;
-    width: 400;
+    width: 400px;
     height: 700px;
     left: 0;
-    top: 111vh;
+    top: 11vh;
+    z-index: -2;
 }
 
 .pic2{
@@ -579,7 +580,8 @@ html{
     width: 400.56px;
     height: 600px;
     right: -1px;
-    top: 139vh;
+    top: 91vh;
+    z-index: -2;
 }
 
 .back-image{
@@ -594,7 +596,7 @@ html{
     left: 6.5%;
     right: 6.5%;
     top: -0px;
-    z-index: -1;
+    z-index: -2;
 }
 
 .pic4{
@@ -602,15 +604,17 @@ html{
     width: 206px;
     height: 322px;
     left: 0;
-    top: 353vh;
+    top: 103vh;
+    z-index: -2;
 }
 
 .pic5{
     position: absolute;
-    width: 600px;
-    height: 800px;
+    width: 400px;
+    height: 600px;
     right: 0px;
-    top: 303vh;
+    top: 23vh;
+    z-index: -2;
 }
 
 .pic6{
@@ -620,7 +624,7 @@ html{
     /* right: 0; */
     top: -230px;
     left: 66px;
-    z-index: -1;
+    z-index: -2;
 }
 
 .pic7{
@@ -630,7 +634,7 @@ html{
     /* right: 0; */
     top: -230px;
     left: 66px;
-    z-index: -1;
+    z-index: -2;
 }
 .wrap-content{
     padding-left: 10%;
@@ -896,6 +900,10 @@ a{
     .wrap-content{
         padding-left: 3%;
         padding-right: 3%;
+    }
+
+    .route{
+        font-size: 16px;
     }
 
     .footer-wrap{
