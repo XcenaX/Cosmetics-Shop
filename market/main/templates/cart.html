@@ -100,7 +100,7 @@
                         </div>
                         <div class="delete-button">
                             <form action="{% url 'main:delete_product_from_bag'%}" method="POST">
-                                <div class="icon" onclick="delete_product({{item.product.id}}, {{ item.count }}, '{{ csrf_token }}')"></div>
+                                <div class="icon" onclick="delete_product({{item.id}}, {{ item.count }}, '{{ csrf_token }}')"></div>
                             </form>
                         </div>
                         <div class="item-pc-version-description">
