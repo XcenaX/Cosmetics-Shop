@@ -199,7 +199,7 @@
                         {%endif%}                        
                     {%endif%}
                     {%if can_comment%}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12" style="margin-bottom:100px">
                             <div class="add-comment-block">
                                 <div class="text-block">
                                     <div class="add-comment-block-title">
@@ -210,7 +210,8 @@
                                 
                             </div>
                         </div>
-                    {%else%}
+                    {%endif%}
+                    {%if ratings|length == 0%}
                         <div class="important-text" style="margin: auto;">Нет отзывов!</div>
                     {%endif%}
                 </div>
