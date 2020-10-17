@@ -86,6 +86,16 @@
   border-radius: 25.5px;
   color: black;
   border: none;
+  transition: 1s;
+}
+
+.slider-button:hover{
+  transition: 1s;
+  background: linear-gradient(271.36deg, #F8FFD9  -10.36%, #FFFFFF 92.94%);
+}
+
+.slider-button:focus{
+  box-shadow: none;
 }
 
 .slider-button:focus{

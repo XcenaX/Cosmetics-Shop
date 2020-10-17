@@ -618,9 +618,9 @@ html{
 .pic6{
     position: absolute;
     width: 300px;
-    height: 500px;
-    right: 0;
-    z-index: 0;
+    height: 300px;
+    left: 11%;
+    z-index: -1;
 }
 
 .pic7{
@@ -630,6 +630,15 @@ html{
     z-index: 0;
     left: 0;
 }
+
+.pic8{
+    position: absolute;
+    width: 311px;
+    height: 449px;
+    z-index: -1;
+}
+
+
 .wrap-content{
     padding-left: 10%;
     padding-right: 10%;
@@ -734,6 +743,11 @@ html{
     margin-top: 28px;
 }
 
+.shares-block-button:hover{
+    
+    background: #f9ffe0;
+}
+
 a{
     text-decoration: none;
     color: inherit;
@@ -774,6 +788,10 @@ a{
     background: linear-gradient(271.55deg, #FFEBEB -10.33%, #F8FFD9 98.99%);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
     border-radius: 36.5px;
+}
+
+.about-us-button:focus{
+    background:linear-gradient(271.55deg, #F8FFD9 -10.33%, #FFEBEB 98.99%) !important;
 }
 
 .about-us-inst{
@@ -842,7 +860,7 @@ a{
     outline: none;
 }
 
-.login-form-button{
+.login-form-button, .login-form-button:focus{
     float: right;
     margin-left: auto;
     color: black;
@@ -854,11 +872,13 @@ a{
     font-size: 18px;
     padding-left: 10px;
     padding-right: 10px;
-    font-family: Montserrat;
+    font-family: 'Montserrat-Regular';
     font-style: normal;
     font-weight: 200;
     line-height: 22px;
-    
+    outline: none;
+    width: 37%;
+    border: none;
 }
 .login-form-button:focus{
     outline: none;

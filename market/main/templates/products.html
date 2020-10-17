@@ -95,12 +95,12 @@
                                     <div class="popular-under-block">
                                         <div class="container">
                                             <div class="row">
-                                                <div class="popular-title">{{product.name}}</div>
+                                                <div class="popular-title">{{product.name|slice:"0:18"}}{%if product.name|length > 18%}...{%endif%}</div>
                                                 <div class="popular-price">{{product.price}}тг</div>
                                             </div>
                                         </div>
                                         
-                                        <div class="popular-text">{{product.description|slice:"0:40"}}...</div>
+                                        <div class="popular-text">{{product.description|slice:"0:40"}}{%if product.description|length > 40%}...{%endif%}</div>
                                     </div>
                                 </a> 
                                 <form action="{% url 'main:add_product_to_bag'%}" method="POST">

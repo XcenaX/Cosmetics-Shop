@@ -30,12 +30,14 @@
         }
 
         .icon{
-            background-image: url("{% static 'images/icons/x.png' %}");
+            background-image: url("{% static 'images/icons/close.svg' %}");
             background-size: cover;
             background-repeat: repeat;
             background-position: center;
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
+            margin-top: 10px;
+            margin-left: 13px;
         }
     </style>
     <div class="wrap-content">
@@ -43,10 +45,11 @@
         <div class="hide-on-mobile">
             <br>
         </div>
-
+        
         <div>
             <div class="title">Корзина</div>
             <div class="top-block">
+                <br>
                 <div class="route">
                     Вернуться к покупкам
                 </div>
@@ -67,7 +70,9 @@
 
                     <div id="product{{ item.id }}.1" class="item-mobile-version hide-on-pc">
                         <div class="item-mobile-version-image">
-                            <img src="{{ item.product.images.first }}" alt="">
+                            {% with item.product.images.all|first as image %}
+                                <img src="{{image.img_url}}" alt="">
+                            {% endwith %}
                         </div>
                         <div class="delete-button">
                             <form action="{% url 'main:delete_product_from_bag'%}" method="POST">
@@ -131,10 +136,7 @@
                         </div>
                     </div>
 
-                    <div class="hide-on-pc">
-                        <br>
-                        <br>
-                    </div>
+                    
 
                     <script>
                         $("#count{{ item.product.id }}.1").text({{ item.count }});
@@ -244,19 +246,18 @@
 {% endblock %}
 
 {%block flowers%}
-    <div class="pic1 mobile-none" style="left: 0;top: 153vh;">
+    <div class="pic1 mobile-none" style="left: 0;top: 6vh;width: 300px;height: 600px;;">
         <img src="{% static 'images/flowers/leaf branch 1.png' %}" class="back-image" alt="">
     </div>
 
-    <div class="pic2 mobile-none" style="right: -1px;top: 190vh;">
+    <div class="pic2 mobile-none" style="right: -1px;top: 48vh;">
         <img src="{% static 'images/flowers/branch2 1.png' %}" class="back-image" alt="">
     </div>
 
-    <div class="pic4 mobile-none" style="left: 0;top: 279vh;">
+    <div class="pic4 mobile-none" style="left: 0;top: 105vh;">
         <img src="{% static 'images/flowers/6 1.png' %}" class="back-image" alt="">
     </div>
 
-    <div class="pic5 mobile-none" style="right: 0px;top: 260vh;">
-        <img src="{% static 'images/flowers/branch 1.png' %}" class="back-image" alt="">
-    </div> 
+   
+    
 {%endblock%}
