@@ -34,10 +34,12 @@
         <div class="row">
             {%for category in all_categories %}
                 <div class="col-md-3 col-sm-12" style="margin-bottom: 40px;">
-                    <div style="box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);">
-                        <div class="category-item" style="background-image: url('{{category.img_url}}')"></div>
-                        <div class="category-item-text">{{category.name}}</div>
-                    </div>                    
+                    <a href="{%url 'main:products'%}?category={{category.id}}">
+                        <div style="box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);">
+                            <div class="category-item" style="background-image: url('{{category.img_url}}')"></div>
+                            <div class="category-item-text">{{category.name}}</div>
+                        </div>
+                    </a>                    
                 </div>
             {%endfor%}
         </div>
@@ -45,3 +47,17 @@
 
     <div class="row mgt-60"></div>
 {% endblock %}
+
+{%block flowers%}
+    <div class="pic1 mobile-none" style="left: 0;top: 16vh;">
+        <img src="{% static 'images/flowers/leaf branch 1.png' %}" class="back-image" alt="">
+    </div>
+
+    <div class="pic2 mobile-none" style="right: -1px;top: 57vh;">
+        <img src="{% static 'images/flowers/branch2 1.png' %}" class="back-image" alt="">
+    </div>
+
+    <div class="pic4 mobile-none" style="left: 0;top: 130vh;">
+        <img src="{% static 'images/flowers/6 1.png' %}" class="back-image" alt="">
+    </div>
+{%endblock%}

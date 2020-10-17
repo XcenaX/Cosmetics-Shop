@@ -8,6 +8,11 @@
     src: url('../fonts/Montserrat-Regular.ttf');
 }
 
+html{
+    max-width: 2480px;
+    margin: auto;
+}
+
 a:hover{
     color: inherit;
 
@@ -570,16 +575,14 @@ html{
     position: absolute;
     width: 400;
     height: 700px;
-    left: 0;
-    top: 111vh;
+    z-index: 0;
 }
 
 .pic2{
     position: absolute;
     width: 400.56px;
     height: 600px;
-    right: -1px;
-    top: 139vh;
+    z-index: 0;
 }
 
 .back-image{
@@ -594,43 +597,38 @@ html{
     left: 6.5%;
     right: 6.5%;
     top: -0px;
-    z-index: -1;
+    z-index: 0;
 }
 
 .pic4{
     position: absolute;
     width: 206px;
     height: 322px;
-    left: 0;
-    top: 353vh;
+    z-index: 0;
 }
 
 .pic5{
     position: absolute;
     width: 600px;
     height: 800px;
-    right: 0px;
-    top: 303vh;
+    z-index: 0;
+
 }
 
 .pic6{
     position: absolute;
     width: 300px;
-    height: 300px;
-    /* right: 0; */
-    top: -230px;
-    left: 66px;
-    z-index: -1;
+    height: 500px;
+    right: 0;
+    z-index: 0;
 }
 
 .pic7{
     position: absolute;
-    width: 300px;
-    height: 300px;
-    /* right: 0; */
-    top: -230px;
-    left: 66px;
-    z-index: -1;
+    width: 400px;
+    height: 400px;
+    z-index: 0;
+    left: 0;
 }
 .wrap-content{
     padding-left: 10%;
@@ -747,6 +745,8 @@ a{
     padding-right: 13%;
     margin: 182px auto;
     height: auto;
+    position: relative;
+    z-index: 5;
 }
 
 .about-us-block{
@@ -896,6 +896,10 @@ a{
     .wrap-content{
         padding-left: 3%;
         padding-right: 3%;
+    }
+
+    .route{
+        font-size: 16px;
     }
 
     .footer-wrap{

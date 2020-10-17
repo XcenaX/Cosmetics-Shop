@@ -23,7 +23,7 @@
         }
     </style>
 
-    <div class="wrap-content">
+    <div class="wrap-content" style="position:relative; z-index:5">
         <br><br>
 
         <div class="title-block">
@@ -389,3 +389,25 @@
             </div>
         </div>
 {% endblock %}
+
+{%block flowers%}
+    <div class="pic7 mobile-none" style="left: 0;top: 37vh;">
+        <img src="{% static 'images/flowers/branch3 2.png' %}" class="back-image" alt="">
+    </div>
+
+    <div class="pic6 mobile-none" style="right: -1px;top: 110vh;">
+        <img src="{% static 'images/flowers/5 2.png' %}" class="back-image" alt="">
+    </div>
+
+    <div class="pic1 mobile-none" style="left: -1px;top: 177vh;">
+        <img src="{% static 'images/flowers/leaf branch 1.png' %}" class="back-image" alt="">
+    </div>
+
+    <div class="pic4 mobile-none" style="left: 0;top: 304vh;">
+        <img src="{% static 'images/flowers/6 1.png' %}" class="back-image" alt="">
+    </div>
+
+    <div class="pic5 mobile-none" style="right: 0px;top: 197vh;">
+        <img src="{% static 'images/flowers/branch 1.png' %}" class="back-image" alt="">
+    </div>  
+{%endblock%}

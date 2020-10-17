@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu hide-on-mobile">
+                <div class="menu hide-on-mobile" style="position:relative;z-index:6">
                     <div class="center-menu">
                         
                             <nav class="menu-block" style="padding-top:7px !important">
@@ -247,34 +247,19 @@
             <!-- Алиби меня эти цветы в край заебали, чуть ноут не разбил, поэтому пока закоментировал их -->
             
                           
-                            <!--содержимое для каждой странички-->
-                            <div class="info">
-                                
-                            </div> 
                             
                 
                 {% block content%}
                 {%endblock%}
         </div>
-        <div class="pic1 mobile-none">
-            <img src="{% static 'images/flowers/leaf branch 1.png' %}" class="back-image" alt="">
-        </div>
+        
 
-        <div class="pic2 mobile-none">
-            <img src="{% static 'images/flowers/branch2 1.png' %}" class="back-image" alt="">
-        </div>
-
-        <div class="pic4 mobile-none">
-            <img src="{% static 'images/flowers/6 1.png' %}" class="back-image" alt="">
-        </div>
-
-        <div class="pic5 mobile-none">
-            <img src="{% static 'images/flowers/branch 1.png' %}" class="back-image" alt="">
-        </div>   
-
-         
+        {% block flowers%}
+        {%endblock%}
     </body>
 {% endblock %}
+
+
 
 {% block footer %}
 

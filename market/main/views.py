@@ -85,7 +85,8 @@ def session_parameter(request, name):
         return None
 
 def get_popular_products(count, product):
-    return Product.objects.filter(~Q(id = product.id)).order_by('-rating__stars')[:count]
+    blocks = Product.objects.filter(~Q(id = product.id))
+    return sorted(blocks, key=lambda a: a.avarage_rating(), reverse=True)
 
 def filter_products(request):
     role = session_parameter(request, "role")
@@ -101,28 +102,30 @@ def filter_products(request):
         brand = Brand.objects.filter(id=brand_id).first()
     except:
         pass
-    blocks = Product.objects.order_by("pub_date")
 
     try:
         category = Category.objects.filter(id=category_id).first()
     except:
         pass
 
+    blocks = Product.objects.order_by("pub_date")
+    blocks = blocks.filter(count_on_shop__gte=0)
+    
     if brand:
         blocks = blocks.filter(brand=brand)
     if category:
         blocks = blocks.filter(category=category)
     if q:
-        blocks = blocks.filter(Q(name__icontains=q) | Q(price__icontains=q) | Q(description__icontains=q))
+        blocks = blocks.filter(Q(name__contains=q) | Q(price__contains=q) | Q(description__contains=q))
                                                                         
     if optional == "popular":
-        blocks = Product.objects.order_by('-rating__stars')
+        blocks = sorted(blocks, key=lambda a: a.avarage_rating(), reverse=True)
     elif optional == "cheaper":
         blocks = Product.objects.order_by("price")
     elif optional == "expencive":
         blocks = Product.objects.order_by("-price")
 
-    blocks = blocks.filter(count_on_shop__gte=0)
+    
     return blocks
 
 def filter_products_with_category(request, category_id):
@@ -285,22 +288,28 @@ def get_paginated_blogs(request, paginator):
 
 def about(request):
     user = get_current_user(request)
+    bag = get_users_bag(user)
     return render(request, "about.html", {
         "user": user,
+        "bag": bag,
     })
 
 
 def support(request):
     user = get_current_user(request)
+    bag = get_users_bag(user)
     return render(request, "support.html", {
         "user": user,
+        "bag": bag,
     })
 
 
 def contacts(request):
     user = get_current_user(request)
+    bag = get_users_bag(user)
     return render(request, "contacts.html", {
         "user": user,
+        "bag": bag,
     })
 
 
