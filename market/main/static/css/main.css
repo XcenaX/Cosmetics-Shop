@@ -573,7 +573,7 @@ html{
 
 .pic1{
     position: absolute;
-    width: 400;
+    width: 400px;
     height: 700px;
     z-index: 0;
 }
