@@ -39,196 +39,88 @@
         
         <div class="comments" style="margin-bottom: 0px; margin-top: 60px;">
             <div class="row">
-                <div class="col-12 combo-margin">
-                    <div class="row">
-                        <div class="col-md-6 col-12">
-                            <div class="combo-description hide-on-mobile">
-                                <div class="combo-description-title">
-                                    комбо «lorem ipsum»
-                                </div>
-                                <div class="combo-description-text">
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
-                                </div>
-                                <div class="combo-price">
-                                    2999тг + 2999тг = <span class="cross-out">5998тг</span>
-                                </div>
-                                <div class="combo-price-block">
-                                    <span class="price-text">4999тг</span>
-                                    <span class="add-text">Добавить</span>
-                                    <div class="shares-price-background"></div>
-                                    <div class="shares-price-background2"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="combo-block">
-                                <div class="border-line"></div>
-                                <div class="show-on-mobile">
+                {%for share in shares%}
+                    <div class="col-12 combo-margin">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="combo-description hide-on-mobile">
                                     <div class="combo-description-title">
-                                        комбо «lorem ipsum»
+                                        комбо «{{share.name}}»
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a href="">
-                                            <div class="popular-block" style="margin: 0px;">
-                                                <div class="popular-image-block">
-                                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                                    <a href="#">
-                                                        <div class="popular-icon hide-on-mobile"></div>
-                                                    </a>
-                                                </div>
-                                                
-                                                <div class="popular-under-block">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="popular-title">Lorem Ipsum</div>
-                                                            <div class="popular-price">2999тг</div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-6">
-                                        <a href="">
-                                            <div class="popular-block" style="margin: 0px;">
-                                                <div class="popular-image-block">
-                                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                                    <a href="#">
-                                                        <div class="popular-icon hide-on-mobile"></div>
-                                                    </a>
-                                                </div>
-                                                
-                                                <div class="popular-under-block">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="popular-title">Lorem Ipsum</div>
-                                                            <div class="popular-price">2999тг</div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="show-on-mobile">
                                     <div class="combo-description-text">
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
+                                        {{share.description}}
                                     </div>
                                     <div class="combo-price">
-                                        2999тг + 2999тг = <span class="cross-out">5998тг</span>
+                                        <span class="cross-out">{{share.regular_price}}тг</span>
                                     </div>
                                     <div class="combo-price-block">
-                                        <span class="price-text">4999тг</span>
+                                        <span class="price-text">{{share.total_price}}тг</span>
                                         <span class="add-text">Добавить</span>
+                                        <div class="shares-price-background"></div>
+                                        <div class="shares-price-background2"></div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="combo-block">
+                                    <div class="border-line"></div>
+                                                                        
+                                        <div class="show-on-mobile">
+                                            <div class="combo-description-title">
+                                                комбо «lorem ipsum»
+                                            </div>
+                                        </div>
+                                        <div class="slider">
+                                            
+                                                {%for product in share.products.all%}
+                                                    
+                                                        <div class="popular-block" style="margin: 0; margin-right:30px;">
+                                                            <a href="{% url 'main:product' product.id%}">
+                                                                <div class="popular-image-block">
+                                                                    {% with product.images.all|first as image %}
+                                                                    <img src="{{image.img_url}}" alt="" class="popular-image">
+                                                                    {% endwith %}                                                                                                                                
+                                                                </div>
+                                                                
+                                                                <div class="popular-under-block">
+                                                                    <div class="container">
+                                                                        <div class="row">
+                                                                            <div class="popular-title">{{product.name|slice:"0:18"}}{%if product.name|length > 18%}...{%endif%}</div>
+                                                                            <div class="popular-price">{{product.price}}тг</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="popular-text">{{product.description|slice:"0:40"}}{%if product.description|length > 40%}...{%endif%}</div>
+                                                                </div>
+                                                            </a> 
+                                                            <form action="{% url 'main:add_product_to_bag'%}" method="POST">
+                                                                <div class="popular-icon" onclick="buy({{product.id}}, true)"></div>       
+                                                            </form>
+                                                        </div>
+                                                    
+                                                    
+                                                {%endfor%}
+                                            
+                                        </div>
+                                    
+                                    <div class="show-on-mobile">
+                                        <div class="combo-description-text">
+                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
+                                        </div>
+                                        <div class="combo-price">
+                                            2999тг + 2999тг = <span class="cross-out">5998тг</span>
+                                        </div>
+                                        <div class="combo-price-block">
+                                            <span class="price-text">4999тг</span>
+                                            <span class="add-text">Добавить</span>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 combo-margin">
-                    <div class="row">
-                        <div class="col-md-6 col-12">
-                            <div class="combo-description hide-on-mobile">
-                                <div class="combo-description-title">
-                                    комбо «lorem ipsum»
-                                </div>
-                                <div class="combo-description-text">
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
-                                </div>
-                                <div class="combo-price">
-                                    2999тг + 2999тг = <span class="cross-out">5998тг</span>
-                                </div>
-                                <div class="combo-price-block">
-                                    <span class="price-text">4999тг</span>
-                                    <span class="add-text">Добавить</span>
-                                    <div class="shares-price-background"></div>
-                                    <div class="shares-price-background2"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="combo-block">
-                                <div class="border-line"></div>
-                                <div class="show-on-mobile">
-                                    <div class="combo-description-title">
-                                        комбо «lorem ipsum»
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a href="">
-                                            <div class="popular-block" style="margin: 0px;">
-                                                <div class="popular-image-block">
-                                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                                    <a href="#">
-                                                        <div class="popular-icon hide-on-mobile"></div>
-                                                    </a>
-                                                </div>
-                                                
-                                                <div class="popular-under-block">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="popular-title">Lorem Ipsum</div>
-                                                            <div class="popular-price">2999тг</div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-6">
-                                        <a href="">
-                                            <div class="popular-block" style="margin: 0px;">
-                                                <div class="popular-image-block">
-                                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                                    <a href="#">
-                                                        <div class="popular-icon hide-on-mobile"></div>
-                                                    </a>
-                                                </div>
-                                                
-                                                <div class="popular-under-block">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="popular-title">Lorem Ipsum</div>
-                                                            <div class="popular-price">2999тг</div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="show-on-mobile">
-                                    <div class="combo-description-text">
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
-                                    </div>
-                                    <div class="combo-price">
-                                        2999тг + 2999тг = <span class="cross-out">5998тг</span>
-                                    </div>
-                                    <div class="combo-price-block">
-                                        <span class="price-text">4999тг</span>
-                                        <span class="add-text">Добавить</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {%endfor%}
             </div>
         </div>
 

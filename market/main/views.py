@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 #from .forms import UserForm, CommentForm, BlogForm
-from .models import User, Product, Purchase, Bag, Rating, Brand, Category, Image, Purchased_Product
+from .models import User, Product, Purchase, Bag, Rating, Brand, Category, Image, Purchased_Product, Share
 
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -40,7 +40,9 @@ COUNT_PRODUCTS_ON_PAGE=12
 
 
 def pack(_list):
-    new_list = zip(_list[::2], _list[1::2])
+    new_list = list(zip(_list[::2], _list[1::2]))
+    if len(_list) % 2 == 1:
+        new_list.append((_list[-1], None))
     return new_list
 
 def get_current_user(req):
@@ -292,6 +294,8 @@ def about(request):
     return render(request, "about.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -301,6 +305,8 @@ def support(request):
     return render(request, "support.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -310,6 +316,8 @@ def contacts(request):
     return render(request, "contacts.html", {
         "user": user,
         "bag": bag,
+        "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -349,6 +357,7 @@ def product(request, id):
         "popular_products": get_popular_products(6, product),
         "can_comment": can_comment,
         "ratings": ratings,
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -399,7 +408,8 @@ def products(request):
         },
         "brands": brands,
         "categories": pack(list(Category.objects.all())),
-        "all_categories": Category.objects.all()
+        "all_categories": Category.objects.all(),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 def categories(request):
@@ -410,6 +420,7 @@ def categories(request):
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
         "all_categories": Category.objects.all(),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 def shares(request):
@@ -419,6 +430,8 @@ def shares(request):
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
+        "shares": Share.objects.all(),
     })
 
 
@@ -429,6 +442,7 @@ def catalog(request):
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -439,6 +453,7 @@ def cart(request):
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -449,6 +464,7 @@ def thanks(request):
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 def promotions(request):
@@ -458,6 +474,7 @@ def promotions(request):
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 def delete_session_parameter(request):
@@ -505,6 +522,7 @@ def rate_product(request):
         return render(request, 'product.html', {
             "product": product,
             "user": user,
+            "all_brands": pack(list(Brand.objects.all())),
         })
 
     return redirect(reverse("main:index")) 
@@ -641,6 +659,37 @@ def delete_brand(request):
     else:
         return redirect(reverse('main:index'))
 
+def add_share(request):
+    if request.method == "POST":
+        ids = request.POST.getlist("add_share_product")
+        discount = int(post_parameter(request,"add_share_discount"))
+        name = post_parameter(request,"add_share_name")
+        
+        share = Share.objects.create(discount=discount, name=name)
+        
+        for id in ids:
+            share.products.add(Product.objects.get(id=int(id)))
+        
+        share.save()
+        
+        request.session['admin_success'] = 'Акция успешно создана!'
+        return redirect(reverse('main:myadmin'))
+    else:
+        return redirect(reverse('main:index'))
+
+def delete_share(request):
+    if request.method == "POST":
+        ids = request.POST.getlist("delete_share")
+        for id in ids:
+            share = Share.objects.filter(id=int(id)).first()
+            share.delete()
+        
+        request.session['admin_success'] = 'Акции успешно удалены!'
+        return redirect(reverse('main:myadmin'))
+    else:
+        return redirect(reverse('main:index'))
+
+        
 def index(request):
     user = get_current_user(request)
     bag = get_users_bag(user)
@@ -650,6 +699,7 @@ def index(request):
         "bag": bag,
         "preview_categories": Category.objects.all()[:6],
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 def admin_panel(request):
@@ -669,6 +719,8 @@ def admin_panel(request):
         "product_categories": Category.objects.all(),
         "brands": Brand.objects.all(),
         "products": products,
+        "shares": Share.objects.all(),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 
@@ -682,6 +734,7 @@ def profile(request):
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
+        "all_brands": pack(list(Brand.objects.all())),
     })
 
 def add_product_to_bag(request):

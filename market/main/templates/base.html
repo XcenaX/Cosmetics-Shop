@@ -148,35 +148,33 @@
                                                     <table class="">
                                                         {%for c1, c2 in categories%}
                                                         <tr>
-                                                            <td><a href="{%url 'main:products'%}?category={{c1.id}}">{{c1.name}}</a></td>
-                                                            {%if c2%}
-                                                                <td><a href="{%url 'main:products'%}?category={{c2.id}}">{{c2.name}}</a></td>
-                                                            {% endif %}
+                                                            <td><a href="{%url 'main:products'%}?category={{c1.id}}">{{c1.name}}</a></td>                                                            
+                                                            <td>
+                                                                {%if c2%}
+                                                                    <a href="{%url 'main:products'%}?category={{c2.id}}">{{c2.name}}</a>
+                                                                {%endif%}
+                                                            </td>                                                            
                                                         </tr>
                                                         {%endfor%}
                                                     </table>
-                                                </div>
-                                                
-                                                    <!-- <ul class="submenu submenu-first together">
-                                                        <li><a href="">Я</a></li>
-                                                        <li><a href="">Сосааал</a></li>
-                                                        <li><a href="">Кому?</a></li>
-                                                        <li><a href="">Я</a></li>
-                                                        <li><a href="">Сосааал</a></li>
-                                                        <li><a href="">Кому?</a></li>
-                                                        <li><a href="">Я</a></li>                                                    
-                                                    </ul>
-                                                    <ul class="submenu submenu-second together">
-                                                        <li><a href="">Я</a></li>
-                                                        <li><a href="">Сосааал</a></li>
-                                                        <li><a href="">Кому?</a></li>
-                                                        <li><a href="">Я</a></li>
-                                                        <li><a href="">Сосааал</a></li>
-                                                        <li><a href="">Кому?</a></li>
-                                                        <li><a href="">Я</a></li>                                                                                                    
-                                                    </ul> -->
-                                                
-                                                
+                                                </div>                                                
+                                            </li>
+                                            <li>
+                                                <a class="submenu-link">Бренды</a>
+                                                <div class="submenu submenu-table">
+                                                    <table class="">
+                                                        {%for b1, b2 in all_brands%}
+                                                        <tr>
+                                                            <td><a href="{%url 'main:products'%}?brand={{b1.id}}">{{b1.name}}</a></td>                                                            
+                                                            <td>                                                                
+                                                                {%if b2%}
+                                                                    <a href="{%url 'main:products'%}?brand={{b2.id}}">{{b2.name}}</a>        
+                                                                {%endif%}                                                                
+                                                            </td>                                                            
+                                                        </tr>
+                                                        {%endfor%}
+                                                    </table>
+                                                </div>                                                
                                             </li>
                                         </ul>
                                     </li>

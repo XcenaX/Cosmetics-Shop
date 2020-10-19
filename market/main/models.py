@@ -26,7 +26,6 @@ class User(models.Model):
     password = models.TextField(default='')
     first_name = models.TextField(default="") 
     last_name = models.TextField(default="") 
-    balance = models.IntegerField(default=0)
     role = models.TextField(default='user')
     is_active = models.BooleanField(default=False)
     img_url = models.TextField(default='/static/images/icons/user.png')
@@ -64,7 +63,7 @@ class Product(models.Model):
     brand =  models.ForeignKey(Brand, on_delete=models.CASCADE, blank=True, null=True)
     images = models.ManyToManyField(Image, blank=True)
     count_on_shop = models.IntegerField(null=True, blank=True, default=0)
-    
+    discount = models.IntegerField(null=True, blank=True, default=0)
 
     def is_available(self):
         if count_on_shop <= 0:
@@ -89,6 +88,27 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
+class Share(models.Model):
+    products = models.ManyToManyField(Product, blank=True)
+    discount = models.IntegerField(null=True)
+    name = models.TextField(default='')
+    description = models.TextField(default='')
+
+    def total_price(self):
+        count = 0
+        for product in self.products.all():
+            count += product.price
+        return int(count * (self.discount / 100))
+
+    def regular_price(self):
+        count = 0
+        for product in self.products.all():
+            count += product.price
+        return count
+            
+    def __str__(self):
+        return self.name
 
 
 class Purchased_Product(models.Model):
