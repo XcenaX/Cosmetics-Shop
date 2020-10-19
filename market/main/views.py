@@ -478,7 +478,7 @@ def promotions(request):
     })
 
 def delete_session_parameter(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         name = post_parameter(request, "name")
         del request.session[name]
     return redirect(reverse("main:myadmin"))
@@ -512,7 +512,7 @@ def activate(request, uidb64, token):
         })
 
 def rate_product(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         product_id = post_parameter("id")
         stars = post_parameter("stars")
         product = Product.objects.filter(pk=product_id).first()
@@ -573,7 +573,7 @@ def add_product(request):
     return redirect(reverse("main:index"))
     
 def delete_category(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         ids = request.POST.getlist("delete_category")
         for id in ids:
             category = Category.objects.filter(id=int(id)).first()
@@ -585,7 +585,7 @@ def delete_category(request):
         return redirect(reverse('main:index'))
 
 def delete_product(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         ids = request.POST.getlist("delete_product")
         print(ids)
         for id in ids:
@@ -636,7 +636,7 @@ def add_brand(request):
     current_user = get_current_user(request)
     if not current_user:
         return redirect(reverse("main:index"))
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         bag = Bag.objects.filter(owner=current_user).first()
         name = post_parameter(request, "add_brand")
         
@@ -648,7 +648,7 @@ def add_brand(request):
     return redirect(reverse("main:index"))
 
 def delete_brand(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         ids = request.POST.getlist("delete_brand")
         for id in ids:
             brand = Brand.objects.filter(id=int(id)).first()
@@ -660,7 +660,7 @@ def delete_brand(request):
         return redirect(reverse('main:index'))
 
 def add_share(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         ids = request.POST.getlist("add_share_product")
         discount = int(post_parameter(request,"add_share_discount"))
         name = post_parameter(request,"add_share_name")
@@ -678,7 +678,7 @@ def add_share(request):
         return redirect(reverse('main:index'))
 
 def delete_share(request):
-    if request.method == "POST":
+    if request.method == "POST" and get_current_user(request):
         ids = request.POST.getlist("delete_share")
         for id in ids:
             share = Share.objects.filter(id=int(id)).first()
@@ -689,6 +689,34 @@ def delete_share(request):
     else:
         return redirect(reverse('main:index'))
 
+def add_discount(request):
+    if request.method == "POST" and get_current_user(request):
+        ids = request.POST.getlist("add_discount_product")
+        discount = int(post_parameter(request,"add_discount"))
+        
+        for id in ids:
+            product = Product.objects.get(id=int(id))
+            product.discount = discount
+            product.save()
+        
+        request.session['admin_success'] = 'Скидки успешно добавлены!'
+        return redirect(reverse('main:myadmin'))
+    else:
+        return redirect(reverse('main:index'))
+
+def delete_discount(request):
+    if request.method == "POST" and get_current_user(request):
+        ids = request.POST.getlist("delete_discount_product")
+        
+        for id in ids:
+            product = Product.objects.get(id=int(id))
+            product.discount = 0
+            product.save()
+        
+        request.session['admin_success'] = 'Скидки успешно удалены!'
+        return redirect(reverse('main:myadmin'))
+    else:
+        return redirect(reverse('main:index'))
         
 def index(request):
     user = get_current_user(request)
@@ -721,6 +749,7 @@ def admin_panel(request):
         "products": products,
         "shares": Share.objects.all(),
         "all_brands": pack(list(Brand.objects.all())),
+        "discount_products": Product.objects.filter(discount__gte=1),
     })
 
 

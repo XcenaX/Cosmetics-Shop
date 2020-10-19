@@ -85,6 +85,9 @@ class Product(models.Model):
         else:
             return 0
 
+    def discount_price(self):
+        return self.price - int(self.price * (self.discount / 100))
+
     def __str__(self):
         return self.name
 

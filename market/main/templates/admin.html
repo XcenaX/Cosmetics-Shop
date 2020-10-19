@@ -85,7 +85,27 @@
 
                 <button type="submit" class="btn btn-primary m-10">Удалить</button>
             </form>
-            
+            <form method="post" action="{%url 'main:add_discount'%}"  class="comment add-blog-form"
+                enctype="multipart/form-data" >{% csrf_token %}
+                <h2 class="form-header">Сделать скидку</h2>
+                <div>
+                    <div class="form-group" style="width:100%;padding-left:4%;padding-right:4%;">
+                        <label for="add_discount_product">Выберите продукты</label>
+                        <select multiple class="form-control" name="add_discount_product" id="add_discount_product">
+                            {% for product in products%}
+                            <option value="{{product.id}}">{{product.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group" style="width:100%;padding-left:4%;padding-right:4%;">
+                        <label for="add_discount">Скидка</label>
+                        <input type="number" class="form-control" name="add_discount" id="add_discount"
+                            aria-describedby="emailHelp" placeholder="Введите скидку товаров" style="width:100%">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary m-10">Добавить</button>
+            </form>
         </div>
         <div class="col-md-4 col-12">
             <form method="post" action="{%url 'main:add_brand'%}"  class="comment add-blog-form"
@@ -191,6 +211,22 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary m-10">Удалить</button>
+            </form>
+            <form method="post" action="{%url 'main:delete_discount'%}"  class="comment add-blog-form"
+                enctype="multipart/form-data" >{% csrf_token %}
+                <h2 class="form-header">Убрать скидку</h2>
+                <div>
+                    <div class="form-group" style="width:100%;padding-left:4%;padding-right:4%;">
+                        <label for="delete_discount_product">Выберите продукты</label>
+                        <select multiple class="form-control" name="delete_discount_product" id="delete_discount_product">
+                            {% for product in discount_products%}
+                            <option value="{{product.id}}">{{product.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary m-10">Убрать</button>
             </form>
         </div>
 
