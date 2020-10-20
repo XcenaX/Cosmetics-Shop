@@ -86,6 +86,8 @@ class Product(models.Model):
             return 0
 
     def discount_price(self):
+        if self.discount == 0:
+            return self.price
         return self.price - int(self.price * (self.discount / 100))
 
     def __str__(self):
@@ -101,13 +103,13 @@ class Share(models.Model):
     def total_price(self):
         count = 0
         for product in self.products.all():
-            count += product.price
+            count += product.discount_price()
         return int(count * (self.discount / 100))
 
     def regular_price(self):
         count = 0
         for product in self.products.all():
-            count += product.price
+            count += product.discount_price()
         return count
             
     def __str__(self):

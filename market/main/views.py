@@ -432,6 +432,7 @@ def shares(request):
         "categories": pack(list(Category.objects.all())),
         "all_brands": pack(list(Brand.objects.all())),
         "shares": Share.objects.all(),
+        "discount_products": Product.objects.filter(discount__gte=1)[:3],
     })
 
 

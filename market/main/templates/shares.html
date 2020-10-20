@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" href="{% static 'css/popular-block.css' %}">
     <link rel="stylesheet" href="{% static 'css/shares.css' %}">
-    
+    <script src="{%static 'js/add_product_to_bag.js'%}"></script>
 
 {% endblock %}
 
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <div class="combo-block">
+                                <div class="combo-block" style="height: 110%;">
                                     <div class="border-line"></div>
                                                                         
                                         <div class="show-on-mobile">
@@ -80,13 +80,24 @@
                                                                     {% with product.images.all|first as image %}
                                                                     <img src="{{image.img_url}}" alt="" class="popular-image">
                                                                     {% endwith %}                                                                                                                                
+                                                                
+                                                                    {%if product.discount > 0%}
+                                                                        <div class="discount-price">
+                                                                            {{product.discount_price}}тг
+                                                                        </div>
+                                                                    {%endif%}
                                                                 </div>
                                                                 
                                                                 <div class="popular-under-block">
                                                                     <div class="container">
                                                                         <div class="row">
                                                                             <div class="popular-title">{{product.name|slice:"0:18"}}{%if product.name|length > 18%}...{%endif%}</div>
-                                                                            <div class="popular-price">{{product.price}}тг</div>
+                                                                            {%if product.discount > 0%}
+                                                                                <div class="popular-price cross-out">{{product.price}}тг</div>
+                                                                            {%else%}
+                                                                                <div class="popular-price">{{product.price}}тг</div>
+                                                                            {%endif%}
+                                                                            
                                                                         </div>
                                                                     </div>
                                                                     
@@ -124,165 +135,54 @@
             </div>
         </div>
 
-        <div class="comments" style="margin-bottom: 100px;">
+        <div class="comments" style="margin-bottom: 40px; margin-top: 120px;">
             <div class="comments-title">Скидки</div>
             <div class="popular-wrap">
                 <div class="row">
-                    <div class="col-md-4 col-12">
-                        <a href="">
+                    {% csrf_token %}
+                    {%for product in discount_products %}
+                        <div class="col-md-4 col-12">
                             <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <div style="width:100%;padding-bottom:100%;">
-                                        <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
+                                <a href="{% url 'main:product' product.id%}">
+                                    <div class="popular-image-block">
+                                        {% with product.images.all|first as image %}
+                                        <img src="{{image.img_url}}" alt="" class="popular-image">
+                                        {% endwith %}
+                                        
+                                        {%if product.discount > 0%}
+                                            <div class="discount-price">
+                                                {{product.discount_price}}тг
+                                            </div>
+                                        {%endif%}
                                     </div>
                                     
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
+                                    <div class="popular-under-block">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="popular-title">{{product.name|slice:"0:18"}}{%if product.name|length > 18%}...{%endif%}</div>
+                                                {%if product.discount > 0%}
+                                                    <div class="popular-price cross-out">{{product.price}}тг</div>
+                                                {%else%}
+                                                    <div class="popular-price">{{product.price}}тг</div>
+                                                {%endif%}
+                                                
+                                            </div>
                                         </div>
+                                        
+                                        <div class="popular-text">{{product.description|slice:"0:40"}}{%if product.description|length > 40%}...{%endif%}</div>
                                     </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
+                                </a> 
+                                <form action="{% url 'main:add_product_to_bag'%}" method="POST">
+                                    <div class="popular-icon" onclick="buy({{product.id}}, true)"></div>       
+                                </form>
                             </div>
-                        </a>
-                    </div>
-    
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-    
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
+                        </div>
+                    {%endfor%}
                     
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-    
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-    
-                    <div class="col-md-4 col-12">
-                        <a href="">
-                            <div class="popular-block">
-                                <div class="popular-image-block">
-                                    <img src="{%static 'images/talking.jpg'%}" alt="" class="popular-image">
-                                    <a href="#">
-                                        <div class="popular-icon"></div>
-                                    </a>
-                                </div>
-                                
-                                <div class="popular-under-block">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="popular-title">Lorem Ipsum</div>
-                                            <div class="popular-price">2999тг</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="popular-text">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text </div>
-                                </div>
-                                
-                            </div>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
-        </div>
+        </div
 {% endblock %}
 
 {%block flowers%}
