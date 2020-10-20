@@ -237,14 +237,23 @@
                                     <img src="{{image.img_url}}" alt="" class="popular-image">
                                     {% endwith %}
                                 
-                                    
+                                    {%if product.discount > 0%}
+                                        <div class="discount-price">
+                                            {{product.discount_price}}тг
+                                        </div>
+                                    {%endif%}
                                 </div>
                                 
                                 <div class="popular-under-block">
                                     <div class="container">
                                         <div class="row">
                                             <div class="popular-title">{{product.name}}</div>
-                                            <div class="popular-price">{{product.price}}тг</div>
+                                            {%if product.discount > 0%}
+                                                <div class="popular-price cross-out">{{product.price}}тг</div>
+                                            {%else%}
+                                                <div class="popular-price">{{product.price}}тг</div>
+                                            {%endif%}
+                                            
                                         </div>
                                     </div>
                                     

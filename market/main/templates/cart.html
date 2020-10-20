@@ -73,6 +73,7 @@
                             {% with item.product.images.all|first as image %}
                                 <img src="{{image.img_url}}" alt="">
                             {% endwith %}
+                            
                         </div>
                         <div class="delete-button">
                             <form action="{% url 'main:delete_product_from_bag'%}" method="POST">
@@ -80,7 +81,10 @@
                             </form>
                         </div>
                         <div class="item-mobile-version-volume-amount-block">
-                            <div class="item-price">{{ item.product.price }}</div>
+                            
+                            <div class="item-price">{{ item.product.discount_price }}тг</div>
+                            
+                            
                             <br>
                             <div class="amount">
                                 <button onclick="delete_one_product({{ item.product.id }}, '{{ csrf_token }}')">-</button>
@@ -132,7 +136,7 @@
                             </div>
                         </div>
                         <div class="item-pc-version-price">
-                            <div class="item-price">{{ item.product.price }}</div>
+                            <div class="item-price">{{ item.product.discount_price }}тг</div>
                         </div>
                     </div>
 

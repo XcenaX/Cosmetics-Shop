@@ -150,7 +150,7 @@ class Bag(models.Model):
         sum = 0
         for purchased_product in self.products.all():
             for i in range(purchased_product.count):
-                sum += purchased_product.product.price
+                sum += purchased_product.product.discount_price()
         return sum
 
     def __str__(self):
