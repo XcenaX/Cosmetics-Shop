@@ -118,7 +118,7 @@ def filter_products(request):
     if category:
         blocks = blocks.filter(category=category)
     if q:
-        blocks = blocks.filter(Q(name__contains=q) | Q(price__contains=q) | Q(description__contains=q))
+        blocks = blocks.filter(Q(name__icontains=q) | Q(price__icontains=q) | Q(description__icontains=q) | Q(category__name__icontains=q))
                                                                         
     if optional == "popular":
         blocks = sorted(blocks, key=lambda a: a.avarage_rating(), reverse=True)
