@@ -131,7 +131,7 @@ STAR_RATINGS_RERATE = False
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 #STATIC_ROOT = '/home/digitalportfolio/Digital-Portfolio/main/static'
 STATIC_URL = '/static/'
-
+STATIC_ROOT = '/home/c/cu78443/public_html/Cosmetics-Shop/market/main/static'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "digital.portfolio.ru@gmail.com"
 EMAIL_HOST_PASSWORD = 'Dagad583#'
