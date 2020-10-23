@@ -115,13 +115,23 @@ class Share(models.Model):
     def __str__(self):
         return self.name
 
+class Purchased_Share(models.Model):
+    share = models.ForeignKey(Share, on_delete=models.CASCADE)
+    count = models.IntegerField(null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def get_total_price(self):
+        price = self.share.total_price()
+        return price * self.count
+
+    def __str__(self):
+        return self.share.name
 
 class Purchased_Product(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.IntegerField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def get_total_price(self):
-        price = self.product.price
+        price = self.product.discount_price()
         return price * self.count
 
     def __str__(self):
@@ -138,19 +148,25 @@ class Purchase(models.Model):
 
 class Bag(models.Model):
     products = models.ManyToManyField(Purchased_Product, blank=True)
+    shares = models.ManyToManyField(Purchased_Share, blank=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     
     def count_of_products(self):
         count = 0
         for purchased_product in self.products.all():
             count += purchased_product.count
+        for purchased_share in self.shares.all():
+            count += purchased_share.count
         return count
 
     def sum_of_products(self):
         sum = 0
         for purchased_product in self.products.all():
-            for i in range(purchased_product.count):
-                sum += purchased_product.product.discount_price()
+            sum += purchased_product.get_total_price()
+        
+        for purchased_share in self.shares.all():
+            sum += purchased_share.get_total_price()
+                
         return sum
 
     def __str__(self):

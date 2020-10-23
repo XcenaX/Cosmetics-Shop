@@ -65,6 +65,93 @@
                 </div>
 
                 <br>
+                {%csrf_token%}
+                {% for item in bag.shares.all %}
+
+                    <div id="share{{ item.id }}.1" class="item-mobile-version hide-on-pc">
+                        <div class="item-mobile-version-image share-scroll" >
+                            {%for product in item.share.products.all%}
+                                {% with product.images.all|first as image %}
+                                    <img src="{{image.img_url}}" alt="">
+                                {% endwith %}
+                            {%endfor%}
+                            
+                        </div>
+                        <div class="delete-button">
+                            <form action="{% url 'main:delete_share_from_bag'%}" method="POST">
+                                <div class="icon" onclick="delete_share({{item.id}}, {{ item.count }}, '{{ csrf_token }}')"></div>
+                            </form>
+                        </div>
+                        <div class="item-mobile-version-volume-amount-block">
+                            
+                            <div class="item-price">{{ item.share.total_price }}тг</div>
+                            
+                            
+                            <br>
+                            <div class="amount">
+                                <button onclick="delete_one_share({{ item.id }}, '{{ csrf_token }}')">-</button>
+                                <span id="share_count{{ item.id }}.1">{{ item.count }}</span>
+                                <button onclick="add_share({{ item.id }}, '{{ csrf_token }}')">+</button>
+                            </div>
+                            <br><br>
+                            <div class="item-text volume"><b>10мл</b></div>
+                        </div>
+                        <div class="item-mobile-version-description">
+                            <br>
+                            <div class="item-title">{{ item.share.name }}</div>
+                            <br>
+                            <div class="item-text">{{ item.share.description }}</div>
+                        </div>
+                    </div>
+
+                    <div class="hide-on-pc">
+                        <br>
+                        <hr>
+                        <br>
+                    </div>
+
+                    <div id="share{{ item.id }}.2" class="item-pc-version hide-on-mobile">
+                        <div class="item-pc-version-image share-scroll" >
+                            {%for product in item.share.products.all%}
+                                {% with product.images.all|first as image %}
+                                    <img src="{{image.img_url}}" alt="">
+                                {% endwith %}
+                            {%endfor%}
+                        </div>
+                        <div class="delete-button">
+                            <form action="{% url 'main:delete_share_from_bag'%}" method="POST">
+                                <div class="icon" onclick="delete_share({{item.id}}, {{ item.count }}, '{{ csrf_token }}')"></div>
+                            </form>
+                        </div>
+                        <div class="item-pc-version-description">
+                            <div class="item-title">Комбо "{{ item.share.name }}"</div>
+                            <br>
+                            <div class="item-text">{{item.share.description|slice:"0:60"}}..</div>
+                            <br>
+                            <div class="volume-amount-block">
+                                <div class="item-text volume"><b>10мл</b></div>
+                                <div class="amount">
+                                    <button onclick="delete_one_share({{ item.id }}, '{{ csrf_token }}')">-</button>
+                                    <span id="share_count{{ item.id }}.2">{{ item.count }}</span>
+                                    <button onclick="add_share({{ item.id }}, {{ item.share.regular_price }}, '{{ csrf_token }}')">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-pc-version-price">
+                            <div class="item-price">{{ item.share.total_price }}тг</div>
+                        </div>
+                    </div>
+
+                    
+
+                    <script>
+                        $("#count{{ item.share.id }}.1").text({{ item.count }});
+                        $("#count{{ item.share.id }}.2").text({{ item.count }});
+                    </script>
+
+                {% endfor %}
 
                 {% for item in bag.products.all %}
 

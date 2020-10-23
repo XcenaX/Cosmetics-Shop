@@ -37,6 +37,9 @@ urlpatterns = [
     path('add_product_to_bag', views.add_product_to_bag, name='add_product_to_bag'),
     path('delete_product_from_bag', views.delete_product_from_bag, name='delete_product_from_bag'),
     path('delete_one_product_from_bag', views.delete_one_product_from_bag, name='delete_one_product_from_bag'),
+    path('add_share_to_bag', views.add_share_to_bag, name='add_share_to_bag'),
+    path('delete_share_from_bag', views.delete_share_from_bag, name='delete_share_from_bag'),
+    path('delete_one_share_from_bag', views.delete_one_share_from_bag, name='delete_one_share_from_bag'),
 
     path('download/(?P<path>.*)$', views.download, name="download"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.activate, name='activate'),    

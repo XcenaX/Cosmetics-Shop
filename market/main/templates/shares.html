@@ -39,6 +39,7 @@
         
         <div class="comments" style="margin-bottom: 0px; margin-top: 60px;">
             <div class="row">
+                {%csrf_token%}
                 {%for share in shares%}
                     <div class="col-12 combo-margin">
                         <div class="row">
@@ -53,9 +54,10 @@
                                     <div class="combo-price">
                                         <span class="cross-out">{{share.regular_price}}тг</span>
                                     </div>
-                                    <div class="combo-price-block">
+                                
+                                    <div class="combo-price-block" onclick="buy_share({{share.id}}, false)">
                                         <span class="price-text">{{share.total_price}}тг</span>
-                                        <span class="add-text">Добавить</span>
+                                        <span class="add-text" >Добавить</span>
                                         <div class="shares-price-background"></div>
                                         <div class="shares-price-background2"></div>
                                     </div>
