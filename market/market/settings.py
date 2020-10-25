@@ -131,8 +131,9 @@ STAR_RATINGS_RERATE = False
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 #STATIC_ROOT = '/home/digitalportfolio/Digital-Portfolio/main/static'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = "/home/c/cu78443/public_html/static/"
 STATIC_URL = '/static/'
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "digital.portfolio.ru@gmail.com"
