@@ -17,6 +17,7 @@ function buy(product_id, is_one_product, count=1){
             "count": count,
         },
         success: function(result){
+            console.log(result);
             if(result["error"]){
                 alertify.error("Войдите чтобы добавлять товары!", 3);
             }else{
@@ -50,6 +51,7 @@ function buy_share(share_id, is_one_product, count=1){
             "count": count,
         },
         success: function(result){
+            console.log(result);
             if(result["error"]){
                 alertify.error("Войдите чтобы добавлять товары!", 3);
             }else{
