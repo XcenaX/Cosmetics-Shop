@@ -17,10 +17,15 @@ function buy(product_id, is_one_product, count=1){
             "count": count,
         },
         success: function(result){
-            bag_text = $("#bag_count");
-            var old_count = parseInt(bag_text.text());
-            bag_text.text(old_count+count);
-            alertify.success("Товар добавлен в корзину!",2)
+            if(result["error"]){
+                alertify.error("Войдите чтобы добавлять товары!", 3);
+            }else{
+                bag_text = $("#bag_count");
+                var old_count = parseInt(bag_text.text());
+                bag_text.text(old_count+count);
+                alertify.success("Товар добавлен в корзину!",2)
+            }
+            
         }
     });
 }
@@ -45,10 +50,15 @@ function buy_share(share_id, is_one_product, count=1){
             "count": count,
         },
         success: function(result){
-            bag_text = $("#bag_count");
-            var old_count = parseInt(bag_text.text());
-            bag_text.text(old_count+count);
-            alertify.success("Акция добавлена в корзину!",2)
+            if(result["error"]){
+                alertify.error("Войдите чтобы добавлять товары!", 3);
+            }else{
+                bag_text = $("#bag_count");
+                var old_count = parseInt(bag_text.text());
+                bag_text.text(old_count+count);
+                alertify.success("Акция добавлена в корзину!",2)
+            }
+            
         }
     });
 }

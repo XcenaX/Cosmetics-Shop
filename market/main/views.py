@@ -782,8 +782,6 @@ def add_product_to_bag(request):
 
         bag = get_users_bag(user)
 
-        
-
         for purchased_product in bag.products.all():
             if purchased_product.product == product:
                 purchased_product.count += count
@@ -837,7 +835,11 @@ def delete_product_from_bag(request):
         purchased_product_id = int(post_parameter(request, "purchased_product_id"))
         if not purchased_product_id:
             return JsonResponse({"error": "No parameter product_id given! " + " Product_id is " + str(purchased_product_id)})
+        
         user = get_current_user(request)
+        if not user:
+            return JsonResponse({"error": "Not Authorized!"})
+
         bag = get_users_bag(user)
         bag.products.filter(id=purchased_product_id).first().delete()
         bag.save()
@@ -848,6 +850,7 @@ def delete_product_from_bag(request):
 
 def add_share_to_bag(request):
     if request.method == "POST":
+        
         count = int(post_parameter(request, "count"))
         share_id = post_parameter(request, "share_id")
         if not share_id:
@@ -918,6 +921,8 @@ def delete_share_from_bag(request):
         if not purchased_product_id:
             return JsonResponse({"error": "No parameter share_id given! " + " share_id is " + str(purchased_share_id)})
         user = get_current_user(request)
+        if not user:
+            return redirect(reverse('main:index'))
         bag = get_users_bag(user)
         bag.shares.filter(id=purchased_share_id).first().delete()
         bag.save()
@@ -930,6 +935,8 @@ def delete_share_from_bag(request):
 def add_rating(request):
     if request.method == "POST":
         user = get_current_user(request)
+        if not user:
+            return redirect(reverse('main:index'))
         stars = post_parameter(request, "stars")
         text = post_parameter(request, "text")
         product_id = post_parameter(request, "id")
