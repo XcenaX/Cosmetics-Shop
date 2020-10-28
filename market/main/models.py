@@ -8,14 +8,19 @@ class Image(models.Model):
     img_url = models.TextField(default='')
     name = models.TextField(default='')
     absolute_path = models.TextField(default='')
+    image_type = models.TextField(default='')
     
-    def delete_image(self, product_id):
-        product = Product.objects.filter(id=product_id).first()
-        length = len(product.images.all())
+    def delete_image(self, item_id):
         current_path = os.path.abspath(os.path.dirname(__file__))
-
-        for i in range(1, length+1):
-            new_img_url = current_path + "\\static\\images\\products\\product" + str(product.id) + "." + str(i) + ".jpg"
+        if self.image_type == "product":
+            product = Product.objects.filter(id=item_id).first()
+            length = len(product.images.all())
+            for i in range(1, length+1):
+                new_img_url = current_path + "\\static\\images\\products\\product" + str(product.id) + "." + str(i) + ".jpg"
+                os.remove(new_img_url)
+        elif self.image_type == "user":
+            user = User.objects.get(id=item_id)
+            new_img_url = current_path + "\\static\\images\\users\\user" + str(user.id) + ".jpg"
             os.remove(new_img_url)
 
         
@@ -26,9 +31,12 @@ class User(models.Model):
     password = models.TextField(default='')
     first_name = models.TextField(default="") 
     last_name = models.TextField(default="") 
+    adress = models.TextField(default="") 
+    index = models.TextField(default="") 
+    phone = models.TextField(default="") 
     role = models.TextField(default='user')
     is_active = models.BooleanField(default=False)
-    img_url = models.TextField(default='/static/images/icons/user.png')
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return self.first_name
 
@@ -104,7 +112,7 @@ class Share(models.Model):
         count = 0
         for product in self.products.all():
             count += product.discount_price()
-        return int(count * (self.discount / 100))
+        return count - int(count * (self.discount / 100))
 
     def regular_price(self):
         count = 0
@@ -139,12 +147,22 @@ class Purchased_Product(models.Model):
 
 class Purchase(models.Model):
     purchased_products = models.ManyToManyField(Purchased_Product, blank=True)
+    purchased_shares = models.ManyToManyField(Purchased_Share, blank=True)
     purhcase_start_date = models.DateTimeField(default=timezone.now)
     purhcase_end_date = models.DateTimeField(blank=True)
     is_delivered = models.BooleanField(default=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def total_price(self):
+        price = 0
+        for purchased_product in self.purchased_products.all():
+            price += purchased_product.get_total_price()
+        for purchased_share in self.purchased_shares.all():
+            price += purchased_share.get_total_price()
+        return price
+
     def __str__(self):
-        return self.owner
+        return self.owner.email
 
 class Bag(models.Model):
     products = models.ManyToManyField(Purchased_Product, blank=True)

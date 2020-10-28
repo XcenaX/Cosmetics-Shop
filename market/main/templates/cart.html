@@ -133,7 +133,7 @@
                                 <div class="amount">
                                     <button onclick="delete_one_share({{ item.id }}, '{{ csrf_token }}')">-</button>
                                     <span id="share_count{{ item.id }}.2">{{ item.count }}</span>
-                                    <button onclick="add_share({{ item.id }}, {{ item.share.regular_price }}, '{{ csrf_token }}')">
+                                    <button onclick="add_share({{ item.share.id }}, {{ item.share.regular_price }}, '{{ csrf_token }}')">
                                         +
                                     </button>
                                 </div>

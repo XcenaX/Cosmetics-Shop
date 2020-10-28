@@ -37,7 +37,7 @@ from django.db.models import Q
 from django.views.generic import DetailView, TemplateView
 
 COUNT_PRODUCTS_ON_PAGE=12
-
+COUNT_PURCHASES_ON_PAGE = 6
 
 def pack(_list):
     new_list = list(zip(_list[::2], _list[1::2]))
@@ -564,7 +564,7 @@ def add_product(request):
                     handler.write(chunk)
             
             static_img_url = "/static/images/products/product" + str(product.id) + "." + str(count) + ".jpg"
-            new_image = Image.objects.create(img_url=static_img_url, name=image.name, absolute_path=new_img_url)
+            new_image = Image.objects.create(img_url=static_img_url, name=image.name, absolute_path=new_img_url, image_type="product")
             product.images.add(new_image)
             count += 1
         product.save()
@@ -665,8 +665,9 @@ def add_share(request):
         ids = request.POST.getlist("add_share_product")
         discount = int(post_parameter(request,"add_share_discount"))
         name = post_parameter(request,"add_share_name")
+        description = post_parameter(request,"add_share_name")
         
-        share = Share.objects.create(discount=discount, name=name)
+        share = Share.objects.create(discount=discount, name=name, description=description)
         
         for id in ids:
             share.products.add(Product.objects.get(id=int(id)))
@@ -760,11 +761,17 @@ def profile(request):
     if not user:
         return redirect(reverse("main:index")) 
     bag = get_users_bag(user)
+    purchases = Purchase.objects.filter(owner=user).order_by("-purhcase_start_date")
+    paginator = Paginator(purchases, COUNT_PURCHASES_ON_PAGE)
+    paginated_blocks, pages = get_paginated_blogs(request, paginator)
+    print(pages)
     return render(request, 'profile.html', {
         "user": user,
         "bag": bag,
         "categories": pack(list(Category.objects.all())),
         "all_brands": pack(list(Brand.objects.all())),
+        "pages": pages,
+        "purchases": paginated_blocks,
     })
 
 def add_product_to_bag(request):
@@ -865,10 +872,10 @@ def add_share_to_bag(request):
 
         bag = get_users_bag(user)
 
-        share = Purchased_Share.objects.filter(id=int(share_id), user=user).first()
+        share = Share.objects.filter(id=int(share_id)).first()
 
         for purchased_share in bag.shares.all():
-            if purchased_share == share:
+            if purchased_share.share == share:
                 purchased_share.count += count
                 purchased_share.save()
                 return JsonResponse({
@@ -876,8 +883,9 @@ def add_share_to_bag(request):
                     "sum_of_products": bag.sum_of_products(),
                     "count": purchased_share.count,
                     "all_count": bag.count_of_products(),
+                    "share_id": purchased_share.id,
                 })
-        new_share = Purchased_Share.objects.create(share=share.share, count=count, user=user)
+        new_share = Purchased_Share.objects.create(share=share, count=count, user=user)
         bag.shares.add(new_share)
         bag.save()
         return JsonResponse({
@@ -885,6 +893,7 @@ def add_share_to_bag(request):
                 "sum_of_products": bag.sum_of_products(),
                 "count": new_share.count,
                 "all_count": bag.count_of_products(),
+                "share_id": new_share.id,
             })
     return redirect(reverse("main:index"))
 
@@ -957,42 +966,61 @@ def update_avatar(request):
         user = get_current_user(request)
         if not user:
             return redirect(reverse('main:index'))
-        image = post_file(request, 'avatar')
-        
+        image = post_file(request, 'avatar')[0]
+        current_path = os.path.abspath(os.path.dirname(__file__))
+
         try:
             if not image.name.endswith(".png") and not image.name.endswith(".jpg") and not image.name.endswith(".jpeg"):
                 upload_error = "Выберите .jpg или .png формат для картинки!" 
-                return render(request, 'profile.html', {
-                    "user": user,
-                    "upload_error": upload_error,
-                })
+                return redirect(reverse("main:profile"))
         except:
-            upload_error = "Вы не выбрали картинку для аватара!"
-            if role == "student": 
-                return render(request, 'portfolio_edit.html', {
-                    "user": user,
-                    "upload_error": upload_error,
-                })
-            else:
-                return render(request, 'employer_profile.html', {
-                    "user": user,
-                    "upload_error": upload_error,
-                })
+            upload_error = "Вы не выбрали картинку для аватара!"            
+            request.session["upload_error"] = upload_error
+            return redirect(reverse("main:profile"))
 
-        new_img_url = '/home/digitalportfolio/Digital-Portfolio/main/static/images/user/avatars/avatar'+str(user.id)+'.jpg'
+        new_img_url = current_path + "\\static\\images\\users\\user" + str(user.id) + ".jpg"
         with open(new_img_url, 'wb') as handler:
             for chunk in image.chunks():
                 handler.write(chunk)
         
-        new_img_url = "/static/images/user/avatars/avatar" + str(user.id) + ".jpg"
-        user.img_url = new_img_url
+        static_url = "/static/images/users/user" + str(user.id) + ".jpg"
+    
+        if user.image:
+            user.image.img_url = static_url
+            user.image.absolute_path = new_img_url
+            user.image.save()
+        else:
+            user.image = Image.objects.create(img_url=static_url, name=image.name, absolute_path=new_img_url, image_type="user")
+        
         user.save()
 
-    if role == "student":
-        return redirect(reverse('main:portfolio_edit'))
-    else:
-        return redirect(reverse('main:employer_profile'))
-    
+    return redirect(reverse('main:profile'))
+
+
+def update_profile(request):
+    if request.method == "POST":
+        user = get_current_user(request)
+        if not user:
+            return JsonResponse({"error": "Not Authorized!"})
+        
+        first_name = post_parameter(request, "first_name")
+        last_name = post_parameter(request, "last_name")
+        email = post_parameter(request, "email")
+        index = post_parameter(request, "index")
+        adress = post_parameter(request, "adress")
+        phone = post_parameter(request, "phone")
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.adress = adress
+        user.index = index
+        user.phone = phone
+
+        user.save()
+        request.session["update_profile"] = True
+        return redirect(reverse("main:profile"))
+    return JsonResponse({"error": "Method GET not allowed!"})
 
 
 def handler404(request, exception, template_name="404.html"):

@@ -123,10 +123,9 @@ function add_share(share_id, product_price, csrf_token) {
         success: function(result){
             var count = result["count"];
             var all_count = result["all_count"];
-            console.log("share_count" + share_id + ".2");
-            document.getElementById("share_count" + share_id + ".2").innerHTML = (count).toString();
-            document.getElementById("share_count" + share_id + ".1").innerHTML = (count).toString();
-            let bag_count = document.getElementById("bag_count").innerHTML;
+            console.log("share_count" + result["share_id"] + ".2");
+            document.getElementById("share_count" + result["share_id"] + ".2").innerHTML = (count).toString();
+            document.getElementById("share_count" + result["share_id"] + ".1").innerHTML = (count).toString();
             document.getElementById("bag_count").innerHTML = (all_count).toString();
             document.getElementById("total-price").innerHTML = result['sum_of_products']
         }

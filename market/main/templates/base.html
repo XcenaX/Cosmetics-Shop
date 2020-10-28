@@ -115,7 +115,7 @@
                             {% if user %}    
                                 <a href="{%url 'main:profile'%}">
                                     <div class="header-icon" id="profile-icon" style="border:none">
-                                        <div class="profile-icon" style="background-image:url('{{user.img_url}}'); background-color: lightgray; border:none;float: right; background-size: cover;">
+                                        <div class="profile-icon" style="{%if not user.image %}background-image:url('{%static 'images/icons/user.png'%}');{%else%}background-image:url('{{user.image.img_url}}');{%endif%} background-color: lightgray; border:none;float: right; background-size: cover;">
                                         </div>
                                         <span class="logout-text">
                                                 Профиль

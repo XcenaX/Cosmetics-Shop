@@ -238,6 +238,11 @@ html{
 
 .center{
     margin: 0 auto;
+    position: relative;
+}
+.center:hover .avatar-hover{
+    visibility: visible;
+    transition: 0.3s;
 }
 
 .left{
@@ -927,6 +932,42 @@ a{
 }
 
 .show-on-mobile{
+    display: none;
+}
+
+.purchase-name {
+    font-size: 22px;
+    font-family: 'Montserrat-Bold';
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.purchases-block{
+    background-color: #EEE9D7;
+    border-bottom: 2px solid #D6D3BB;
+    box-shadow: 0 0 10px #D6D3BB;
+    cursor: pointer;
+}
+
+
+
+.purchases-subblock{
+    background-color: #dcd8c8;
+    border-bottom: 2px solid #c3c0aa;
+    box-shadow: 0 0 10px #D6D3BB;
+    cursor: pointer;
+}
+
+.purchase-date, .purchase-price {
+    font-size: 22px;
+    font-family: 'Montserrat-Regular';
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.hidden-product{
     display: none;
 }
 

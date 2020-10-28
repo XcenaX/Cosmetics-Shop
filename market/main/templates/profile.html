@@ -6,12 +6,75 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/support.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/popular-block.css' %}">
+    <script src="{%static 'js/admin.js'%}"></script>
+    <script src="{%static 'js/profile.js'%}"></script>
 {% endblock %}
 
 
 {% block content %}
-
+    <div class="comment-form-back" id="add_comment" >
+        <div class="comment-form" style="width: 756px;height: 90%;margin: 2% 0 0 -378px;top: 0px;">
+            <div class="comment-form-block">
+                <form action="{%url 'main:update_profile'%}" method="POST">{%csrf_token%}
+                    <div class="comment-form-input-title">Фамилия и Имя</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-12">
+                                <input name="first_name"  type="text" placeholder="Фамилия" value="{{user.first_name}}" minlength="2" class="comment-form-input">
+                            </div>
+                            <div class="col-xl-6 col-12">
+                                <input name="last_name"  type="text" placeholder="Имя" value="{{user.last_name}}" minlength="2" class="comment-form-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-form-input-title">Телефон</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <input name="phone" type="phone" placeholder="Введите ваш Телефон" value="{{user.phone}}" minlength="11" class="comment-form-input">
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="comment-form-input-title">Почта</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <input name="email" type="email" placeholder="Введите вашу Почту" value="{{user.email}}" class="comment-form-input">
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="comment-form-input-title">Адресс</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <input name="adress" type="text" placeholder="Введите ваш Адресс" value="{{user.adress}}" minlength="5" class="comment-form-input">
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="comment-form-input-title">Почтовый индекс</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <input name="index" type="text" placeholder="Введите ваш индекс" value="{{user.index}}" class="comment-form-input">
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="comment-form-button">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comment-form-back-text" onclick="close_comment_form()">Назад</div>
+                    <input type="text" name="id" value="{{product.id}}" style="visibility: hidden;">
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="wrap-content">
 
         <div class="hide-on-mobile">
@@ -33,8 +96,14 @@
         <div class="row">
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="avatar" style="text-align: center">
-                    <img class="center" src="{% static 'images/people/5.jpg' %}">
-                    <a href="" style="color: grey;">Изменить</a>
+                    <div class="center">
+                        <img style="{%if user.image%}background-image:url('{{user.image.img_url}}');{%else%}background-image:url('{%static 'images/icons/user.png'%}');{%endif%}background-size: cover;">
+                        <form action="{%url 'main:update_avatar'%}" method="POST" enctype="multipart/form-data">{%csrf_token%}
+                            <label for="avatar" class="avatar-hover"></label>
+                            <input type="file" id="avatar" name="avatar" hidden onchange="update_avatar()"/>
+                            <button hidden type="submit" id="avatar-button"></button>
+                        </form>                        
+                    </div>
                 </div>
                 <br><br>
                 <div class="row">
@@ -45,74 +114,105 @@
                         <p class="regular-text"><b>Почта:</b> {{ user.email }}</p>
                     </div>
                     <div class="col-12"></div>
-                    <div class="col-12" style="color: grey;">Редактировать</div>
+                    <div class="col-12" style="color: grey;cursor: pointer;" onclick="open_comment_form()">Редактировать</div>
                 </div>
                 <div class="hide-on-pc">
                     <br><br><br>
                 </div>
             </div>
             <div class="col-md-8 col-sm-12 col-xs-12">
-                <div class="definition-text">История покупок</div>
+                <div class="definition-text" style="font-size: 30px;">История покупок</div>
 
                 <div class="hide-on-mobile">
                     <br><br>
                 </div>
-
-                <table class="purchases-table" style="width: 100%">
-                    <tr>
-                        <td class="hide-on-mobile">
-                            <img src="{% static 'images/talking.jpg' %}" alt="">
-                        </td>
-                        <td>
-                            <div class="table-text">LOREM IPSUM</div>
-                        </td>
-                        <td>
-                            <div class="table-text">10мл</div>
-                        </td>
-                        <td>
-                            <div class="table-text">1 шт</div>
-                        </td>
-                        <td>
-                            <div class="table-text">2999тг</div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="hide-on-mobile">
-                            <img src="{% static 'images/talking.jpg' %}" alt="">
-                        </td>
-                        <td>
-                            <div class="table-text">LOREM IPSUM</div>
-                        </td>
-                        <td>
-                            <div class="table-text">10мл</div>
-                        </td>
-                        <td>
-                            <div class="table-text">1 шт</div>
-                        </td>
-                        <td>
-                            <div class="table-text">2999тг</div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="hide-on-mobile">
-                            <img src="{% static 'images/talking.jpg' %}" alt="">
-                        </td>
-                        <td>
-                            <div class="table-text">LOREM IPSUM</div>
-                        </td>
-                        <td>
-                            <div class="table-text">10мл</div>
-                        </td>
-                        <td>
-                            <div class="table-text">1 шт</div>
-                        </td>
-                        <td>
-                            <div class="table-text">2999тг</div>
-                        </td>
-                    </tr>
-                </table>
+                
+                {%if purchases %}                    
+                        {%for purchase in purchases %}
+                            <div class="conatiner purchases-block " id="purchase{{purchase.id}}" onclick="open_purhcase(this)">
+                                <div class="row">
+                                    <div class="col-4" class="purchase-block">
+                                        <div class="purchase-name">
+                                            Номер покупки {{purchase.id}}
+                                        </div>                                
+                                    </div>
+                                    <div class="col-4" class="purchase-block">
+                                        <div class="purchase-date">
+                                            {{purchase.purhcase_start_date|date:"d-m-Y"}}
+                                        </div>    
+                                    </div>
+                                    <div class="col-4" class="purchase-block">
+                                        <div class="purchase-price">
+                                            {{purchase.total_price}}тг
+                                        </div>    
+                                    </div>                                                        
+                                </div>
+                            </div>
+                            {%for product in purchase.purchased_products.all%}
+                                <a href="{%url 'main:product' product.product.id%}">
+                                    <div class="conatiner purchases-subblock hidden-product product{{purchase.id}}">
+                                        <div class="row">
+                                            <div class="col-4" class="purchase-block">
+                                                <div class="purchase-name">
+                                                    {{product.product.name}}
+                                                </div>                                
+                                            </div>
+                                            <div class="col-4" class="purchase-block">
+                                                <div class="purchase-date">
+                                                    {{product.count}}шт
+                                                </div>    
+                                            </div>
+                                            <div class="col-4" class="purchase-block">
+                                                <div class="purchase-price">
+                                                    {{product.product.discount_price}}тг
+                                                </div>    
+                                            </div>                                                        
+                                        </div>
+                                    </div>
+                                </a>
+                            {%endfor%}
+                            {%for share in purchase.purchased_shares.all%}                                
+                                <div class="conatiner purchases-subblock hidden-product product{{purchase.id}}">
+                                    <div class="row">
+                                        <div class="col-4" class="purchase-block">
+                                            <div class="purchase-name">
+                                                {{share.share.name}}
+                                            </div>                                
+                                        </div>
+                                        <div class="col-4" class="purchase-block">
+                                            <div class="purchase-date">
+                                                {{share.count}}шт
+                                            </div>    
+                                        </div>
+                                        <div class="col-4" class="purchase-block">
+                                            <div class="purchase-price">
+                                                {{share.get_total_price}}тг
+                                            </div>    
+                                        </div>                                                        
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        {%endfor%}  
+                        {% if purchases and pages|length > 1%}
+                            <div class="navigation" style="margin-top: 30px;">
+                                <ul>
+                                    {% for page in pages%}
+                                        {% if page == purchases.number %}
+                                            <li class="page-current">
+                                                <span>{{page}}</span>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-nav">
+                                                <a href="?page={{page}}"> {{page}} </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {%endif%}                  
+                {%else%}
+                    <div class="important-text" style="margin: auto;text-align: center;font-size: 27px;">У вас нет покупок!</div>
+                {%endif%}
             </div>
         </div>
 
@@ -122,6 +222,43 @@
 
     <br><br>
 
+    <script>
+        function open_comment_form(){
+            $("#add_comment").css("display", "block");
+            $("#add_comment").css("opacity", "1");
+            $("body").css("overflow", "hidden");
+            $("html").css("overflow", "hidden");
+        }
+
+        function close_comment_form(){
+            $("#add_comment").css("opacity", "0");
+            setTimeout(function(){
+                $("#add_comment").css("display", "none");
+            }, 300)
+            $("body").css("overflow", "inherit");
+            $("html").css("overflow", "inherit");
+        }
+        function open_purhcase(block){
+            var id = block.id.split("purchase")[1];
+            console.log(id);
+            var blocks = $(".product"+id);
+            for(var i = 0; i < blocks.length; i++){
+                blocks[i].classList.toggle("hidden-product");
+            }
+        }
+        
+    </script>
+    {%if request.session.update_profile%}
+        <script>
+            alertify.success("Вы успешно обновили профиль!",3);
+            remove_parameter("update_profile", "{{csrf_token}}");
+        </script>
+    {%elif request.session.upload_error%}
+        <script>
+            alertify.error('{{request.session.upload_error}}',4);
+            remove_parameter("upload_error", "{{csrf_token}}");
+        </script>
+    {%endif%}
 {% endblock %}
 
 {%block flowers%}
