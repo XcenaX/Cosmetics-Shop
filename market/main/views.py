@@ -933,7 +933,7 @@ def delete_share_from_bag(request):
         if not user:
             return redirect(reverse('main:index'))
         bag = get_users_bag(user)
-        bag.shares.filter(id=purchased_share_id).first().delete()
+        bag.shares.all().get(id=purchased_share_id).delete()
         bag.save()
         return JsonResponse({
             "success": True,
