@@ -9,7 +9,8 @@
 }
 
 html{
-    max-width: 2480px;
+    max-width: 1920px;
+    min-width: 1440px;
     margin: auto;
 }
 
@@ -580,14 +581,14 @@ html{
     position: absolute;
     width: 400px;
     height: 700px;
-    z-index: 0;
+    z-index: -1;
 }
 
 .pic2{
     position: absolute;
     width: 400.56px;
     height: 600px;
-    z-index: 0;
+    z-index: -1;
 }
 
 .back-image{
@@ -602,21 +603,21 @@ html{
     left: 6.5%;
     right: 6.5%;
     top: -0px;
-    z-index: 0;
+    z-index: -1;
 }
 
 .pic4{
     position: absolute;
     width: 206px;
     height: 322px;
-    z-index: 0;
+    z-index: -1;
 }
 
 .pic5{
     position: absolute;
     width: 600px;
     height: 800px;
-    z-index: 0;
+    z-index: -1;
 
 }
 

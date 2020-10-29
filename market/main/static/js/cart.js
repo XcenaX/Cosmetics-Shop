@@ -132,6 +132,3 @@ function add_share(share_id, product_price, csrf_token) {
     });
 }
 
-function buy(money){
-    alert(money);
-}

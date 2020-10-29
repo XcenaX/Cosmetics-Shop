@@ -119,15 +119,21 @@
                                     
                                     <div class="show-on-mobile">
                                         <div class="combo-description-text">
-                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
+                                            {{share.description}}
                                         </div>
-                                        <div class="combo-price">
-                                            2999тг + 2999тг = <span class="cross-out">5998тг</span>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="combo-price">
+                                                    <span class="cross-out">{{share.regular_price}}тг</span>
+                                               </div>
+                                               <div class="combo-price-block">
+                                                   <span class="price-text">{{share.total_price}}тг</span>
+                                                   <span class="add-text">Добавить</span>
+                                               </div>
+                                            </div>
                                         </div>
-                                        <div class="combo-price-block">
-                                            <span class="price-text">4999тг</span>
-                                            <span class="add-text">Добавить</span>
-                                        </div>
+                                        
+                                        
                                     </div>
                                     
                                 </div>
@@ -186,26 +192,25 @@
                 </div>
             </div>
         </div
+    </div>
 {% endblock %}
 
 {%block flowers%}
-    <div class="pic7 mobile-none" style="left: 0;top: 37vh;">
+    <div class="pic7 mobile-none" style="left: 0;top: 300px;">
         <img src="{% static 'images/flowers/branch3 2.png' %}" class="back-image" alt="">
     </div>
 
-    <div class="pic8 mobile-none" style="right: -1px;top: 99vh;">
+    <div class="pic8 mobile-none" style="right: -1px;top: 543px;">
         <img src="{% static 'images/flowers/5 2.png' %}" class="back-image" alt="">
     </div>
 
-    <div class="pic1 mobile-none" style="left: -1px;top: 177vh;">
+    <div class="pic1 mobile-none" style="left: -1px;top: 963px;">
         <img src="{% static 'images/flowers/leaf branch 1.png' %}" class="back-image" alt="">
     </div>
 
-    <div class="pic4 mobile-none" style="left: 0;top: 304vh;">
-        <img src="{% static 'images/flowers/6 1.png' %}" class="back-image" alt="">
-    </div>
+    
 
-    <div class="pic5 mobile-none" style="right: 0px;top: 197vh;">
+    <div class="pic5 mobile-none" style="right: 0px;top: 1231px;">
         <img src="{% static 'images/flowers/branch 1.png' %}" class="back-image" alt="">
     </div>  
 {%endblock%}
