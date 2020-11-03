@@ -787,6 +787,9 @@ def add_product_to_bag(request):
         if not user:
             return JsonResponse({"error": "Not Authorized!"})
 
+        if not user.is_active:
+            return JsonResponse({"email_error": "Подтвердите свою почту!"})
+
         bag = get_users_bag(user)
 
         for purchased_product in bag.products.all():

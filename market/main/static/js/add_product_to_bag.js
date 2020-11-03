@@ -20,7 +20,10 @@ function buy(product_id, is_one_product, count=1){
             console.log(result);
             if(result["error"]){
                 alertify.error("Войдите чтобы добавлять товары!", 3);
-            }else{
+            }else if(result["email_error"]){
+                alertify.error(result["email_error"], 3);
+            }
+            else{
                 bag_text = $("#bag_count");
                 var old_count = parseInt(bag_text.text());
                 bag_text.text(old_count+count);
